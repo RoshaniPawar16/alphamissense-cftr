@@ -4,6 +4,10 @@ All_Variants_VEP.Gene.vcf
 # downloaded and generated files
 cftr2_variants.xlsx
 cftr2_results.csv
+cftr2_results_annotated.csv
+cftr_alphamissense.tsv
+flagged_unclassified.csv
+AlphaMissense_hg38.tsv.gz
 
 # python
 __pycache__/
