@@ -6,9 +6,9 @@ Annotates CFTR variants from a VEP-annotated VCF with clinical classifications f
 
 ## Background
 
-Cystic fibrosis is caused by pathogenic variants in the *CFTR* gene. Not every variant is equally damaging — or damaging at all. CFTR2 is the authoritative clinical database for variant classification. It is maintained by Johns Hopkins, the CF Foundation, and the Hospital for Sick Children. As of January 2026, it holds data from ~122,935 patients across 2,092 reported variants.
+Cystic fibrosis is caused by pathogenic variants in the *CFTR* gene. Not every variant is equally damaging, or damaging at all. CFTR2 is the authoritative clinical database for variant classification. It is maintained by Johns Hopkins, the CF Foundation, and the Hospital for Sick Children. As of January 2026, it holds data from ~122,935 patients across 2,092 reported variants.
 
-Classification determines treatment eligibility — CFTR modulators are approved for specific variant classes, not all CFTR mutations.
+Classification determines treatment eligibility, CFTR modulators are approved for specific variant classes, not all CFTR mutations.
 
 ---
 
@@ -29,7 +29,7 @@ Steps:
 
 VEP outputs three-letter amino acid codes without a prefix (e.g. `Ser13Phe`).  
 CFTR2 uses HGVS protein nomenclature with a `p.` prefix (e.g. `p.Ser13Phe`).  
-Matching on legacy names (e.g. `F508del`) fails entirely — different convention.
+Matching on legacy names (e.g. `F508del`) fails entirely,  different convention.
 
 ---
 
@@ -45,7 +45,7 @@ Matching on legacy names (e.g. `F508del`) fails entirely — different conventio
 | Not in CFTR2 | 2,564 |
 | **Total VCF variants** | **3,220** |
 
-80% of variants are absent from CFTR2. This is expected. CFTR2 only curates variants with sufficient patient observations. Most variants in a VEP-annotated VCF are rare or private — they exist in the literature or population databases but have never been characterised at scale.
+80% of variants are absent from CFTR2. This is expected. CFTR2 only curates variants with sufficient patient observations. Most variants in a VEP-annotated VCF are rare or private, they exist in the literature or population databases but have never been characterised at scale.
 
 ---
 
@@ -63,9 +63,9 @@ Matching on legacy names (e.g. `F508del`) fails entirely — different conventio
 | File | Description |
 |---|---|
 | `cftr2_scraper.ipynb` | Main notebook |
-| `All_Variants_VEP.Gene.vcf` | Input VCF (VEP-annotated, CFTR gene) — **not included, private data** |
-| `cftr2_variants.xlsx` | CFTR2 spreadsheet downloaded from cftr2.org — not committed, re-downloaded on run |
-| `cftr2_results.csv` | Output — one row per variant with determination — not committed |
+| `All_Variants_VEP.Gene.vcf` | Input VCF (VEP-annotated, CFTR gene). Not included, private data. |
+| `cftr2_variants.xlsx` | CFTR2 spreadsheet downloaded from cftr2.org. Not committed, re-downloaded on run. |
+| `cftr2_results.csv` | Output. One row per variant with determination. Not committed. |
 
 ---
 
