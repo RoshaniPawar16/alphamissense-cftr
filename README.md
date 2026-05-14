@@ -82,6 +82,10 @@ The remaining 539 flagged variants are too rare to appear in gnomAD. They may be
 
 Arg117His scores 0.299 (likely benign). This is consistent with clinical knowledge. R117H is associated with mild phenotypes and CBAVD rather than classic CF. That agreement is a meaningful sanity check on the model.
 
+![AlphaMissense score distribution for varying clinical consequence variants](varying_consequence_plot.png)
+
+The plot shows clear separation between classes. The ambiguous variants sit near the thresholds as expected. Val938Gly at ~0.6 is a borderline call worth noting.
+
 ## Limitations
 
 - Class imbalance in the validation set. 253 CF-causing vs 39 Non CF-causing. Results should be interpreted with that in mind.
