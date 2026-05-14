@@ -1,6 +1,16 @@
 # AlphaMissense annotation for CFTR variants
 
-This experiment annotates CFTR variants with AlphaMissense pathogenicity scores and validates those scores against CFTR2 clinical ground truth.
+## Why this exists
+
+When we ran the CFTR2 annotation pipeline, only 656 of 3,220 variants matched the database. That is 80% unclassified. For a clinical database built from 122,935 patients, that gap is striking.
+
+CFTR2 only curates variants with enough patient observations to draw conclusions. Most variants in a real VCF are rare or private. They exist in population databases but have never been seen in enough CF patients to classify. This is not a failure of the database. It is just the reality of variant space.
+
+The question that followed was: can we say anything meaningful about those 2,564 unclassified variants?
+
+AlphaMissense scores every possible human missense variant using a protein language model trained on evolutionary data. It has no knowledge of CFTR2 classifications. That makes it useful as an independent signal. If it agrees with CFTR2 on the variants that are classified, we can cautiously apply it to the ones that are not.
+
+We validated it first. AUC of 0.946 on 292 CFTR variants with CFTR2 ground truth labels. The agreement is strong enough to take seriously. We then applied the scores to the unclassified variants and found 705 predicted likely pathogenic with no clinical classification anywhere. Those are the interesting ones.
 
 Requires `cftr2_results.csv` from `cftr2_scraper.ipynb`.
 
