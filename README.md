@@ -10,7 +10,7 @@ But it raises a question. What are those 2,564 variants?
 
 AlphaMissense predicts pathogenicity for every possible human missense variant. It was built from protein structure and evolutionary data, not from CFTR2. That independence matters. If its predictions agree with CFTR2 on the variants we do have labels for, we can apply it to the ones we do not.
 
-We checked that first. AUC 0.946 on 292 labelled CFTR variants. Good enough to use. We then ran it on the unclassified variants and found 705 predicted likely pathogenic with no clinical classification anywhere. Those are the ones worth looking at.
+We checked that first. AUC 0.946 on 292 labelled CFTR variants. Good enough to use. We then ran it on the unclassified variants and found 705 predicted likely pathogenic with no clinical classification anywhere. We also looked at the 72 variants CFTR2 itself marks as uncertain. That turned out to be the most interesting part.
 
 Requires `cftr2_results.csv` from `cftr2_scraper.ipynb`.
 
@@ -23,12 +23,14 @@ AlphaMissense is a pathogenicity predictor from Google DeepMind. It assigns a sc
 1. Downloads the AlphaMissense hg38 dataset (~1.4 GB) and filters it to CFTR variants only (UniProt P13569)
 2. Converts VCF variant names from three-letter amino acid format (`Ser13Phe`) to single-letter format (`S13F`) to match AlphaMissense convention
 3. Merges scores into the CFTR2 results
-4. Validates AlphaMissense predictions against CFTR2 classifications on 292 variants with ground truth labels
-5. Flags unclassified variants that AlphaMissense calls likely pathogenic
+4. Validates AlphaMissense predictions against CFTR2 ground truth
+5. Flags unclassified variants predicted likely pathogenic
+6. Cross-references flags with gnomAD population frequency from the VCF
+7. Analyses the "varying clinical consequence" group
 
 ## Results
 
-**Validation against CFTR2 ground truth**
+### Validation
 
 | Metric | Value |
 |---|---|
@@ -38,11 +40,13 @@ AlphaMissense is a pathogenicity predictor from Google DeepMind. It assigns a sc
 | CF-causing F1 | 0.96 |
 | Non CF-causing F1 | 0.77 |
 
-AUC of 0.946 means AlphaMissense scores strongly agree with CFTR2 clinical classifications on this gene. The weaker performance on Non CF-causing is expected. Only 39 such variants were available for evaluation.
+AlphaMissense agrees with CFTR2 clinical classifications at AUC 0.946. The weaker F1 on Non CF-causing is expected. Only 39 such variants were available.
 
-**Unclassified variants**
+Note on class imbalance: 253 CF-causing vs 39 Non CF-causing. The overall accuracy is partly inflated by this. The AUC is the more reliable metric here.
 
-Of the 2,564 variants not in CFTR2, 2,411 had AlphaMissense scores. Of those:
+### Unclassified variants
+
+Of the 2,564 variants not in CFTR2, 2,411 had AlphaMissense scores.
 
 | AlphaMissense class | Count |
 |---|---|
@@ -50,7 +54,40 @@ Of the 2,564 variants not in CFTR2, 2,411 had AlphaMissense scores. Of those:
 | likely_pathogenic | 705 |
 | ambiguous | 357 |
 
-705 variants have no CFTR2 classification but are predicted likely pathogenic. These are candidates for further investigation. Saved to `flagged_unclassified.csv`.
+Of the 705 flagged, only 7 had gnomAD population frequency data in the VCF. Those are the highest-priority candidates: predicted pathogenic, observed in the general population, never classified by CFTR2.
+
+| Variant | AM score | Population AF |
+|---|---|---|
+| Leu49Pro | 0.976 | 0.0002 |
+| His1054Gln | 0.901 | 0.0002 |
+| Leu986Pro | 0.869 | 0.0004 |
+| Pro355Leu | 0.858 | 0.0002 |
+| Phe650Leu | 0.846 | 0.0002 |
+| Arg104Gly | 0.845 | 0.0002 |
+| Arg1097Cys | 0.651 | 0.0002 |
+
+The remaining 539 flagged variants are too rare to appear in gnomAD. They may be family-private mutations or sequencing artifacts.
+
+### Varying clinical consequence
+
+72 variants in CFTR2 are marked as "varying clinical consequence". CFTR2 has insufficient data to classify them cleanly. AlphaMissense scored all 72.
+
+| AlphaMissense class | Count |
+|---|---|
+| likely_pathogenic | 41 |
+| ambiguous | 19 |
+| likely_benign | 12 |
+
+41 of 72 are called likely pathogenic. CFTR2 is uncertain about them. The model is not. Asp979Ala scores 0.993 while CFTR2 still classifies it as varying. These are direct reclassification candidates.
+
+Arg117His scores 0.299 (likely benign). This is consistent with clinical knowledge. R117H is associated with mild phenotypes and CBAVD rather than classic CF. That agreement is a meaningful sanity check on the model.
+
+## Limitations
+
+- Class imbalance in the validation set. 253 CF-causing vs 39 Non CF-causing. Results should be interpreted with that in mind.
+- 311 VCF variants could not be converted to single-letter format. These are likely non-missense variants (frameshifts, nonsense) and were excluded from AlphaMissense matching.
+- Population frequency data was only available for 117 of 3,220 variants. Most are too rare for gnomAD.
+- AlphaMissense does not model compound heterozygosity, splicing effects, or regulatory context.
 
 ## Files
 
@@ -61,6 +98,8 @@ Of the 2,564 variants not in CFTR2, 2,411 had AlphaMissense scores. Of those:
 | `cftr_alphamissense.tsv` | CFTR-filtered scores. Not committed. |
 | `cftr2_results_annotated.csv` | All variants with CFTR2 and AlphaMissense annotations. Not committed. |
 | `flagged_unclassified.csv` | 705 unclassified variants predicted likely pathogenic. Not committed. |
+| `priority_candidates.csv` | 7 high-priority variants with population frequency. Not committed. |
+| `varying_consequence_am.csv` | 72 varying consequence variants with AlphaMissense scores. Not committed. |
 
 ## Dependencies
 
