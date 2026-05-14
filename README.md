@@ -56,15 +56,23 @@ Of the 2,564 variants not in CFTR2, 2,411 had AlphaMissense scores.
 
 Of the 705 flagged, only 7 had gnomAD population frequency data in the VCF. Those are the highest-priority candidates: predicted pathogenic, observed in the general population, never classified by CFTR2.
 
-| Variant | AM score | Population AF |
-|---|---|---|
-| Leu49Pro | 0.976 | 0.0002 |
-| His1054Gln | 0.901 | 0.0002 |
-| Leu986Pro | 0.869 | 0.0004 |
-| Pro355Leu | 0.858 | 0.0002 |
-| Phe650Leu | 0.846 | 0.0002 |
-| Arg104Gly | 0.845 | 0.0002 |
-| Arg1097Cys | 0.651 | 0.0002 |
+We cross-referenced all 7 against ClinVar. Every one of them is unresolved.
+
+| Variant | AM score | Population AF | ClinVar |
+|---|---|---|---|
+| Leu49Pro | 0.976 | 0.0002 | Uncertain significance |
+| His1054Gln | 0.901 | 0.0002 | Uncertain significance |
+| Leu986Pro | 0.869 | 0.0004 | Conflicting classifications |
+| Pro355Leu | 0.858 | 0.0002 | Uncertain significance |
+| Phe650Leu | 0.846 | 0.0002 | Uncertain significance |
+| Arg104Gly | 0.845 | 0.0002 | Uncertain significance |
+| Arg1097Cys | 0.651 | 0.0002 | Conflicting classifications |
+
+5 are classified as uncertain significance. 2 have conflicting classifications, meaning different labs have actively disagreed. AlphaMissense calls all 7 likely pathogenic.
+
+Leu986Pro and Arg1097Cys are the strongest candidates. Clinical disagreement already exists on both. AlphaMissense provides consistent computational evidence for pathogenicity. Arg1097Cys was last evaluated in ClinVar in February 2026.
+
+These 7 variants are not in CFTR2, are observed in the general population, have no clinical consensus, and score high on a model validated at AUC 0.946 on this gene. They are candidates for functional follow-up.
 
 The remaining 539 flagged variants are too rare to appear in gnomAD. They may be family-private mutations or sequencing artifacts.
 
