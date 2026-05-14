@@ -1,0 +1,14 @@
+# input data — not committed (private/large)
+All_Variants_VEP.Gene.vcf
+
+# downloaded and generated files
+cftr2_variants.xlsx
+cftr2_results.csv
+
+# python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# env
+.env
