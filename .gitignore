@@ -8,6 +8,9 @@ cftr2_results_annotated.csv
 cftr_alphamissense.tsv
 flagged_unclassified.csv
 AlphaMissense_hg38.tsv.gz
+flagged_prioritised.csv
+priority_candidates.csv
+varying_consequence_am.csv
 
 # python
 __pycache__/
