@@ -1,84 +1,61 @@
-# cftr2_scraper
+# AlphaMissense annotation for CFTR variants
 
-Annotates CFTR variants from a VEP-annotated VCF with clinical classifications from the CFTR2 database.
+This experiment annotates CFTR variants with AlphaMissense pathogenicity scores and validates those scores against CFTR2 clinical ground truth.
 
----
+Requires `cftr2_results.csv` from `cftr2_scraper.ipynb`.
 
-## Background
+## What is AlphaMissense
 
-Cystic fibrosis is caused by pathogenic variants in the *CFTR* gene. Not every variant is equally damaging, or damaging at all. CFTR2 is the authoritative clinical database for variant classification. It is maintained by Johns Hopkins, the CF Foundation, and the Hospital for Sick Children. As of January 2026, it holds data from ~122,935 patients across 2,092 reported variants.
-
-Classification determines treatment eligibility, CFTR modulators are approved for specific variant classes, not all CFTR mutations.
-
----
+AlphaMissense is a pathogenicity predictor from Google DeepMind. It assigns a score between 0 and 1 to every possible human missense variant. The scores are pre-computed and published as a downloadable dataset. No model needs to be run locally.
 
 ## What this does
 
-A VEP-annotated VCF contains thousands of CFTR variants. This script maps each one to its CFTR2 determination.
+1. Downloads the AlphaMissense hg38 dataset (~1.4 GB) and filters it to CFTR variants only (UniProt P13569)
+2. Converts VCF variant names from three-letter amino acid format (`Ser13Phe`) to single-letter format (`S13F`) to match AlphaMissense convention
+3. Merges scores into the CFTR2 results
+4. Validates AlphaMissense predictions against CFTR2 classifications on 292 variants with ground truth labels
+5. Flags unclassified variants that AlphaMissense calls likely pathogenic
 
-Steps:
-1. Parse protein-level variant names from the VCF using regex (e.g. `Ser13Phe`)
-2. Download the official CFTR2 classification spreadsheet from cftr2.org
-3. Translate VCF naming to HGVS protein format (`Ser13Phe` → `p.Ser13Phe`) to match CFTR2's convention
-4. Left-join VCF variants against CFTR2 on protein name
-5. Output a CSV with each variant's CFTR2 determination and allele frequency
+## Results
 
----
+**Validation against CFTR2 ground truth**
 
-## The naming problem
-
-VEP outputs three-letter amino acid codes without a prefix (e.g. `Ser13Phe`).  
-CFTR2 uses HGVS protein nomenclature with a `p.` prefix (e.g. `p.Ser13Phe`).  
-Matching on legacy names (e.g. `F508del`) fails entirely,  different convention.
-
----
-
-## Results (Jan 2026 CFTR2 release)
-
-| Determination | Count |
+| Metric | Value |
 |---|---|
-| CF-causing | 226 |
-| Varying clinical consequence | 72 |
-| Non CF-causing | 33 |
-| No interpretation available | 325 |
-| **Matched subtotal** | **656** |
-| Not in CFTR2 | 2,564 |
-| **Total VCF variants** | **3,220** |
+| Variants used | 292 |
+| AUC | 0.946 |
+| Accuracy | 0.94 |
+| CF-causing F1 | 0.96 |
+| Non CF-causing F1 | 0.77 |
 
-80% of variants are absent from CFTR2. This is expected. CFTR2 only curates variants with sufficient patient observations. Most variants in a VEP-annotated VCF are rare or private, they exist in the literature or population databases but have never been characterised at scale.
+AUC of 0.946 means AlphaMissense scores strongly agree with CFTR2 clinical classifications on this gene. The weaker performance on Non CF-causing is expected. Only 39 such variants were available for evaluation.
 
----
+**Unclassified variants**
 
-## Limitations
+Of the 2,564 variants not in CFTR2, 2,411 had AlphaMissense scores. Of those:
 
-- **Coverage gap.** CFTR2 is not exhaustive. Rare and novel variants will always fall outside it.
-- **Protein-name matching only.** Two variants with different cDNA changes but identical protein effect are treated as the same. This is a reasonable simplification but not always correct.
-- **Snapshot.** CFTR2 updates a few times a year. The spreadsheet URL is hardcoded to the Jan 2026 release. It needs manual updating.
-- **No compound heterozygosity.** CFTR2 also classifies variant *combinations*. This script only handles single variants.
+| AlphaMissense class | Count |
+|---|---|
+| likely_benign | 1,349 |
+| likely_pathogenic | 705 |
+| ambiguous | 357 |
 
----
+705 variants have no CFTR2 classification but are predicted likely pathogenic. These are candidates for further investigation. Saved to `flagged_unclassified.csv`.
 
 ## Files
 
 | File | Description |
 |---|---|
-| `cftr2_scraper.ipynb` | Main notebook |
-| `All_Variants_VEP.Gene.vcf` | Input VCF (VEP-annotated, CFTR gene). Not included, private data. |
-| `cftr2_variants.xlsx` | CFTR2 spreadsheet downloaded from cftr2.org. Not committed, re-downloaded on run. |
-| `cftr2_results.csv` | Output. One row per variant with determination. Not committed. |
-
----
-
-## Usage
-
-Run all cells in `cftr2_scraper.ipynb`.
-
----
+| `alphamissense.ipynb` | Experiment notebook |
+| `AlphaMissense_hg38.tsv.gz` | Full AlphaMissense dataset. Not committed, ~1.4 GB. |
+| `cftr_alphamissense.tsv` | CFTR-filtered scores. Not committed. |
+| `cftr2_results_annotated.csv` | All variants with CFTR2 and AlphaMissense annotations. Not committed. |
+| `flagged_unclassified.csv` | 705 unclassified variants predicted likely pathogenic. Not committed. |
 
 ## Dependencies
 
 ```
 pandas
-openpyxl
 requests
+scikit-learn
 ```
