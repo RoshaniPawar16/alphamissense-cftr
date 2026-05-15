@@ -44,6 +44,19 @@ AlphaMissense agrees with CFTR2 clinical classifications at AUC 0.946. The weake
 
 Note on class imbalance: 253 CF-causing vs 39 Non CF-causing. The overall accuracy is partly inflated by this. The AUC is the more reliable metric here.
 
+### Comparison against CADD
+
+We benchmarked AlphaMissense against CADD on the same 286 variants.
+
+| Predictor | AUC |
+|---|---|
+| AlphaMissense | 0.946 |
+| CADD | 0.776 |
+
+AlphaMissense outperforms CADD by 0.17 AUC points. This is not a marginal difference. CADD is a general purpose variant scorer. AlphaMissense uses protein language model representations trained on evolutionary context across the proteome. On a specific, well-studied gene like CFTR, the more sophisticated model wins clearly.
+
+![ROC curve comparison](roc_comparison.png)
+
 ### Unclassified variants
 
 Of the 2,564 variants not in CFTR2, 2,411 had AlphaMissense scores.
@@ -136,6 +149,8 @@ Two are classified as varying clinical consequence: Ser1455Ter and Gln1476Ter. B
 | `flagged_unclassified.csv` | 705 unclassified variants predicted likely pathogenic. Not committed. |
 | `priority_candidates.csv` | 7 high-priority variants with population frequency. Not committed. |
 | `varying_consequence_am.csv` | 72 varying consequence variants with AlphaMissense scores. Not committed. |
+| `comparison.ipynb` | AlphaMissense vs CADD benchmark notebook |
+| `roc_comparison.png` | ROC curve comparison plot |
 
 ## Dependencies
 
@@ -143,4 +158,5 @@ Two are classified as varying clinical consequence: Ser1455Ter and Gln1476Ter. B
 pandas
 requests
 scikit-learn
+matplotlib
 ```
