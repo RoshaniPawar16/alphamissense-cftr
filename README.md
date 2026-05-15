@@ -55,11 +55,22 @@ We benchmarked AlphaMissense against three predictors on 286 variants with all f
 | CADD | 0.776 |
 | SIFT | 0.678 |
 
-AlphaMissense outperforms every baseline. PolyPhen is second at 0.826 -- 12 points below AlphaMissense. CADD follows at 0.776. SIFT is weakest at 0.678.
+AlphaMissense outperforms every baseline on both metrics. PolyPhen is second. SIFT is weakest.
+
+| Predictor | AUC (ROC) | Average Precision (PR) |
+|---|---|---|
+| AlphaMissense | 0.946 | 0.990 |
+| PolyPhen | 0.826 | 0.959 |
+| CADD | 0.776 | 0.939 |
+| SIFT | 0.678 | 0.909 |
+
+The PR curve is the more informative metric here. The validation set is 253 CF-causing vs 39 Non CF-causing -- ROC is optimistic on imbalanced data. On PR, AlphaMissense leads by 3 points over PolyPhen and maintains clean precision across the full recall range. CADD's curve is jagged at low recall -- it makes confident wrong calls at high score thresholds.
 
 CADD and PolyPhen are gene-agnostic. SIFT uses sequence conservation but no structural context. AlphaMissense draws on protein language model representations trained on evolutionary data across the full proteome. On a well-studied gene with a known 3D structure, that depth of representation is the advantage.
 
 ![ROC curve comparison -- 4 predictors](roc_4way.png)
+
+![Precision-recall curve -- 4 predictors](pr_4way.png)
 
 ### Unclassified variants
 
@@ -156,6 +167,7 @@ Two are classified as varying clinical consequence: Ser1455Ter and Gln1476Ter. B
 | `comparison.ipynb` | 4-predictor benchmark notebook (AlphaMissense, CADD, PolyPhen, SIFT) |
 | `roc_comparison.png` | AlphaMissense vs CADD ROC curve |
 | `roc_4way.png` | 4-predictor ROC curve comparison |
+| `pr_4way.png` | 4-predictor precision-recall curve comparison |
 
 ## Dependencies
 

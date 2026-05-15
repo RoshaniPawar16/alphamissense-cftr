@@ -41,14 +41,14 @@ AlphaMissense is a credible tool for prioritising unclassified CFTR variants. On
 
 ## Benchmark results
 
-| Predictor | AUC |
-|---|---|
-| AlphaMissense | 0.946 |
-| PolyPhen | 0.826 |
-| CADD | 0.776 |
-| SIFT | 0.678 |
+| Predictor | AUC (ROC) | Average Precision (PR) |
+|---|---|---|
+| AlphaMissense | 0.946 | 0.990 |
+| PolyPhen | 0.826 | 0.959 |
+| CADD | 0.776 | 0.939 |
+| SIFT | 0.678 | 0.909 |
 
-The gap between AlphaMissense and the next best predictor (PolyPhen) is 12 AUC points. The gap from AlphaMissense to SIFT is 27 points. These are not marginal differences.
+AlphaMissense leads on both metrics. The precision-recall curve is the more honest measure here -- the validation set is imbalanced (253 CF-causing vs 39 Non CF-causing) and ROC overstates performance in that setting. On PR, AlphaMissense scores 0.990 and maintains clean precision across the full recall range.
 
 ## Files
 
