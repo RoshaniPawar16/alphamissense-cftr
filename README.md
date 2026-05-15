@@ -72,6 +72,21 @@ CADD and PolyPhen are gene-agnostic. SIFT uses sequence conservation but no stru
 
 ![Precision-recall curve -- 4 predictors](pr_4way.png)
 
+### Ensemble model
+
+We tested whether combining AlphaMissense, CADD, and PolyPhen in a logistic regression would outperform AlphaMissense alone. Stratified 5-fold cross-validation on 286 variants.
+
+| Model | AUC | AP |
+|---|---|---|
+| AlphaMissense alone | 0.946 | 0.990 |
+| Ensemble (AM + CADD + PolyPhen) | 0.927 | 0.983 |
+
+The ensemble is worse. Feature weights after scaling: AlphaMissense +1.907, CADD +0.279, PolyPhen -0.117. The model learns to ignore CADD and discount PolyPhen. AlphaMissense already captures what they offer. Adding them introduces noise.
+
+![Ensemble vs AlphaMissense](ensemble_vs_am.png)
+
+![Feature weights](ensemble_weights.png)
+
 ### Unclassified variants
 
 Of the 2,564 variants not in CFTR2, 2,411 had AlphaMissense scores.
@@ -165,9 +180,12 @@ Two are classified as varying clinical consequence: Ser1455Ter and Gln1476Ter. B
 | `priority_candidates.csv` | 7 high-priority variants with population frequency. Not committed. |
 | `varying_consequence_am.csv` | 72 varying consequence variants with AlphaMissense scores. Not committed. |
 | `comparison.ipynb` | 4-predictor benchmark notebook (AlphaMissense, CADD, PolyPhen, SIFT) |
+| `ensemble.ipynb` | Ensemble model notebook |
 | `roc_comparison.png` | AlphaMissense vs CADD ROC curve |
 | `roc_4way.png` | 4-predictor ROC curve comparison |
 | `pr_4way.png` | 4-predictor precision-recall curve comparison |
+| `ensemble_vs_am.png` | Ensemble vs AlphaMissense ROC and PR curves |
+| `ensemble_weights.png` | Logistic regression feature weights |
 
 ## Dependencies
 
