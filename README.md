@@ -94,6 +94,20 @@ Arg117His scores 0.299 (likely benign). This is consistent with clinical knowled
 
 The plot shows clear separation between classes. The ambiguous variants sit near the thresholds as expected. Val938Gly at ~0.6 is a borderline call worth noting.
 
+**Domain mapping of the 41 likely pathogenic variants:**
+
+| Domain | Variants |
+|---|---|
+| MSD1 | 13 |
+| NBD1 | 6 |
+| R-domain | 0 |
+| MSD2 | 17 |
+| NBD2 | 5 |
+
+73% cluster in the membrane-spanning domains. These form the chloride channel pore. Mutations there directly disrupt ion conductance. The R-domain has zero — it is intrinsically disordered and more tolerant of missense variation. The domain distribution is not random. It reflects where structural disruption matters most.
+
+![Domain distribution of likely pathogenic varying consequence variants](domain_distribution.png)
+
 ### Nonsense variants
 
 311 variants could not be matched to AlphaMissense because they are nonsense mutations, not missense. AlphaMissense does not score stop codons. These were excluded from the main analysis but not ignored.
