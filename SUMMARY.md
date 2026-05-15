@@ -10,7 +10,7 @@ Only 656 variants matched CFTR2. 80% had no clinical classification. That gap is
 
 We applied AlphaMissense — a pathogenicity predictor from Google DeepMind — to the full variant set. AlphaMissense was built from protein structure and evolutionary data, with no knowledge of CFTR2 classifications. That independence makes it useful as an external signal.
 
-Before applying it to unknown variants, we validated it against the 292 variants that do have CFTR2 labels. It achieved AUC 0.946. We then benchmarked it against CADD, a widely used general-purpose variant scorer. AlphaMissense outperformed CADD by 17 AUC points (0.946 vs 0.776) on this gene.
+Before applying it to unknown variants, we validated it against the 292 variants that do have CFTR2 labels. It achieved AUC 0.946. We then benchmarked it against three standard predictors: CADD, PolyPhen, and SIFT. AlphaMissense outperformed all three.
 
 ## Key findings
 
@@ -39,12 +39,23 @@ AlphaMissense is a credible tool for prioritising unclassified CFTR variants. On
 - AlphaMissense scores missense variants only. Nonsense, frameshift and splicing variants are outside its scope.
 - One VCF from one cohort. Findings should be validated on a larger dataset before clinical use.
 
+## Benchmark results
+
+| Predictor | AUC |
+|---|---|
+| AlphaMissense | 0.946 |
+| PolyPhen | 0.826 |
+| CADD | 0.776 |
+| SIFT | 0.678 |
+
+The gap between AlphaMissense and the next best predictor (PolyPhen) is 12 AUC points. The gap from AlphaMissense to SIFT is 27 points. These are not marginal differences.
+
 ## Files
 
 | File | Description |
 |---|---|
 | `cftr2_scraper.ipynb` | CFTR2 annotation pipeline |
 | `alphamissense.ipynb` | AlphaMissense analysis |
-| `comparison.ipynb` | AlphaMissense vs CADD benchmark |
+| `comparison.ipynb` | 4-predictor benchmark (AlphaMissense, CADD, PolyPhen, SIFT) |
 | `README.md` | Full technical documentation |
 | `SCRAPER.md` | CFTR2 pipeline documentation |
