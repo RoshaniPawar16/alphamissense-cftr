@@ -94,6 +94,16 @@ Arg117His scores 0.299 (likely benign). This is consistent with clinical knowled
 
 The plot shows clear separation between classes. The ambiguous variants sit near the thresholds as expected. Val938Gly at ~0.6 is a borderline call worth noting.
 
+### Nonsense variants
+
+311 variants could not be matched to AlphaMissense because they are nonsense mutations, not missense. AlphaMissense does not score stop codons. These were excluded from the main analysis but not ignored.
+
+232 of 311 matched CFTR2. 225 are CF-causing, as expected. Premature stop codons truncate the protein and almost always cause disease.
+
+Two are classified as varying clinical consequence: Ser1455Ter and Gln1476Ter. Both sit near the C-terminus of a 1,480 amino acid protein. Ser1455Ter truncates the last 25 residues, Gln1476Ter truncates only the last 4. That minimal truncation explains the clinical uncertainty.
+
+89 nonsense variants have no CFTR2 classification. They are novel stop codons not seen in enough patients to characterise.
+
 ## Limitations
 
 - Class imbalance in the validation set. 253 CF-causing vs 39 Non CF-causing. Results should be interpreted with that in mind.

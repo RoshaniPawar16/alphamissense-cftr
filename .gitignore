@@ -12,6 +12,7 @@ flagged_prioritised.csv
 priority_candidates.csv
 priority_candidates_clinvar.csv
 varying_consequence_am.csv
+nonsense_variants_cftr2.csv
 
 # python
 __pycache__/
