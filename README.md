@@ -48,15 +48,6 @@ Note on class imbalance: 253 CF-causing vs 39 Non CF-causing. The overall accura
 
 We benchmarked AlphaMissense against three predictors on 286 variants with all four scores available. CADD scores were fetched via the REST API. SIFT and PolyPhen were extracted from the CSQ field of the VCF.
 
-| Predictor | AUC |
-|---|---|
-| AlphaMissense | 0.946 |
-| PolyPhen | 0.826 |
-| CADD | 0.776 |
-| SIFT | 0.678 |
-
-AlphaMissense outperforms every baseline on both metrics. PolyPhen is second. SIFT is weakest.
-
 | Predictor | AUC (ROC) | Average Precision (PR) |
 |---|---|---|
 | AlphaMissense | 0.946 | 0.990 |
