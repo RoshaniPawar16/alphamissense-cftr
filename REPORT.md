@@ -78,10 +78,11 @@ The 41 likely pathogenic calls within the varying clinical consequence group wer
 | AUC | 0.946 |
 | Average Precision | 0.990 |
 | Accuracy | 0.94 |
+| MCC | 0.689 |
 | CF-causing F1 | 0.96 |
 | Non CF-causing F1 | 0.77 |
 
-AlphaMissense achieves AUC 0.946 on 292 labelled CFTR variants. The weaker F1 on Non CF-causing reflects class imbalance (253 CF-causing vs 39 Non CF-causing). AUC and average precision are more appropriate metrics under this imbalance. The calibration curve shows moderate overestimation at high scores, a known property of AlphaMissense on disease-specific subsets.
+AlphaMissense achieves AUC 0.946 and MCC 0.689 on 292 labelled CFTR variants. MCC is reported alongside AUC because it accounts for all four cells of the confusion matrix and is robust to class imbalance. A value of 0.689 indicates strong agreement with CFTR2 ground truth beyond what accuracy alone would suggest. The weaker F1 on Non CF-causing reflects the imbalance (253 CF-causing vs 39 Non CF-causing). AUC and average precision are the primary metrics for the benchmarking comparison. The calibration curve shows moderate overestimation at high scores, a known property of AlphaMissense on disease-specific subsets.
 
 ### 3.3 Predictor comparison
 
