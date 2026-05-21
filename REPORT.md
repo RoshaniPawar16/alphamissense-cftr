@@ -93,7 +93,15 @@ AlphaMissense achieves AUC 0.946 and MCC 0.689 on 292 labelled CFTR variants. MC
 | CADD | 0.776 | 0.939 |
 | SIFT | 0.678 | 0.909 |
 
-AlphaMissense leads on both metrics. The precision-recall curve is the more informative measure given class imbalance, as ROC-AUC is insensitive to performance on the minority class. AlphaMissense outperforms the next best predictor (PolyPhen-2) by 12 AUC points and 3 AP points. CADD shows jagged precision at low recall, indicating confident false positive calls at high score thresholds. SIFT, which relies on sequence conservation alone without structural context, performs weakest.
+Statistical significance of AUC differences was assessed using DeLong's test [12]:
+
+| Comparison | Z | p-value | |
+|---|---|---|---|
+| AlphaMissense vs PolyPhen-2 | 2.88 | 0.0040 | ** |
+| AlphaMissense vs CADD | 3.28 | 0.0011 | ** |
+| AlphaMissense vs SIFT | 5.87 | <0.0001 | *** |
+
+All three differences are statistically significant. AlphaMissense outperforms every baseline predictor at p < 0.01. The precision-recall curve is the more informative measure given class imbalance, as ROC-AUC is insensitive to performance on the minority class. AlphaMissense outperforms PolyPhen-2 by 12 AUC points (p = 0.004) and 3 AP points. CADD shows jagged precision at low recall, indicating confident false positive calls at high score thresholds. SIFT, which relies on sequence conservation alone without structural context, performs weakest (p < 0.0001 vs AlphaMissense).
 
 ### 3.4 Ensemble model
 
@@ -199,3 +207,5 @@ AlphaMissense is a credible tool for prioritising unclassified CFTR missense var
 [10] Karczewski, K.J. et al. The mutational constraint spectrum quantified from variation in 141,456 humans. *Nature* 581, 434-443 (2020).
 
 [11] Pedregosa, F. et al. Scikit-learn: machine learning in Python. *J Mach Learn Res* 12, 2825-2830 (2011).
+
+[12] DeLong, E.R., DeLong, D.M. and Clarke-Pearson, D.L. Comparing the areas under two or more correlated receiver operating characteristic curves: a nonparametric approach. *Biometrics* 44, 837-845 (1988).
