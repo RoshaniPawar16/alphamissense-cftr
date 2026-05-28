@@ -90,7 +90,7 @@ for v in VARIANTS:
         rows.append({'Variant': v['label'], 'Protein': v['protein'], 'AM_score': v['am'], 'error': str(e)})
 
 df = pd.DataFrame(rows)
-df.to_csv('alphagenome_batch_results.csv', index=False)
+df.to_csv('results/alphagenome/alphagenome_batch_results.csv', index=False)
 print("Raw results saved to alphagenome_batch_results.csv")
 
 # ── Ranked summary tables ─────────────────────────────────────────────────────
@@ -231,7 +231,7 @@ md_lines += [
 ]
 
 report = "\n".join(md_lines)
-with open('alphagenome_batch_report.md', 'w') as f:
+with open('docs/alphagenome_batch_report.md', 'w') as f:
     f.write(report)
 
 print("\nMarkdown report saved to alphagenome_batch_report.md")
