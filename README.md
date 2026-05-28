@@ -59,9 +59,9 @@ The PR curve is the more informative metric here. The validation set is 253 CF-c
 
 CADD and PolyPhen are gene-agnostic. SIFT uses sequence conservation but no structural context. AlphaMissense draws on protein language model representations trained on evolutionary data across the full proteome. On a well-studied gene with a known 3D structure, that depth of representation is the advantage.
 
-![ROC curve comparison -- 4 predictors](roc_4way.png)
+![ROC curve comparison -- 4 predictors](figures/roc_4way.png)
 
-![Precision-recall curve -- 4 predictors](pr_4way.png)
+![Precision-recall curve -- 4 predictors](figures/pr_4way.png)
 
 ### Ensemble model
 
@@ -74,9 +74,9 @@ We tested whether combining AlphaMissense, CADD, and PolyPhen in a logistic regr
 
 The ensemble is worse. Feature weights after scaling: AlphaMissense +1.907, CADD +0.279, PolyPhen -0.117. The model learns to ignore CADD and discount PolyPhen. AlphaMissense already captures what they offer. Adding them introduces noise.
 
-![Ensemble vs AlphaMissense](ensemble_vs_am.png)
+![Ensemble vs AlphaMissense](figures/ensemble_vs_am.png)
 
-![Feature weights](ensemble_weights.png)
+![Feature weights](figures/ensemble_weights.png)
 
 ### Unclassified variants
 
@@ -124,7 +124,7 @@ The remaining 539 flagged variants are too rare to appear in gnomAD. They may be
 
 Arg117His scores 0.299 (likely benign). This is consistent with clinical knowledge. R117H is associated with mild phenotypes and CBAVD rather than classic CF. That agreement is a meaningful sanity check on the model.
 
-![AlphaMissense score distribution for varying clinical consequence variants](varying_consequence_plot.png)
+![AlphaMissense score distribution for varying clinical consequence variants](figures/varying_consequence_plot.png)
 
 The plot shows clear separation between classes. The ambiguous variants sit near the thresholds as expected. Val938Gly at ~0.6 is a borderline call worth noting.
 
@@ -140,7 +140,7 @@ The plot shows clear separation between classes. The ambiguous variants sit near
 
 73% cluster in the membrane-spanning domains. These form the chloride channel pore. Mutations there directly disrupt ion conductance. The R-domain has zero — it is intrinsically disordered and more tolerant of missense variation. The domain distribution is not random. It reflects where structural disruption matters most.
 
-![Domain distribution of likely pathogenic varying consequence variants](domain_distribution.png)
+![Domain distribution of likely pathogenic varying consequence variants](figures/domain_distribution.png)
 
 ### Nonsense variants
 
