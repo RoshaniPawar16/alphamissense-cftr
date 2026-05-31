@@ -87,4 +87,60 @@ AlphaMissense scores protein-level pathogenicity only. High quantile scores on A
 
 ---
 
-*AlphaGenome v0.6.1 · hg38 · Lung UBERON:0002048 · 2026-05-28*
+## Rescue Variant Analysis (Full 1,278 Ambiguous VUS)
+
+Source: `results/alphagenome/alphagenome_full_cftr_results.csv`  
+Full table: `results/alphagenome/alphagenome_rescue_variants.csv`
+
+These groups identify variants where AlphaGenome finds functional evidence that AlphaMissense (protein-level) does not flag. All variants have `am_pathogenicity < 0.56` (ambiguous class) but show strong DNA-level signals in lung tissue.
+
+### Regulatory Rescue — 87 variants
+**Criterion:** ATAC quantile > 0.95 AND AlphaMissense < 0.56
+
+Strong chromatin accessibility disruption in lung despite sub-pathogenic AM score. Suggests the variant alters a regulatory element — enhancer, promoter, or open chromatin region — independently of protein misfolding.
+
+| Rank | Variant | AM Score | ATAC Quantile | Splice Quantile |
+|------|---------|----------|---------------|-----------------|
+| 1 | F1413I | 0.488 | 0.999 | 0.996 |
+| 2 | Q1411H | 0.357 | 0.999 | 0.960 |
+| 3 | E1409K | 0.511 | 0.999 | 0.976 |
+| 4 | Q1411L | 0.462 | 0.998 | 0.855 |
+| 5 | R1386S | 0.344 | 0.995 | 0.989 |
+
+### Splicing Rescue — 728 variants
+**Criterion:** SPLICE quantile > 0.95 AND AlphaMissense < 0.56
+
+The high count (57% of all 1,278 ambiguous variants) reflects expected biology: all variants are exonic, placing them in regions where `GeneMaskSplicingScorer` is sensitive by design. Using a stricter threshold (SPLICE q > 0.99) yields 361 variants.
+
+Top 5 by splice quantile:
+
+| Rank | Variant | AM Score | ATAC Quantile | Splice Quantile |
+|------|---------|----------|---------------|-----------------|
+| 1 | S1058C | 0.473 | 0.847 | 0.999983 |
+| 2 | S1058G | 0.508 | 0.847 | 0.999983 |
+| 3 | K464R | 0.549 | 0.758 | 0.999942 |
+| 4 | A155G | 0.357 | 0.866 | 0.999941 |
+| 5 | G970C | 0.491 | 0.933 | 0.999941 |
+
+### Dual Mechanism — 56 variants
+**Criterion:** ATAC quantile > 0.95 AND SPLICE quantile > 0.95 AND AlphaMissense < 0.56
+
+Highest priority group: variants with simultaneous chromatin accessibility and splice site disruption that AlphaMissense does not capture. These warrant functional follow-up (e.g. minigene splicing assay, CRISPR regulatory perturbation).
+
+| Rank | Variant | AM Score | ATAC Quantile | Splice Quantile |
+|------|---------|----------|---------------|-----------------|
+| 1 | F1413I | 0.488 | 0.999 | 0.996 |
+| 2 | Q1411H | 0.357 | 0.999 | 0.960 |
+| 3 | E1409K | 0.511 | 0.999 | 0.976 |
+| 4 | R1386S | 0.344 | 0.995 | 0.989 |
+| 5 | P960H | 0.491 | 0.994 | 0.998 |
+
+### Interpretation
+
+These groups operationalise the core limitation identified in McDonald et al. 2024: AlphaMissense cannot distinguish regulatory or splicing mechanisms from protein-level effects. Variants in the regulatory or dual-mechanism rescue groups may be pathogenic via CFTR expression reduction or aberrant splicing rather than protein misfolding — mechanisms that are relevant for selecting modulators or assessing residual CFTR function.
+
+The 56 dual-mechanism variants are the strongest candidates for reclassification from VUS to likely pathogenic pending functional validation.
+
+---
+
+*AlphaGenome v0.6.1 · hg38 · Lung UBERON:0002048 · 2026-05-31*
