@@ -460,6 +460,8 @@ The Part A and A2 reports stated "55 total claims." The actual ledger has **64 c
 
 **Two CFTR2 snapshots confirmed.** `data/cftr2_results_annotated.csv` (3716 rows, 82 VCC) and `data/cftr2_results.csv` (3220 rows, 72 VCC) are two different pulls. The benchmark used the annotated file (292 binary = 253+39). The VCC analysis documented as 72 variants used cftr2_results.csv. Both files are on disk but untracked; pull dates are unrecorded.
 
+> **Superseded (note added 2026-10-24).** There is one CFTR2 pull, not two. The annotated file is a one-to-many merge of `cftr2_results.csv` onto the AlphaMissense table: 3,716 rows for the same 3,220 unique variants; the 82 VCC rows are 72 unique variants; the 292 binary rows are 259 unique (`results/phase1/unique_variant_counts.csv`, rows `annotated_table_all`, `vcc_in_annotated_table`, `binary_validation_set`). Decision recorded by the project lead, 2026-10-24.
+
 **Threshold mismatch in classification metrics.** The original `alphamissense.ipynb` cell 9 used threshold 0.5 for the classification report; cell 48 used 0.564 for MCC. REPORT.md section 3.2 reports these together as if from one threshold:
 
 | metric | threshold 0.5 | threshold 0.564 | documented |
@@ -561,6 +563,8 @@ No ClinVar operation exists anywhere in the path (`scripts/alphagenome_full_cftr
 - In patient VCF (observed in ≥1 patient in this cohort): **322 (25.2%)**
 - Not in patient VCF (never observed in this cohort): **956 (74.8%)**
 - With gnomAD allele frequency > 0: **0 (0%)**
+
+> **Superseded (note added 2026-10-24).** The VCF is a ClinVar extract, not a patient cohort: "in patient VCF" means "present in the ClinVar CFTR region" (`audit/COHORT_PROVENANCE.md:44`). The "0 (0%)" gnomAD figure was retracted; the computed value is 291 of 1,278 with gnomAD v4 AF > 0, 952 absent (`audit/COHORT_PROVENANCE.md:51`; `results/gnomad_cftr_lookup.csv`). The three lines above are left as written.
 
 **CFTR2 status of the 1,278:**
 - CF-causing: 12 (AlphaMissense misclassified these as ambiguous)
@@ -736,4 +740,6 @@ Our 41 (LP among 72 VCC) and McDonald's 41 (total VVCC in their cohort) are the 
 **CFTR2 snapshot date:** `data/cftr2_results.csv` last modified May 14, 2026 (local). `docs/REPORT.md:19` states "The January 2026 release used in this study." Access date for cftr2_results.csv is unrecorded in committed artifacts — file is untracked. For Methods: state "CFTR2 January 2026 release, accessed [actual date]." That actual date must be confirmed from the scraper notebook's run date or a local file timestamp, and stated explicitly.
 
 **Snapshot date for cftr2_results_annotated.csv** (82 VCC, used for benchmark): different from cftr2_results.csv; pull date also unrecorded. If the two files came from the same CFTR2 release, the discrepancy in counts (72 vs 82 VCC, 3220 vs 3716 total) would need explanation. The comparison to McDonald is only meaningful if the CFTR2 version is stated — McDonald used a 2023 snapshot, ours is January 2026. That 3-year gap explains the expanded binary set (128 → 292) and the expanded VCC set (41 → 72–82).
+
+> **Superseded (note added 2026-10-24).** The annotated file is not a separate pull; its 82 VCC rows and 3,716 total rows are duplicate rows from the one-to-many AlphaMissense merge over the same 3,220 variants (72 unique VCC; 259 unique binary). The binary set is 259 unique variants, not 292. See `results/phase1/unique_variant_counts.csv` and `results/phase1/am_vcc_analysis.csv` (row 3 relabelled `82_rows_72_unique`).
 

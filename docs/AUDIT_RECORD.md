@@ -136,3 +136,56 @@ The AlphaMissense benchmark (AUC 0.9549, n=259) is solid and reproducible. The c
 ## What kind of errors these were
 
 The numbers were reliably correct and reproduced from their source files. The descriptions attached to them frequently were not. A 1000 Genomes field was labelled gnomAD, a ClinVar VCF was described as patient cohort data, and a common-variant calibration background was described as all human variants. Every count matched its file. Almost none of the prose describing those counts had been checked before this audit.
+
+---
+
+## Corrections (2026-10)
+
+**Added:** 2026-10-24, paper-prep pass. Nothing above this heading has been edited. Each item below corrects a statement in this record; the original wording is left in place so the history stays legible.
+
+1. **Status tallies (lines 21–28).** The table reports VERIFIED 41 / VERIFIED-TO-ROUNDING 8 / CONTRADICTED 14 / CORRECTED 9 / RETRACTED 7 / NO EVIDENCE 6. `audit/CLAIMS_LEDGER.csv` (64 rows) carries no RETRACTED or CORRECTED status. Its `a3_final_status` column gives VERIFIED_ROUNDED 30 / VERIFIED 24 / CONTRADICTED 6 / NOT_REPRODUCIBLE 4; its `status` column gives VERIFIED 23 / NOT_CHECKABLE 22 / VERIFIED_ROUNDED 17 / NO_EVIDENCE 1 / CONTRADICTED 1. The tallies above cannot be reproduced from the ledger. The source of the 41/8/14/9/7/6 figures is not recorded.
+
+2. **DeLong AM vs PolyPhen-2 (line 38).** Stated as Z=3.18, p=0.0015. `results/phase1/delong_tests.csv` row 2 gives z=3.32, p=0.0009 (n=286). The CADD (3.5573 / 0.000375) and SIFT (6.7771 / <0.0001) rows agree with the file to rounding. `docs/STATUS.md:30` repeats the 3.18 / 0.0015 figure and has not been edited in this pass.
+
+3. **CFTR2 snapshot provenance (line 42).** Stated as "confirmed from file metadata and download logs." No download log exists in the repository (`audit/AUDIT_REPORT.md:601`). The evidence is: the release date in the spreadsheet header ("Date: 30 January 2026", `data/cftr2_variants.xlsx` row 1) and in the download URL (`notebooks/cftr2_scraper.ipynb`, `CFTR2_30January2026.xlsx`); and the file modification time (2026-05-14 16:20 local). The access date is otherwise unrecorded.
+
+4. **Recalibration counts (line 75).** "The 58.4% figure and the 693 figure both change under recalibration and belong to the unaffected-1,203 subset" and `audit/checks/INDEX.md:26` ("693→704; 18→18; 58→62") pair a full-cohort (n=1,278, chromosome-22 calibration) count with an unaffected-subset (n=1,203, genome-wide calibration) count. Recount from `results/alphagenome/quantiles_genomewide_2026-08.csv` × `results/comparator_scores.csv`: unaffected subset, chr22 → genome-wide: discordant 642 → 704; multi-tool 18 → 18; rescue 50 → 62; fraction above 0.95 57.7% → 62.8%. Full 1,278, chr22 → genome-wide: discordant 693 → 746; multi-tool 18 → 18; rescue 58 → 71; above 0.95 747 → 800.
+
+5. **Reproducibility of the n=259 benchmark (line 36).** The record states the AUC 0.9549 / AP 0.9924 / n=259 result is "reproducible from `scripts/phase1_build_cohort.py` and `scripts/phase1_benchmark.py`." Neither script, nor `scripts/alphamissense_analysis.py` (the generator of `results/phase1/am_validation_metrics.csv`), contains a deduplication step; run as committed they produce n=292 and n=286 outputs. The values in `am_validation_metrics.csv` are reproduced exactly by keep-first deduplication on the `variant` column of `data/cftr2_results_annotated.csv` (AUC 0.954948, AP 0.992449, n=259; duplicate rows never differ in label or score), but no committed script performs that step. The comparator benchmark, MCC, DeLong tests and ensemble remain on the 286-row set (254 unique variants).
+
+6. **Concordant-set wording (line 40).** The heading defines the "18 concordant variants" as CM splice 501 top 5% AND SpliceAI > 0.5. Recount gives 13 for that definition (top-5% threshold 0.0832, n=64 above it) and 18 for the gene-mask definition (SPLICE quantile > 0.95 AND SpliceAI > 0.5). The sentence that follows the heading states this correctly; the heading does not. `docs/STATUS.md:47` attaches 18 to the CM definition.
+
+7. **"Two snapshots" (line 36 context; `audit/AUDIT_REPORT.md:461`, `results/phase1/am_vcc_analysis.csv` row 3).** The 82 varying-clinical-consequence rows in `data/cftr2_results_annotated.csv` reduce to 72 unique variants (`results/phase1/unique_variant_counts.csv`, rows `cftr2_Varying_clinical_consequence` and `vcc_in_annotated_table`). The annotated file contains 3,220 unique variants in 3,716 rows, the same 3,220 as `data/cftr2_results.csv`. Whether a second CFTR2 pull ever existed is left open here; see the open-items list.
+
+**Open items not resolved in this pass:** (a) line 72 assigns accuracy to threshold 0.564 and MCC to an optimal threshold, while `docs/phase1_reproduction_report.md:66` assigns accuracy/F1 to threshold 0.5 and MCC to 0.564; (b) whether the n=286 comparator table (AlphaMissense 0.946 / 0.990 in `benchmark_metrics.csv`) is retracted or merely stale; (c) the ClinVar input release (VCF `##fileDate=2026-04-15` versus VEP cache `ClinVar="202502"` versus "February 2025" in README).
+
+### Corrections (2026-10), continued — pass 2, 2026-10-24
+
+8. **Threshold assignment (line 72).** Line 72 states that accuracy (0.94) and the F1 scores used threshold 0.564 and that MCC was computed at the optimal threshold. The notebook shows the reverse. `notebooks/alphamissense.ipynb` cell index 10 (execution_count 6) computes the classification report with `(binary["am_pathogenicity"] >= 0.5).astype(int)`; cell index 49 (execution_count 2; cited as "cell 48" in `audit/AUDIT_REPORT.md`) sets `threshold = 0.564` and computes `matthews_corrcoef` → 0.689. `docs/phase1_reproduction_report.md:66` is correct; line 72 of this record is wrong. All current documents now report accuracy, F1 and MCC at 0.564 from `results/phase1/am_validation_metrics.csv`.
+
+9. **Deduplicated four-tool benchmark (supersedes the n=286 values).** Produced 2026-10-24 by the patched `scripts/phase1_build_cohort.py` (keep-first on `variant` → `results/phase1/benchmark_cohort_dedup.csv`, 259 rows, 254 included), `scripts/phase1_benchmark.py --cohort … --out results/phase1/benchmark_metrics_dedup.csv`, `scripts/phase1_delong.py --cohort … --out results/phase1/delong_tests_dedup.csv`, and `scripts/phase1_ensemble_dedup.py` (ensemble.ipynb cell 9 form, dedup asserted before `StratifiedKFold`). n=254 = 259 unique validation variants minus five with no CADD v1.7 score (Leu137Pro, Trp496Gly, Thr604Ile, Gly622Val, Trp1098Cys). The n=286 files are retained unchanged.
+
+   | Metric | n=286 rows (superseded; `benchmark_metrics.csv`, `delong_tests.csv`) | n=254 unique (`*_dedup.csv`) |
+   |---|---|---|
+   | AlphaMissense AUC / AP | 0.946123 / 0.990477 | 0.954751 / 0.992259 |
+   | CADD AUC / AP | 0.776290 / 0.939335 | 0.748937 / 0.932775 |
+   | PolyPhen AUC / AP | 0.826067 / 0.958621 | 0.810915 / 0.956039 |
+   | SIFT AUC / AP | 0.678034 / 0.908615 | 0.670095 / 0.911025 |
+   | AlphaMissense MCC at 0.564 | 0.688050 | 0.700911 |
+   | DeLong AM vs PolyPhen Z / p | 3.32 / 0.0009 | 3.5125 / 0.000444 |
+   | DeLong AM vs CADD Z / p | 3.5573 / 0.000375 | 3.8341 / 0.000126 |
+   | DeLong AM vs SIFT Z / p | 6.7771 / <0.0001 | 6.2951 / <0.0001 |
+   | Ensemble CV AUC / AP | 0.926710 / 0.983184 | 0.925545 / 0.974882 |
+   | Ensemble coefficients AM / CADD / PolyPhen | +1.9074 / +0.2790 / −0.1175 | +2.1125 / +0.0080 / −0.0488 |
+
+   CADD AUC moves by 0.027 and PolyPhen AUC by 0.015; all other AUC changes are below 0.01. `phase1_benchmark.py` (scaler fitted once before CV) and `phase1_ensemble_dedup.py` (scaler inside each fold, as in the notebook) give the same ensemble AUC and AP to six decimals on this cohort.
+
+10. **Regeneration of `am_validation_metrics.csv` (item 5 resolved).** `scripts/alphamissense_analysis.py` now deduplicates the binary set keep-first on `variant` and was re-run on 2026-10-24. Output reproduces the committed values exactly: AUC 0.954948, AP 0.992449, Accuracy 0.926641, MCC 0.701858, CF F1 0.957303, Non-CF F1 0.739726, n=259. `git diff --ignore-all-space` on the file is empty; the only byte difference is line endings.
+
+11. **VCC "second snapshot" (item 7 resolved).** Decision by the project lead, 2026-10-24: one CFTR2 pull. `results/phase1/am_vcc_analysis.csv` row 3 is relabelled `derived_from_cftr2_results_annotated_csv_82_rows_72_unique`; dated superseded notes were added under `audit/AUDIT_REPORT.md` lines 461 and 738.
+
+12. **B2c scope (truth-check row 55 resolved).** `results/gwas_modifiers/B2c_summary.csv` covers 5p15, 6p21, 11p13 and Xq23 only. `scripts/b2c_control_comparison.py` assigns 3q29 to esophagus mucosa (UBERON:0006920); all 24 esophagus GWS rows in `B2_scored_variants.csv` have an empty `ag_atac_l2d_raw`, so the per-locus loop skipped 3q29 ("insufficient data"). `scripts/b2c_3q29_lung_rescore.py` prints a lung Mann–Whitney result to stdout and writes only control scores (`B2c_3q29_lung_scores.csv`). No 3q29 test statistic exists in any results file; the 3q29 row of `docs/option_b_draft.md` Table 1 (p = 0.130, rank-biserial −0.257) is not backed by a results file. `docs/STATUS.md` corrected accordingly.
+
+13. **Decisions applied 2026-10-24 (truth-check rows 11, 36, 45, 50, 55).** ClinVar input is described as "ClinVar VCF, `##fileDate 2026-04-15`, extracted 21 April 2026 (bcftools, VCF L79); VEP v115.1 cache with ClinVar 202502 annotations"; "February 2025 release" removed from README and REPORT. The n=286 comparator tables are superseded by item 9. The AlphaMissense file size is omitted from all documents. Comparator MCC is not reported.
+
+**Open items after pass 2:** none of (a)–(c) from the pass-1 list remain. Not yet done: a results file for the 3q29 Mann–Whitney (requires re-running `b2c_3q29_lung_rescore.py` with an output row, or an esophagus ATAC track that returns values); `docs/STATUS.md` line 1 still names branch `integrity-audit-2026-07`.
