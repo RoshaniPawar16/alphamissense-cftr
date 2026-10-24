@@ -7,10 +7,18 @@ Inputs (all must exist before running):
   results/phase1/inputs_cadd_scores.csv   — produced by phase1_fetch_cadd.py
 
 Outputs:
-  results/phase1/inputs_cftr2_labels.csv  — 292-variant label table
-  results/phase1/inputs_polyphen_sift.csv — SIFT and PolyPhen per variant
-  results/phase1/benchmark_cohort.csv     — fully merged cohort
-  results/phase1/SOURCE.md                — input file checksums
+  results/phase1/inputs_cftr2_labels.csv     — 292-row label table
+  results/phase1/inputs_polyphen_sift.csv    — SIFT and PolyPhen per variant
+  results/phase1/benchmark_cohort.csv        — fully merged cohort (292 rows)
+  results/phase1/benchmark_cohort_dedup.csv  — same, keep-first on `variant`
+                                               (259 rows; added 2026-10-24)
+  results/phase1/SOURCE.md                   — input file checksums
+
+Deduplication note (added 2026-10-24): cftr2_results_annotated.csv is a
+one-to-many merge on protein variant name, so the same protein change can
+appear on several rows with identical label and scores. benchmark_cohort.csv
+preserves the rows as merged; benchmark_cohort_dedup.csv keeps the first row
+per `variant`. No scores or labels are altered.
 
 benchmark_cohort.csv columns:
   variant, determination_2026, label, am_pathogenicity,
@@ -33,6 +41,7 @@ CADD_CSV      = os.path.join(ROOT, 'results', 'phase1', 'inputs_cadd_scores.csv'
 LABELS_CSV    = os.path.join(ROOT, 'results', 'phase1', 'inputs_cftr2_labels.csv')
 PS_CSV        = os.path.join(ROOT, 'results', 'phase1', 'inputs_polyphen_sift.csv')
 COHORT_CSV    = os.path.join(ROOT, 'results', 'phase1', 'benchmark_cohort.csv')
+DEDUP_CSV     = os.path.join(ROOT, 'results', 'phase1', 'benchmark_cohort_dedup.csv')
 SOURCE_MD     = os.path.join(ROOT, 'results', 'phase1', 'SOURCE.md')
 
 # CSQ field indices (0-based within the pipe-separated CSQ string)
@@ -210,6 +219,26 @@ with open(COHORT_CSV, 'w', newline='') as f:
     w.writerows(cohort)
 log.info('Saved %s', COHORT_CSV)
 
+# ── Step 4b: deduplicated cohort — keep-first on `variant` (added 2026-10-24) ─
+_seen = set()
+cohort_dedup = []
+for r in cohort:
+    if r['variant'] not in _seen:
+        _seen.add(r['variant'])
+        cohort_dedup.append(r)
+n_dedup_included = sum(1 for r in cohort_dedup if r['included'])
+log.info('Dedup cohort: %d unique variants (from %d rows); included=%d',
+         len(cohort_dedup), len(cohort), n_dedup_included)
+
+with open(DEDUP_CSV, 'w', newline='') as f:
+    w = csv.DictWriter(f, fieldnames=['variant', 'determination_2026', 'label',
+                                      'am_pathogenicity', 'cadd_phred',
+                                      'polyphen_score', 'sift_score_inv',
+                                      'included', 'exclusion_reason'])
+    w.writeheader()
+    w.writerows(cohort_dedup)
+log.info('Saved %s', DEDUP_CSV)
+
 # ── Step 5: write SOURCE.md ───────────────────────────────────────────────────
 inputs = [
     ('data/AlphaMissense_hg38.tsv.gz', 'AlphaMissense scores (Zenodo 8208688), filtered to CFTR (P13569) via cftr_alphamissense.tsv'),
@@ -237,6 +266,7 @@ print(f'Missing CADD: {merge_log["missing_cadd"]}')
 print(f'Missing SIFT: {merge_log["missing_sift"]}')
 print(f'Missing PolyPhen: {merge_log["missing_polyphen"]}')
 print(f'INCLUDED (all four scores present): {merge_log["included"]}')
+print(f'Dedup cohort (keep-first on variant): {len(cohort_dedup)} unique, {n_dedup_included} included')
 if exclusion_counts:
     print('Exclusion detail:', dict(exclusion_counts))
     exc_variants = [r['variant'] for r in cohort if not r['included']]

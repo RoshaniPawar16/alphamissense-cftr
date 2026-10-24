@@ -17,12 +17,14 @@ Outputs:
   results/phase1/am_domain_analysis.csv      — domain distribution of VCC likely pathogenic
   results/phase1/am_unclassified_counts.csv  — counts of AM classes in unclassified set
 
-NOTE on two CFTR2 snapshots:
-  data/cftr2_results_annotated.csv (this file, used for benchmark) has 82 VCC variants.
-  data/cftr2_results.csv (smaller snapshot) has 72 VCC variants.
-  data/varying_consequence_am.csv was derived from cftr2_results.csv (72 VCC).
-  These snapshots differ; the documented figure of 72 VCC reflects cftr2_results.csv.
-  This script reports both counts and flags the discrepancy.
+NOTE on row counts versus unique variants (corrected 2026-10-24):
+  data/cftr2_results_annotated.csv is a one-to-many merge of data/cftr2_results.csv
+  (3,220 unique protein changes) onto the AlphaMissense table, so the same protein
+  change can appear on several rows with identical label and score. The 82 VCC rows
+  in the annotated file are 72 unique variants; the 292 binary rows are 259 unique
+  variants. There is one CFTR2 pull, not two. The binary validation set is
+  deduplicated keep-first on `variant` before any metric is computed (see
+  results/phase1/unique_variant_counts.csv for every affected count).
 """
 
 import os, re, csv, logging
@@ -50,6 +52,21 @@ log.info('Loaded cftr2_results_annotated.csv: %d rows', len(annotated))
 binary = [r for r in annotated
           if r['determination_2026'] in ('CF-causing', 'Non CF-causing')
           and r['am_pathogenicity']]
+
+n_binary_rows = len(binary)
+
+# ── Keep-first deduplication on `variant` (added 2026-10-24) ─────────────────
+# Duplicate rows come from the one-to-many AM merge; they carry identical
+# label and am_pathogenicity, so only row counts change.
+_seen = set()
+_dedup = []
+for r in binary:
+    if r['variant'] not in _seen:
+        _seen.add(r['variant'])
+        _dedup.append(r)
+binary = _dedup
+log.info('Binary rows: %d  -> unique variants after keep-first dedup: %d',
+         n_binary_rows, len(binary))
 
 log.info('Binary variants: %d', len(binary))
 n_cf = sum(1 for r in binary if r['determination_2026'] == 'CF-causing')
@@ -95,7 +112,8 @@ log.info('VCC from varying_consequence_am.csv: %d rows', len(vcc_rows))
 
 # Also count VCC in annotated file (82-variant snapshot) for comparison
 vcc_annotated = [r for r in annotated if r['determination_2026'] == 'Varying clinical consequence']
-log.info('VCC in cftr2_results_annotated.csv: %d  (NOTE: different CFTR2 snapshot)', len(vcc_annotated))
+log.info('VCC rows in cftr2_results_annotated.csv: %d  (%d unique variants; same CFTR2 pull, duplicate rows)',
+         len(vcc_annotated), len({r['variant'] for r in vcc_annotated}))
 
 from collections import Counter
 vcc_classes = Counter(r['am_class'] for r in vcc_rows)
@@ -120,7 +138,7 @@ with open(VCC_OUT, 'w', newline='') as f:
         'likely_pathogenic': vcc_ann_classes.get('likely_pathogenic', 0),
         'ambiguous': vcc_ann_classes.get('ambiguous', 0),
         'likely_benign': vcc_ann_classes.get('likely_benign', 0),
-        'note': 'derived_from_cftr2_results_annotated_csv_snapshot_82_variants'
+        'note': 'derived_from_cftr2_results_annotated_csv_82_rows_72_unique'
     })
 log.info('Saved %s', VCC_OUT)
 

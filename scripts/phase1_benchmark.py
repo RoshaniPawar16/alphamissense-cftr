@@ -1,8 +1,12 @@
 """
 Compute Phase 1 benchmark metrics from the cohort built by phase1_build_cohort.py.
 
-Input:  results/phase1/benchmark_cohort.csv
-Output: results/phase1/benchmark_metrics.csv
+Input:  results/phase1/benchmark_cohort.csv          (default; override with --cohort)
+Output: results/phase1/benchmark_metrics.csv         (default; override with --out)
+
+Path arguments added 2026-10-24 so the script can be run unchanged on
+results/phase1/benchmark_cohort_dedup.csv, writing benchmark_metrics_dedup.csv.
+No metric logic was changed.
 
 All four tools (AlphaMissense, CADD, PolyPhen, SIFT) are evaluated on
 exactly the same n (included==True variants only).
@@ -14,7 +18,7 @@ the full included set for comparison to the documented values, but the
 ensemble AUC and AP are CV-based (held-out), not in-sample.
 """
 
-import os, csv, logging
+import os, csv, logging, argparse
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import StratifiedKFold, cross_val_predict
@@ -22,8 +26,14 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import roc_auc_score, average_precision_score
 
 ROOT       = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-COHORT_CSV = os.path.join(ROOT, 'results', 'phase1', 'benchmark_cohort.csv')
-METRICS_CSV = os.path.join(ROOT, 'results', 'phase1', 'benchmark_metrics.csv')
+_ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+_ap.add_argument('--cohort', default=os.path.join(ROOT, 'results', 'phase1', 'benchmark_cohort.csv'),
+                 help='input cohort CSV (default: results/phase1/benchmark_cohort.csv)')
+_ap.add_argument('--out', default=os.path.join(ROOT, 'results', 'phase1', 'benchmark_metrics.csv'),
+                 help='output metrics CSV (default: results/phase1/benchmark_metrics.csv)')
+_args = _ap.parse_args()
+COHORT_CSV  = _args.cohort
+METRICS_CSV = _args.out
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 log = logging.getLogger(__name__)

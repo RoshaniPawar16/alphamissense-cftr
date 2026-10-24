@@ -4,8 +4,12 @@ Correct pairwise DeLong tests for Phase 1 comparisons.
 Uses the full covariance-accounting implementation in phase1_utils_delong.py
 (Sun & Xu 2014 algorithm, citing https://github.com/yandexdataschool/roc_comparison).
 
-Input:  results/phase1/benchmark_cohort.csv
-Output: results/phase1/delong_tests.csv
+Input:  results/phase1/benchmark_cohort.csv   (default; override with --cohort)
+Output: results/phase1/delong_tests.csv       (default; override with --out)
+
+Path arguments added 2026-10-24 so the script can be run unchanged on
+results/phase1/benchmark_cohort_dedup.csv, writing delong_tests_dedup.csv.
+No test logic was changed.
 
 Sanity check: the corrected Z values must be LARGER (more extreme) than the
 previously reported values (2.88 / 3.28 / 5.87), because the original code
@@ -13,15 +17,21 @@ omitted the covariance term, over-estimating SE. If any corrected Z is smaller
 in magnitude, this script raises an error rather than producing wrong results.
 """
 
-import os, sys, csv, logging
+import os, sys, csv, logging, argparse
 import numpy as np
 
 ROOT       = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 from phase1_utils_delong import delong_test
 
-COHORT_CSV  = os.path.join(ROOT, 'results', 'phase1', 'benchmark_cohort.csv')
-DELONG_CSV  = os.path.join(ROOT, 'results', 'phase1', 'delong_tests.csv')
+_ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+_ap.add_argument('--cohort', default=os.path.join(ROOT, 'results', 'phase1', 'benchmark_cohort.csv'),
+                 help='input cohort CSV (default: results/phase1/benchmark_cohort.csv)')
+_ap.add_argument('--out', default=os.path.join(ROOT, 'results', 'phase1', 'delong_tests.csv'),
+                 help='output CSV (default: results/phase1/delong_tests.csv)')
+_args = _ap.parse_args()
+COHORT_CSV  = _args.cohort
+DELONG_CSV  = _args.out
 
 PREVIOUS_Z = {
     ('AlphaMissense', 'PolyPhen'): 2.88,
