@@ -17,7 +17,7 @@ McDonald et al. evaluated AlphaMissense (AM) for predicting the pathogenicity of
 - AM offered **limited utility for predicting pharmacological response** to correctors such as elexacaftor-tezacaftor-ivacaftor.
 
 ### How it relates to our work
-McDonald et al. benchmark AM specifically on CFTR using CFTR2 ground truth — the same ground truth database we use. Their finding that AM has a high false positive rate on CFTR contrasts with our result (AUC 0.946, AP 0.990 on 292 labelled variants). The discrepancy is likely explained by differences in variant selection and evaluation methodology: McDonald et al. used 169 variants with available clinical data (non-random selection), whereas we used all 292 variants with binary CFTR2 labels in a standard ROC/PR framework. Their work also highlights that AM cannot distinguish mechanism — a limitation directly addressed in our analysis by adding AlphaGenome, which captures splicing and regulatory effects independently of protein-level pathogenicity.
+McDonald et al. benchmark AM specifically on CFTR using CFTR2 ground truth — the same ground truth database we use. Their finding that AM has a high false positive rate on CFTR contrasts with our result (AUC 0.9549, AP 0.9924 on 259 unique labelled variants; `results/phase1/am_validation_metrics.csv`). The discrepancy is likely explained by differences in variant selection and evaluation methodology: McDonald et al. used 169 variants with available clinical data (non-random selection), whereas we used all 259 unique variants with binary CFTR2 labels in a standard ROC/PR framework. Their work also highlights that AM cannot distinguish mechanism — a limitation directly addressed in our analysis by adding AlphaGenome, which captures splicing and regulatory effects independently of protein-level pathogenicity.
 
 ### Gap our work fills
 McDonald et al. evaluate AM exclusively at the protein level. They do not apply any genomic regulatory model, do not assess splice site effects, and do not provide a DNA-level view of variant impact. Our work adds AlphaGenome quantile scores for RNA-seq, ATAC-seq, and splice site usage, enabling mechanistic stratification that AM alone cannot provide. We also extend the evaluation to 1,278 ambiguous variants rather than the 169 variants with full clinical phenotyping.
@@ -41,12 +41,12 @@ AlphaGenome extends the Enformer architecture by scaling the input window to 1 M
 
 ### What they found
 - State-of-the-art performance on regulatory variant effect prediction benchmarks across all output modalities.
-- Quantile scores normalise variant effects against the genome-wide distribution, enabling cross-variant and cross-tissue comparisons.
+- Quantile scores rank a variant effect against a background of common variants (MAF > 0.01 in any gnomAD v3 population), enabling cross-variant and cross-tissue comparisons.
 - The model supports both scalar variant scoring (via `score_variants` with specialised scorers per output type) and full track prediction (via `predict_variant`) for detailed mechanistic inspection.
 - Validated on known eQTLs, GWAS loci, and splice-altering variants.
 
 ### How it relates to our work
-AlphaGenome is the tool we apply. Our work is an applied validation of AlphaGenome on a disease-specific gene (CFTR) with a well-characterised clinical database (CFTR2) providing ground truth. We use the recommended variant scorers (`GeneMaskLFCScorer` for RNA-seq, `CenterMaskScorer` for ATAC-seq, `GeneMaskSplicingScorer` for splice site usage) and the quantile score normalisation described in this paper. Our findings — particularly the strong splice and ATAC signals for His1054Gln and Arg104Gly — are the first CFTR-specific application of AlphaGenome quantile scores reported in the literature.
+AlphaGenome is the tool we apply. Our work is an applied validation of AlphaGenome on a disease-specific gene (CFTR) with a well-characterised clinical database (CFTR2) providing ground truth. We use the recommended variant scorers (`GeneMaskLFCScorer` for RNA-seq, `CenterMaskScorer` for ATAC-seq, `GeneMaskSplicingScorer` for splice site usage) and the quantile score normalisation described in this paper. Our work applies AlphaGenome quantile scores to CFTR (the His1054Gln and Arg104Gly signals cited in earlier versions belonged to the retracted seven-variant set and used the chromosome-22 calibration; AUDIT_RECORD.md:84-85). Whether this is the first CFTR-specific application in the literature is unverified [CITATION NEEDED].
 
 ### Gap our work fills
 Avsec et al. demonstrate genome-wide performance but do not apply AlphaGenome to CFTR or any cystic fibrosis variant set. They do not benchmark against CFTR2 clinical labels. They do not show whether quantile scores stratify variants within a single disease gene in a clinically interpretable way. Our work provides this disease-specific application and demonstrates that quantile scores are interpretable in the context of CFTR variant pathogenicity classification.
@@ -71,10 +71,10 @@ Michels et al. evaluated eight computational predictors for classifying the path
 - The authors concluded that in silico predictions are **insufficient for independent clinical use** and must be combined with functional and clinical data.
 
 ### How it relates to our work
-Michels et al. establish the baseline: as of 2019, no computational predictor performed reliably on CFTR. This provides the historical context for why our application of AlphaMissense (AUC 0.946) and AlphaGenome (quantile scores) represents a substantial advance. The tools they evaluated (SIFT, PolyPhen-2) are the same baselines we benchmark against, and our results confirm and extend their finding that SIFT and PolyPhen-2 underperform — but we show that AlphaMissense overcomes the limitations they identified.
+Michels et al. establish the baseline: as of 2019, no computational predictor performed reliably on CFTR. This provides the historical context for why our application of AlphaMissense (AUC 0.9549) and AlphaGenome (quantile scores) represents a substantial advance. The tools they evaluated (SIFT, PolyPhen-2) are the same baselines we benchmark against, and our results confirm and extend their finding that SIFT and PolyPhen-2 underperform — but we show that AlphaMissense overcomes the limitations they identified.
 
 ### Gap our work fills
-Michels et al. did not have access to AlphaMissense or AlphaGenome. They evaluated only protein-level conservation and structural predictors. They did not assess any genomic regulatory or splicing model. They did not apply quantile normalisation or tissue-specific scoring. Our work demonstrates that the reliability problem they identified in 2019 is substantially resolved by AlphaMissense (AUC 0.946 vs. best 2019 tool at ~0.7), and that AlphaGenome adds a second orthogonal dimension — regulatory and splicing effects — that none of their tools could address.
+Michels et al. did not have access to AlphaMissense or AlphaGenome. They evaluated only protein-level conservation and structural predictors. They did not assess any genomic regulatory or splicing model. They did not apply quantile normalisation or tissue-specific scoring. Our work demonstrates that the reliability problem they identified in 2019 is substantially resolved by AlphaMissense (AUC 0.9549 vs. best 2019 tool at ~0.7 [CITATION NEEDED: Michels et al. report sensitivity and specificity, not AUC]), and that AlphaGenome adds a second orthogonal dimension — regulatory and splicing effects — that none of their tools could address.
 
 ---
 
@@ -112,7 +112,7 @@ Liu et al. focus on a single non-coding variant in a blood group gene. They do n
 | Combined AM + AG | ✗ | ✗ | ✗ | ✗ |
 | Scale (variants) | 169 | Genome-wide | 779 | 1 locus |
 | Wet-lab validation | ✓ (functional assays) | ✗ | ✗ | ✓ (CRISPR) |
-| **Our work** | Extends to 1,278 VUS; adds AlphaGenome | First CFTR application | Updates baseline | Adds splice; scales to 1,278 variants; integrates with AM |
+| **Our work** | Extends to 1,278 AlphaMissense ambiguous-class variants (0.34–0.564); adds AlphaGenome | First CFTR application | Updates baseline | Adds splice; scales to 1,278 variants; integrates with AM |
 
 ---
 

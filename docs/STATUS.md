@@ -8,9 +8,11 @@
 
 ## Audit note
 
-The integrity audit (29 July – 2 August 2026) verified 41 claims outright,
-corrected 9, retracted 7, and flagged 6 with no evidence. Full record:
-`docs/AUDIT_RECORD.md`.
+The integrity audit (29 July – 2 August 2026) is recorded in `docs/AUDIT_RECORD.md`.
+Ledger tallies (`audit/CLAIMS_LEDGER.csv`, 64 rows, column `a3_final_status`):
+VERIFIED_ROUNDED 30, VERIFIED 24, CONTRADICTED 6, NOT_REPRODUCIBLE 4. An earlier
+version of this note gave 41 verified / 9 corrected / 7 retracted / 6 no evidence;
+those figures do not reproduce from the ledger (AUDIT_RECORD.md, Corrections 2026-10, item 1).
 
 ---
 
@@ -21,14 +23,24 @@ corrected 9, retracted 7, and flagged 6 with no evidence. Full record:
 
 **Results:** `results/phase1/` — inputs_cftr2_labels.csv (293 rows),
 inputs_cadd_scores.csv (293 rows), inputs_polyphen_sift.csv (2474 rows),
-am_validation_metrics.csv, delong_tests.csv
+am_validation_metrics.csv, benchmark_cohort.csv (292 rows) and
+benchmark_cohort_dedup.csv (259 rows, keep-first on `variant`; added 2026-10-24),
+benchmark_metrics.csv / delong_tests.csv (286 rows, superseded) and
+benchmark_metrics_dedup.csv / delong_tests_dedup.csv / ensemble_metrics_dedup.csv
+(254 unique variants; added 2026-10-24)
 
 **Verified numbers:**
 - Cohort: 259 deduplicated CFTR2-labelled variants (226 CF-causing, 33 Non CF-causing).
-  Source: `results/acmg_llm/per_variant_log.jsonl` (292 rows, 259 unique by protein variant name)
-- AM AUC 0.9549, AP 0.9924. Source: `results/phase1/am_validation_metrics.csv`
-- DeLong AM vs PolyPhen-2 Z=3.18 p=0.0015; vs CADD Z=3.57 p=0.0004;
-  vs SIFT Z=6.78 p<0.0001. Source: `results/phase1/delong_tests.csv`
+  Source: `results/phase1/benchmark_cohort_dedup.csv`; also
+  `results/acmg_llm/per_variant_log.jsonl` (292 rows, 259 unique by protein variant name)
+- AM AUC 0.9549, AP 0.9924 on n=259. Source: `results/phase1/am_validation_metrics.csv`
+- Four-tool comparison on n=254 (the 259 minus five unique variants with no CADD score):
+  AM 0.9548 / CADD 0.7489 / PolyPhen 0.8109 / SIFT 0.6701 AUC.
+  Source: `results/phase1/benchmark_metrics_dedup.csv`
+- DeLong (n=254) AM vs PolyPhen-2 Z=3.51 p=0.0004; vs CADD Z=3.83 p=0.0001;
+  vs SIFT Z=6.30 p<0.0001. Source: `results/phase1/delong_tests_dedup.csv`.
+  (Superseded n=286 values in `delong_tests.csv`: 3.32 / 0.0009; 3.56 / 0.0004; 6.78 / <0.0001.
+  An earlier version of this note gave "Z=3.18 p=0.0015" for PolyPhen-2, which is in no results file.)
 
 ---
 
@@ -44,9 +56,13 @@ alphagenome_rescue_variants.csv (871 rows)
 **Note:** All 1,278 variants in this pipeline are on chr7 (CFTR locus). This is the
 primary cohort; the Option B modifier-loci analysis is a separate variant set.
 
-**Key verified number:** 18 concordant variants with CM splice 501 in top 5% of the
-1,278 cohort AND SpliceAI delta > 0.5. Source: `results/alphagenome/rescore_centermask.csv`
-× `results/comparator_scores.csv`. OR = 13.1–129 depending on definition (p < 0.001).
+**Key verified numbers (two definitions, corrected 2026-10-24):**
+- CM definition: CM splice 501 in the top 5% of the 1,278 (threshold 0.0832, 64 variants)
+  AND SpliceAI delta > 0.5 → **13** variants.
+- GM definition: gene-mask SPLICE quantile > 0.95 AND SpliceAI delta > 0.5 → **18** variants.
+Source: `results/alphagenome/rescore_centermask.csv` × `results/comparator_scores.csv`.
+OR = 13.1–129 depending on definition (p < 0.001; AUDIT_RECORD.md:40). An earlier version
+of this note attached the count 18 to the CM definition.
 
 ---
 
@@ -55,7 +71,8 @@ primary cohort; the Option B modifier-loci analysis is a separate variant set.
 **Commit:** d4d1f10  
 **Finding:** LP was unreachable under strict 5-criterion combining; adopting
 Pejaver 2022 calibrated PP3 strength made LP reachable.  
-Source: `results/phase1/` — calibration analysis files.
+Source: [NOT IN REPO] — no calibration analysis file exists under `results/phase1/`
+(checked 2026-10-24); the finding rests on `scripts/acmg_llm_experiment.py` and commit d4d1f10.
 
 ---
 
@@ -124,9 +141,18 @@ Two luciferase-confirmed strong enhancers (chr11.2516, chr11.2521).
 `results/gwas_modifiers/B2c_3q29_lung_scores.csv`,
 `results/gwas_modifiers/B2c_control_scores.csv`
 
-**Finding:** No elevated ATAC disruption at GWS variants vs matched controls at any
-of the five loci (Mann–Whitney, all uncorrected p > 0.007 before multiple-testing
-correction). Source: `results/gwas_modifiers/B2c_summary.csv`.
+**Finding (scope corrected 2026-10-24):** No elevated ATAC disruption at GWS variants
+vs matched controls at the four loci present in `results/gwas_modifiers/B2c_summary.csv`:
+5p15 (p = 0.0094), 6p21 (p = 0.073), 11p13 (p = 0.052), Xq23 (p = 0.70); two-sided
+Mann–Whitney, uncorrected; all rank-biserial values negative.
+**3q29 is not covered by any results file.** `scripts/b2c_control_comparison.py`
+configures 3q29 for esophagus mucosa (UBERON:0006920); all 24 esophagus GWS rows in
+`B2_scored_variants.csv` have an empty `ag_atac_l2d_raw`, so the script's
+"insufficient data — skipping test" branch dropped 3q29 from the summary.
+`scripts/b2c_3q29_lung_rescore.py` scores 24 lung controls
+(`B2c_3q29_lung_scores.csv`) and prints a lung Mann–Whitney result to stdout only;
+the 3q29 row in `docs/option_b_draft.md` Table 1 comes from that printout and is
+[NOT IN REPO] as a results value.
 
 ### Results draft
 

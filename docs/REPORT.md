@@ -6,13 +6,13 @@
 
 ## Abstract
 
-Variant classification in cystic fibrosis is constrained by the limited coverage of clinical databases. The CFTR2 database classifies 2,092 variants observed at sufficient frequency in CF patients, leaving the majority of variants in real-world sequencing data without a clinical label. This study applies AlphaMissense, a proteome-wide missense pathogenicity predictor, to 3,220 CFTR variants from a VEP-annotated VCF. AlphaMissense is first validated against 292 CFTR2-labelled variants, achieving AUC 0.946 and average precision 0.990. It is then benchmarked against CADD, PolyPhen-2, and SIFT on the same variant set. AlphaMissense outperforms all three on both ROC-AUC and precision-recall metrics. An ensemble of all predictors does not improve on AlphaMissense alone, indicating that the other tools contribute no independent signal. Applied to 2,564 unclassified variants, AlphaMissense identifies 705 as likely pathogenic. Seven of these have population frequency support from gnomAD and remain unresolved in ClinVar. Within the 72 CFTR2 variants of varying clinical consequence, likely pathogenic calls cluster 73% in the membrane-spanning domains, consistent with the structural role of those regions in chloride conductance.
+Variant classification in cystic fibrosis is constrained by the limited coverage of clinical databases. The CFTR2 database classifies 2,092 variants observed at sufficient frequency in CF patients, leaving the majority of variants submitted to ClinVar without a clinical label. This study applies AlphaMissense, a proteome-wide missense pathogenicity predictor, to 3,220 CFTR variants from a VEP-annotated ClinVar extract. AlphaMissense is first validated against 259 unique CFTR2-labelled variants, achieving AUC 0.9549 and average precision 0.9924. It is then benchmarked against CADD, PolyPhen-2, and SIFT on the 254 of those variants with all four scores. AlphaMissense outperforms all three on both ROC-AUC and precision-recall metrics. An ensemble of all predictors does not improve on AlphaMissense alone, indicating that the other tools contribute no independent signal. Applied to 2,564 unclassified variants, AlphaMissense identifies 546 unique variants (rows: 705) as likely pathogenic. Seven of these carry a 1000 Genomes Phase 3 allele-frequency entry in the VCF; this selection is retracted (AUDIT_RECORD.md:84-85). Within the 72 CFTR2 variants of varying clinical consequence, likely pathogenic calls cluster 73% in the membrane-spanning domains, consistent with the structural role of those regions in chloride conductance.
 
 ---
 
 ## 1. Introduction
 
-Cystic fibrosis (CF) is an autosomal recessive disease caused by pathogenic variants in the *CFTR* gene, which encodes a chloride channel expressed in epithelial cells. CF affects approximately 1 in 3,500 live births in European populations and is associated with progressive lung disease, pancreatic insufficiency, and infertility [1]. Over 2,000 CFTR variants have been documented, but their clinical significance varies substantially. This heterogeneity makes variant classification central to patient management. CFTR modulators such as elexacaftor-tezacaftor-ivacaftor are approved only for specific variant classes, making accurate classification a prerequisite for treatment access.
+Cystic fibrosis (CF) is an autosomal recessive disease caused by pathogenic variants in the *CFTR* gene, which encodes a chloride channel expressed in epithelial cells. CF affects approximately 1 in 3,500 live births in European populations and is associated with progressive lung disease, pancreatic insufficiency, and infertility [1]. Over 2,000 CFTR variants have been documented [CITATION NEEDED], but their clinical significance varies substantially. This heterogeneity makes variant classification central to patient management. CFTR modulators such as elexacaftor-tezacaftor-ivacaftor are approved only for specific variant classes, making accurate classification a prerequisite for treatment access.
 
 ### 1.1 Clinical variant databases and their limits
 
@@ -48,35 +48,35 @@ This study addresses three questions. First, how well does AlphaMissense agree w
 
 ### 2.1 Variant annotation
 
-A VEP-annotated VCF containing 3,220 CFTR gene variants was used as input. Variant Effect Predictor (VEP) [9] annotates variants with consequence type, protein change in HGVS notation, SIFT scores, PolyPhen-2 scores, and population allele frequency from gnomAD [10] where available.
+The input was a ClinVar VCF (`##fileDate 2026-04-15`; header `##source=ClinVar`; sites-only, no sample columns) from which the CFTR region (chr7:117,480,000–117,670,000, GRCh38) was extracted on 21 April 2026 with bcftools (VCF header L79) and annotated with the Variant Effect Predictor (VEP) v115.1 cache carrying ClinVar 202502 annotations [9]. It contains 3,220 unique CFTR protein changes. VEP annotates variants with consequence type, protein change in HGVS notation, SIFT scores, PolyPhen-2 scores, and population allele frequency from 1000 Genomes Phase 3 (`AF_TGP`) where available. The VCF carries no gnomAD [10] frequencies.
 
 Variant names were extracted from the CSQ field using the HGVS protein notation pattern `p.([A-Z][a-z]{2}\d+[A-Z][a-z]{2})`. Each matched variant was then queried against the CFTR2 January 2026 release, downloaded directly from cftr2.org as a structured spreadsheet. The spreadsheet header begins at row 11 (0-indexed). Matching was performed on protein name after adding the `p.` prefix.
 
 ### 2.2 AlphaMissense scoring
 
-The AlphaMissense hg38 dataset was downloaded from Zenodo (record 8208688, ~1.4 GB). Variants were filtered to CFTR (UniProt P13569), yielding 9,721 scored variants. VCF variant names in three-letter amino acid format (e.g. Ser13Phe) were converted to single-letter format (S13F) using a standard amino acid dictionary. 311 variants could not be converted; inspection confirmed these were nonsense mutations (Ter suffix) and frameshifts, which are outside AlphaMissense scope.
+The AlphaMissense hg38 dataset was downloaded from Zenodo (record 8208688). Variants were filtered to CFTR (UniProt P13569), yielding 9,721 scored variants. VCF variant names in three-letter amino acid format (e.g. Ser13Phe) were converted to single-letter format (S13F) using a standard amino acid dictionary. 311 variants could not be converted: 309 are nonsense (Ter suffix) and 2 are stop-loss (Ter1481Tyr, Ter1481Trp), all outside AlphaMissense scope (`results/phase1/unique_variant_counts.csv`).
 
-Scores were merged onto the annotated variant table on the converted protein name. 3,161 of 3,220 variants received an AlphaMissense score.
+Scores were merged onto the annotated variant table on the converted protein name. Because several genomic variants encode the same protein change, this one-to-many merge produces duplicate rows (3,716 rows for 3,220 unique variants). 2,665 of 3,220 unique variants received an AlphaMissense score (rows: 3,161).
 
 ### 2.3 Validation
 
-AlphaMissense scores were validated against CFTR2 binary labels. Variants with determinations of "CF-causing" or "Non CF-causing" and a valid AlphaMissense score were retained. This produced 292 variants (253 CF-causing, 39 Non CF-causing). Binary labels were assigned (CF-causing = 1) and ROC-AUC and average precision (AP) were computed using scikit-learn [11]. Classification metrics were computed at the published AlphaMissense threshold of 0.564.
+AlphaMissense scores were validated against CFTR2 binary labels. Variants with determinations of "CF-causing" or "Non CF-causing" and a valid AlphaMissense score were retained. After removing duplicate rows (keep-first by protein variant name), this produced 259 unique variants (226 CF-causing, 33 Non CF-causing; rows before deduplication: 292, 253/39). Binary labels were assigned (CF-causing = 1) and ROC-AUC and average precision (AP) were computed using scikit-learn [11]. Classification metrics were computed at the published AlphaMissense threshold of 0.564 (`results/phase1/am_validation_metrics.csv`).
 
 ### 2.4 Predictor benchmarking
 
-CADD v1.7 scores were retrieved for each labelled variant via the CADD REST API (GRCh38 build). Genomic coordinates were extracted from the VCF. SIFT and PolyPhen-2 scores were parsed from the VEP CSQ field at indices 31 and 32 respectively. SIFT scores were inverted (1 - score) so that higher values indicate greater predicted deleteriousness, consistent with the other predictors. 286 variants had all four scores available and were used for benchmarking. ROC-AUC and average precision were computed for each predictor.
+CADD v1.7 scores were retrieved for each labelled variant via the CADD REST API (GRCh38 build). Genomic coordinates were extracted from the VCF. SIFT and PolyPhen-2 scores were parsed from the VEP CSQ field at indices 31 and 32 respectively. SIFT scores were inverted (1 - score) so that higher values indicate greater predicted deleteriousness, consistent with the other predictors. Of the 259 unique validation variants, five (Leu137Pro, Trp496Gly, Thr604Ile, Gly622Val, Trp1098Cys) returned no CADD v1.7 score; the remaining 254 unique variants had all four scores and were used for benchmarking (`results/phase1/benchmark_cohort_dedup.csv`, `results/phase1/benchmark_metrics_dedup.csv`). ROC-AUC and average precision were computed for each predictor.
 
 ### 2.5 Ensemble model
 
-A logistic regression was trained on three features: AlphaMissense score, PolyPhen-2 score, and CADD score. Features were standardised using z-score normalisation prior to fitting. Stratified 5-fold cross-validation was used to obtain out-of-fold probability estimates for the full 286-variant dataset. This avoids test set leakage given the small sample size. Performance was evaluated using the same metrics as individual predictors.
+A logistic regression was trained on three features: AlphaMissense score, PolyPhen-2 score, and CADD score. Features were standardised using z-score normalisation prior to fitting. Stratified 5-fold cross-validation was used to obtain out-of-fold probability estimates for the 254 unique variants. Deduplication precedes fold assignment (`scripts/phase1_ensemble_dedup.py`; `results/phase1/ensemble_metrics_dedup.csv`). Performance was evaluated using the same metrics as individual predictors.
 
 ### 2.6 Variant prioritisation
 
-Unclassified variants (no CFTR2 determination) with an AlphaMissense score of likely pathogenic were flagged. These were cross-referenced with gnomAD population frequency from the VCF. Flagged variants with population frequency data were further queried against ClinVar using the NCBI Entrez API.
+Unclassified variants (no CFTR2 determination) with an AlphaMissense score of likely pathogenic were flagged. These were cross-referenced with the 1000 Genomes Phase 3 allele frequency (`AF_TGP`) in the VCF, which earlier versions of this document described as gnomAD. Flagged variants with an allele-frequency entry were further queried against ClinVar using the NCBI Entrez API.
 
 ### 2.7 Domain mapping
 
-The 41 likely pathogenic calls within the varying clinical consequence group were mapped to CFTR protein domains using published boundaries: MSD1 (residues 1-394), NBD1 (395-646), R-domain (647-835), MSD2 (836-1172), NBD2 (1173-1480). Residue position was extracted from the variant name using regex.
+The 41 likely pathogenic calls within the varying clinical consequence group were mapped to CFTR protein domains using published boundaries [CITATION NEEDED]: MSD1 (residues 1-394), NBD1 (395-646), R-domain (647-835), MSD2 (836-1172), NBD2 (1173-1480). Residue position was extracted from the variant name using regex.
 
 ---
 
@@ -90,49 +90,53 @@ The 41 likely pathogenic calls within the varying clinical consequence group wer
 
 | Metric | Value |
 |---|---|
-| Variants | 292 |
-| AUC | 0.946 |
-| Average Precision | 0.990 |
-| Accuracy | 0.94 |
-| MCC | 0.689 |
-| CF-causing F1 | 0.96 |
-| Non CF-causing F1 | 0.77 |
+| Variants (unique) | 259 |
+| AUC | 0.9549 |
+| Average Precision | 0.9924 |
+| Accuracy (threshold 0.564) | 0.927 |
+| MCC (threshold 0.564) | 0.702 |
+| CF-causing F1 (threshold 0.564) | 0.957 |
+| Non CF-causing F1 (threshold 0.564) | 0.740 |
 
-AlphaMissense achieves AUC 0.946 and MCC 0.689 on 292 labelled CFTR variants. MCC is reported alongside AUC because it accounts for all four cells of the confusion matrix and is robust to class imbalance. A value of 0.689 indicates strong agreement with CFTR2 ground truth beyond what accuracy alone would suggest. The weaker F1 on Non CF-causing reflects the imbalance (253 CF-causing vs 39 Non CF-causing). AUC and average precision are the primary metrics for the benchmarking comparison. The calibration curve shows moderate overestimation at high scores, a known property of AlphaMissense on disease-specific subsets.
+Source: `results/phase1/am_validation_metrics.csv`. AlphaMissense achieves AUC 0.9549 and MCC 0.702 (threshold 0.564) on 259 unique labelled CFTR variants. MCC is reported alongside AUC because it accounts for all four cells of the confusion matrix and is robust to class imbalance. A value of 0.702 indicates strong agreement with CFTR2 ground truth beyond what accuracy alone would suggest. The weaker F1 on Non CF-causing reflects the imbalance (226 CF-causing vs 33 Non CF-causing). AUC and average precision are the primary metrics for the benchmarking comparison. The calibration curve shows moderate overestimation at high scores, a known property of AlphaMissense on disease-specific subsets [CITATION NEEDED].
 
 ### 3.3 Predictor comparison
 
+All values in this section are computed on the 254 unique variants with all four scores (221 CF-causing, 33 Non CF-causing; `results/phase1/benchmark_metrics_dedup.csv`, `results/phase1/delong_tests_dedup.csv`).
+
 | Predictor | AUC | Average Precision |
 |---|---|---|
-| AlphaMissense | 0.946 | 0.990 |
-| PolyPhen-2 | 0.826 | 0.959 |
-| CADD | 0.776 | 0.939 |
-| SIFT | 0.678 | 0.909 |
+| AlphaMissense | 0.955 | 0.992 |
+| PolyPhen-2 | 0.811 | 0.956 |
+| CADD | 0.749 | 0.933 |
+| SIFT | 0.670 | 0.911 |
 
-Statistical significance of AUC differences was assessed using DeLong's test [12]:
+Statistical significance of AUC differences was assessed using DeLong's test [12], implemented with the covariance term (Sun and Xu 2014 algorithm; `scripts/phase1_utils_delong.py`):
 
 | Comparison | Z | p-value | |
 |---|---|---|---|
-| AlphaMissense vs PolyPhen-2 | 2.88 | 0.0040 | ** |
-| AlphaMissense vs CADD | 3.28 | 0.0011 | ** |
-| AlphaMissense vs SIFT | 5.87 | <0.0001 | *** |
+| AlphaMissense vs PolyPhen-2 | 3.51 | 0.0004 | *** |
+| AlphaMissense vs CADD | 3.83 | 0.0001 | *** |
+| AlphaMissense vs SIFT | 6.30 | <0.0001 | *** |
 
-All three differences are statistically significant. AlphaMissense outperforms every baseline predictor at p < 0.01. The precision-recall curve is the more informative measure given class imbalance, as ROC-AUC is insensitive to performance on the minority class. AlphaMissense outperforms PolyPhen-2 by 12 AUC points (p = 0.004) and 3 AP points. CADD shows jagged precision at low recall, indicating confident false positive calls at high score thresholds. SIFT, which relies on sequence conservation alone without structural context, performs weakest (p < 0.0001 vs AlphaMissense).
+All three differences are statistically significant. AlphaMissense outperforms every baseline predictor at p < 0.001. The precision-recall curve is the more informative measure given class imbalance, as ROC-AUC is insensitive to performance on the minority class. AlphaMissense outperforms PolyPhen-2 by 14 AUC points (p = 0.0004) and 4 AP points. CADD shows jagged precision at low recall, indicating confident false positive calls at high score thresholds. SIFT, which relies on sequence conservation alone without structural context, performs weakest (p < 0.0001 vs AlphaMissense).
 
 ### 3.4 Ensemble model
 
+Computed on the same 254 unique variants (`results/phase1/ensemble_metrics_dedup.csv`).
+
 | Model | AUC | Average Precision |
 |---|---|---|
-| AlphaMissense alone | 0.946 | 0.990 |
-| Ensemble (AM + CADD + PolyPhen-2) | 0.927 | 0.983 |
+| AlphaMissense alone | 0.955 | 0.992 |
+| Ensemble (AM + CADD + PolyPhen-2) | 0.926 | 0.975 |
 
-The ensemble performs worse than AlphaMissense alone. Logistic regression feature weights after standardisation are: AlphaMissense +1.907, CADD +0.279, PolyPhen-2 -0.117. The model assigns near-zero weight to CADD and a negative weight to PolyPhen-2, indicating that these predictors do not contribute independent information. AlphaMissense already subsumes the signal available from the other tools on this gene.
+The ensemble performs worse than AlphaMissense alone. Logistic regression feature weights after standardisation are: AlphaMissense +2.113, CADD +0.008, PolyPhen-2 -0.049. The model assigns near-zero weight to CADD and a negative weight to PolyPhen-2, indicating that these predictors do not contribute independent information. AlphaMissense already subsumes the signal available from the other tools on this gene.
 
 ### 3.5 Unclassified variant prioritisation
 
-Of 2,564 unclassified variants, 2,411 received AlphaMissense scores. 705 were classified as likely pathogenic, 357 as ambiguous, and 1,349 as likely benign.
+Of 2,564 unclassified variants, 2,009 unique variants received AlphaMissense scores (rows: 2,411). 546 were classified as likely pathogenic (rows: 705), 277 as ambiguous (rows: 357), and 1,186 as likely benign (rows: 1,349) (`results/phase1/unique_variant_counts.csv`).
 
-Of the 705 flagged variants, 7 had gnomAD population frequency data in the VCF, indicating they have been observed in the general population.
+Of the 546 flagged variants, 7 had a 1000 Genomes Phase 3 allele-frequency entry (`AF_TGP`) in the VCF. All seven are singletons or doubletons in 2,504 individuals (AUDIT_RECORD.md:85).
 
 | Variant | AM score | Population AF | ClinVar status |
 |---|---|---|---|
@@ -144,7 +148,7 @@ Of the 705 flagged variants, 7 had gnomAD population frequency data in the VCF, 
 | Arg104Gly | 0.845 | 0.0002 | Uncertain significance |
 | Arg1097Cys | 0.651 | 0.0002 | Conflicting classifications |
 
-All 7 are unresolved in ClinVar. 5 carry an uncertain significance classification. 2 (Leu986Pro, Arg1097Cys) have conflicting classifications from different submitting laboratories. AlphaMissense calls all 7 likely pathogenic. These represent the highest-priority candidates for functional follow-up, combining computational evidence for pathogenicity with observed population frequency and the absence of clinical consensus.
+All 7 are unresolved in ClinVar. 5 carry an uncertain significance classification. 2 (Leu986Pro, Arg1097Cys) have conflicting classifications from different submitting laboratories. AlphaMissense calls all 7 likely pathogenic. The selection of these seven is retracted: it was made on 1000 Genomes Phase 3 allele frequency under the mistaken assumption that the field was gnomAD, and the selection has no basis in the data as originally described (AUDIT_RECORD.md:84-85). The table is retained for traceability only.
 
 ### 3.6 Varying clinical consequence
 
@@ -156,7 +160,7 @@ All 7 are unresolved in ClinVar. 5 carry an uncertain significance classificatio
 | ambiguous | 19 |
 | likely_benign | 12 |
 
-41 of 72 are called likely pathogenic. As a positive control, Arg117His scores 0.299 (likely benign), consistent with its established association with mild phenotype and congenital bilateral absence of the vas deferens rather than classic CF.
+41 of 72 are called likely pathogenic. As a positive control, Arg117His scores 0.299 (likely benign), consistent with its established association with mild phenotype and congenital bilateral absence of the vas deferens rather than classic CF [CITATION NEEDED].
 
 The 41 likely pathogenic variants show non-uniform domain distribution:
 
@@ -172,33 +176,33 @@ The 41 likely pathogenic variants show non-uniform domain distribution:
 
 ### 3.7 Nonsense variants
 
-311 variants could not be converted to single-letter amino acid format and were excluded from AlphaMissense matching. All were nonsense mutations (Ter suffix). Of these, 232 matched CFTR2: 225 as CF-causing, 2 as varying clinical consequence, and 5 as no interpretation available. The 225 CF-causing nonsense variants are consistent with the established mechanism whereby premature stop codons produce truncated, non-functional protein.
+311 variants could not be converted to single-letter amino acid format and were excluded from AlphaMissense matching. 309 are nonsense mutations (Ter suffix) and 2 are stop-loss (Ter1481Tyr, Ter1481Trp). Of these, 222 unique variants matched CFTR2 (rows: 232): 215 as CF-causing (rows: 225), 2 as varying clinical consequence, and 5 as no interpretation available (`results/phase1/unique_variant_counts.csv`). The 215 CF-causing nonsense variants are consistent with the established mechanism whereby premature stop codons produce truncated, non-functional protein.
 
-Two exceptions -- Ser1455Ter and Gln1476Ter -- are classified as varying clinical consequence. Both truncate near the C-terminus of the 1,480 amino acid protein, removing only 25 and 4 residues respectively. Minimal truncation of the C-terminal tail may be tolerated, explaining the clinical uncertainty.
+Two exceptions -- Ser1455Ter and Gln1476Ter -- are classified as varying clinical consequence. Both truncate near the C-terminus of the 1,480 amino acid protein [CITATION NEEDED], removing only 25 and 4 residues respectively. Minimal truncation of the C-terminal tail may be tolerated, explaining the clinical uncertainty.
 
 ---
 
 ## 4. Discussion
 
-AlphaMissense achieves AUC 0.946 on CFTR variants, demonstrating strong agreement with CFTR2 ground truth despite having no access to CF patient data during training. This validates its use as an independent signal for unclassified variants on this gene.
+AlphaMissense achieves AUC 0.9549 on CFTR variants, demonstrating strong agreement with CFTR2 ground truth despite having no access to CF patient data during training. This validates its use as an independent signal for unclassified variants on this gene.
 
-Cheng et al. reported AUC 0.940 for AlphaMissense on a balanced set of 18,924 ClinVar variants across 999 proteins [7]. The AUC of 0.946 obtained here on CFTR-specific variants is consistent with that proteome-wide estimate and slightly exceeds it. This is notable for two reasons. First, the ClinVar benchmark used balanced classes, which is more favourable to AUC than our imbalanced set (253 CF-causing vs 39 Non CF-causing). The fact that we match or exceed their result under a harder evaluation condition suggests AlphaMissense performs at least as well on CFTR as on the average protein in its training distribution. Second, proteome-wide AUC estimates mask gene-level variation. A tool that achieves 0.940 on average may perform substantially worse on specific genes with unusual evolutionary profiles or structural properties. Gene-specific validation, as performed here, is therefore a necessary step before applying AlphaMissense in a disease-specific clinical context.
+Cheng et al. reported AUC 0.940 for AlphaMissense on a balanced set of 18,924 ClinVar variants across 999 proteins [7]. The AUC of 0.9549 obtained here on CFTR-specific variants is consistent with that proteome-wide estimate and slightly exceeds it. This is notable for two reasons. First, the ClinVar benchmark used balanced classes, which is more favourable to AUC than our imbalanced set (226 CF-causing vs 33 Non CF-causing). The fact that we match or exceed their result under a harder evaluation condition suggests AlphaMissense performs at least as well on CFTR as on the average protein in its training distribution. Second, proteome-wide AUC estimates mask gene-level variation. A tool that achieves 0.940 on average may perform substantially worse on specific genes with unusual evolutionary profiles or structural properties. Gene-specific validation, as performed here, is therefore a necessary step before applying AlphaMissense in a disease-specific clinical context.
 
-The performance gap between AlphaMissense and established tools is substantial. PolyPhen-2, the second-best predictor, scores 12 AUC points lower. CADD and SIFT trail further. This gap is likely explained by the depth of representation in AlphaMissense. PolyPhen-2 and SIFT use sequence conservation and limited structural features. CADD integrates genomic annotations but does not model protein structure directly. AlphaMissense draws on a protein language model pre-trained on 703 million protein sequences, capturing evolutionary and structural context at a resolution the other tools do not reach [7]. On a gene with a well-characterised 3D structure and a defined functional architecture, this advantage is expected.
+The performance gap between AlphaMissense and established tools is substantial. PolyPhen-2, the second-best predictor, scores 14 AUC points lower. CADD and SIFT trail further. This gap is likely explained by the depth of representation in AlphaMissense. PolyPhen-2 and SIFT use sequence conservation and limited structural features. CADD integrates genomic annotations but does not model protein structure directly. AlphaMissense draws on a protein language model pre-trained on 703 million protein sequences, capturing evolutionary and structural context at a resolution the other tools do not reach [7]. On a gene with a well-characterised 3D structure and a defined functional architecture, this advantage is expected.
 
 The ensemble result is informative. A logistic regression trained on AlphaMissense, CADD, and PolyPhen-2 performs worse than AlphaMissense alone. The feature weights confirm this: CADD and PolyPhen-2 are assigned near-zero or negative weight. This indicates that the information in these tools is already captured by AlphaMissense, and combining them introduces variance without adding signal. The practical implication is that AlphaMissense alone is the appropriate tool for CFTR missense variant prioritisation.
 
-The 7 priority candidates represent a tractable set for follow-up. All have AlphaMissense scores above 0.65, population frequency evidence from gnomAD, and unresolved ClinVar status. Two (Leu986Pro, Arg1097Cys) have active laboratory disagreement in ClinVar. Consistent computational evidence for pathogenicity from a model validated at AUC 0.946 on this gene strengthens the case for experimental characterisation of these variants.
+The seven variants listed in section 3.5 are not presented as follow-up candidates. Their selection rested on a 1000 Genomes Phase 3 allele-frequency field that was mistaken for gnomAD; all seven are singletons or doubletons in 2,504 individuals, and the selection is retracted (AUDIT_RECORD.md:84-85).
 
 The domain distribution of likely pathogenic calls within the varying clinical consequence group adds biological support to the computational findings. 73% cluster in the membrane-spanning domains. These regions line the chloride channel pore and are directly involved in ion conductance. Missense variants in these domains are likely to disrupt channel function through structural perturbation. The R-domain, which is intrinsically disordered and functions primarily as a regulatory gating domain, tolerates missense variation more readily. This pattern matches established structure-function relationships in CFTR.
 
-Several limitations apply. The validation set is imbalanced (253 CF-causing, 39 Non CF-causing), which inflates accuracy and limits the reliability of Non CF-causing F1 as an evaluation metric. AlphaMissense does not model nonsense, frameshift, or splicing variants, which account for a substantial fraction of pathogenic CFTR alleles including many common ones. Population frequency data was available for only 117 of 3,220 variants, reflecting the rarity of most variants in the cohort. The ensemble cross-validation estimate, based on 286 samples, carries high variance. Findings should be replicated in a larger independent cohort before clinical application.
+Several limitations apply. The validation set is imbalanced (226 CF-causing, 33 Non CF-causing unique variants), which inflates accuracy and limits the reliability of Non CF-causing F1 as an evaluation metric. The comparator benchmark, DeLong tests and ensemble use the 254 unique variants with all four scores; the ensemble cross-validation estimate at this sample size carries high variance. AlphaMissense does not model nonsense, frameshift, or splicing variants, which account for a substantial fraction of pathogenic CFTR alleles including many common ones. Population frequency data was available for only 117 of 3,220 variants, reflecting the rarity of most variants in the cohort. The ensemble cross-validation estimate, based on 286 samples, carries high variance. Findings should be replicated in a larger independent cohort before clinical application.
 
 ---
 
 ## 5. Conclusion
 
-AlphaMissense is a credible tool for prioritising unclassified CFTR missense variants. It outperforms CADD, PolyPhen-2, and SIFT on a disease-specific benchmark, and the ensemble analysis confirms it subsumes the information available from the other tools. Seven unclassified variants are identified as high-priority candidates for functional follow-up based on convergent evidence from computational prediction, population frequency, and ClinVar status. The domain clustering of likely pathogenic calls in the membrane-spanning domains is consistent with CFTR structure and function.
+AlphaMissense is a credible tool for prioritising unclassified CFTR missense variants. It outperforms CADD, PolyPhen-2, and SIFT on a disease-specific benchmark, and the ensemble analysis confirms it subsumes the information available from the other tools. The seven-variant priority set reported in earlier versions is retracted (AUDIT_RECORD.md:84-85). The domain clustering of likely pathogenic calls in the membrane-spanning domains is consistent with CFTR structure and function.
 
 ---
 
