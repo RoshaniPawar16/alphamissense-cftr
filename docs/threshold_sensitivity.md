@@ -3,6 +3,8 @@
 **Date:** 2026-08-02  
 **Branch:** integrity-audit-2026-07
 
+> **Note added 2026-10-24.** The 693 discordant count analysed below is retracted as a finding. At the headline thresholds it sits against an independence expectation of 713.7 (2×2 χ²(1) = 32.4, p = 1.3 × 10⁻⁸; AUDIT_RECORD.md:82). The threshold grid is retained because it documents how the count depends on the cut-offs; it does not establish the count as a result. The AlphaGenome quantile ranks variants against common variants (MAF > 0.01 in any gnomAD v3 population), not against all human variation.
+
 ---
 
 ## Context

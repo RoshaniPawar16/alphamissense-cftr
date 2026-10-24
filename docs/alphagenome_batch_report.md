@@ -1,5 +1,7 @@
 # AlphaGenome Batch Analysis: 7 Unclassified CFTR Variants
 
+> **HISTORICAL DOCUMENT (banner added 2026-10-24).** The seven variants analysed here were selected on 1000 Genomes Phase 3 allele frequency, not gnomAD; the selection is retracted (`docs/AUDIT_RECORD.md:84-85`). All quantile values below used the chromosome-22 calibration and the gene-mask scorer (AUDIT_RECORD.md:75,99-100). The heading "Full 1,278 Ambiguous VUS" in the body should be read as "1,278 AlphaMissense ambiguous-class variants (score 0.34–0.564)"; these variants were not selected on ClinVar status (`audit/COHORT_PROVENANCE.md`). The "SpliceAI v1.3" version in the body is in no results file ([NOT IN REPO]); the 56 "dual mechanism" variants are not a candidate set and do not "warrant functional follow-up" (AUDIT_RECORD.md:99-100). The body is preserved unedited.
+
 **Model:** AlphaGenome v0.6.1  |  **Genome:** hg38  |  **Tissue:** Lung (UBERON:0002048)
 **Outputs scored:** RNA-seq (`GeneMaskLFCScorer`), ATAC-seq (`CenterMaskScorer` 501 bp), Splice site usage (`GeneMaskSplicingScorer`)
 **Window:** 1 Mb centred on variant  |  **Scores:** raw + quantile (rank against common variants, MAF > 0.01 in any gnomAD v3 population)

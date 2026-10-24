@@ -5,6 +5,8 @@
 **Cohort:** 1,278 AM-ambiguous CFTR variants + 7 priority variants = 1,285 total  
 **Version:** alphagenome 0.6.1
 
+> **Note added 2026-10-24.** The "7 priority variants" scored in this document are the set whose selection is retracted (`docs/AUDIT_RECORD.md:84-85`: selected on 1000 Genomes Phase 3 allele frequency, not gnomAD). Their centre-mask scores below are retained as data; the word "priority" is historical and does not denote a current candidate set. The body is unchanged.
+
 ---
 
 ## Summary: the rescore does not materially improve correlation with SpliceAI

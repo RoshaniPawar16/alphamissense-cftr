@@ -1,4 +1,7 @@
 # Positive Control Analysis: 12 CFTR2-confirmed CF-causing Variants in the AM-ambiguous Set
+
+> **RETRACTED (banner added 2026-10-24).** The twelve-variant positive control is retracted per `docs/AUDIT_RECORD.md:90-91`: the result was not significant (p > 0.05), the confidence interval spanned the full range, CF-causing missense variants need not act through splicing, and the median distance to the nearest splice site (58 bp) makes the gene-body maximum systematically elevated for the whole set. The positive control neither confirms nor refutes AlphaGenome's utility. The body below is preserved unedited as a historical record. Figures in it that reference the 693 discordant group, the 58 rescue group, or "functional follow-up" are not current findings.
+
 **Date:** 2026-08-01 (amended 2026-08-02, Check 18)  
 **Context:** Of the 1,278 AM-ambiguous CFTR variants scored by AlphaGenome, 12 are classified as CF-causing by CFTR2. AlphaMissense assigned them ambiguous scores (0.34–0.564), placing them in the Phase 2 cohort despite known pathogenicity. They are the only variants in the 1,278 with a confirmed disease label.
 

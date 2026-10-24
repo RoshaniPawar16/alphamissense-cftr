@@ -3,6 +3,8 @@
 **Branch:** integrity-audit-2026-07  
 **n = 1,278 AM-ambiguous CFTR variants**
 
+> **Note added 2026-10-24.** This document uses the inclusive threshold (SpliceAI ≤ 0.2), giving a discordant cell of 698 against 716.6 expected. With the strict definition used elsewhere (SpliceAI < 0.2) the count is 693 against an independence expectation of 713.7, 2×2 χ²(1) = 32.4, p = 1.3 × 10⁻⁸: the cell is significantly depleted relative to independence, not merely "at or below chance" as stated in the body (AUDIT_RECORD.md:82). The 693 is retracted as a finding; the body below is unchanged.
+
 ---
 
 ## Result

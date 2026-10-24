@@ -2,7 +2,7 @@
 
 **Dataset:** 1,278 ambiguous-class CFTR missense variants (AlphaMissense score 0.34–0.564)
 **Genome build:** hg38  |  **Tissue:** Lung (UBERON:0002048)
-**AlphaGenome version:** v0.6.1  |  **CADD version:** v1.7 (GRCh38)  |  **SpliceAI version:** v1.3 (precomputed, Ensembl VEP plugin)
+**AlphaGenome version:** v0.6.1 (client SDK)  |  **CADD version:** v1.7 (GRCh38)  |  **SpliceAI version:** [NOT IN REPO] (precomputed scores via Ensembl VEP plugin; the API response does not return a version)
 
 ---
 
@@ -52,7 +52,7 @@
 
 > **Audit note.** The SPLICE quantile > 0.95 component of this definition clears 58.4% of the cohort by construction (coding variants ranked against a common-variant background). The 693 discordant count (SPLICE q > 0.95 AND SpliceAI < 0.2, strict) sits at 693 observed vs 713.7 expected under independence (2×2 χ²(1) = 32.4, p = 1.3 × 10⁻⁸; observed below expected; an earlier version stated "717 expected, χ² p = 0.20" which did not reproduce — see AUDIT_RECORD.md). The discordant group is significantly depleted, not at chance level; it cannot support a claim that AlphaGenome detects splice effects invisible to SpliceAI. The 58 rescue group inherits both limitations: the ATAC signal component is more interpretable, but the SPLICE component is not. These figures are retained for audit traceability; they are not interpreted as a validated candidate group.
 
-These variants carry strong DNA regulatory or splicing signals in AlphaGenome that are not flagged by either CADD or SpliceAI. If these signals reflect real biology, they represent variants that current clinical in silico tools would classify as low-risk but which AlphaGenome suggests merit functional follow-up.
+These variants have an AlphaGenome ATAC or SPLICE quantile above 0.95 together with CADD PHRED below 20 and SpliceAI delta below 0.2. Per the audit note above, the group is retained as a count only and is not interpreted as a candidate set.
 
 **Top 10 by ATAC quantile** (deduplicated by protein variant; multiple genomic variants encoding the same amino acid substitution are collapsed to the highest-scoring entry):
 
@@ -93,7 +93,7 @@ Variants where both AlphaGenome and SpliceAI independently detect splice-alterin
 
 **Count: 693 variants** (54.2% of all 1,278)
 
-These variants are the most important for understanding the differences between the two tools. AlphaGenome's `GeneMaskSplicingScorer` uses a broader 1 Mb genomic context and gene-level masking to score how much a variant changes splice site usage patterns across the entire gene, not just canonical splice signals. SpliceAI focuses on the local sequence context (±50 bp) around canonical and cryptic splice sites. Discordance at this scale suggests AlphaGenome is detecting regulatory-level effects on splicing — such as changes in splicing regulatory elements (SREs), exonic splicing enhancers (ESEs), or exonic splicing silencers (ESSs) — that SpliceAI's splice-site-centric model cannot capture.
+This count is retained for traceability only. It is retracted as a finding: observed 693 against an independence expectation of 713.7 (2×2 χ²(1) = 32.4, p = 1.3 × 10⁻⁸; the group is depleted relative to independence; AUDIT_RECORD.md:82). It does not support a claim that AlphaGenome detects splice effects invisible to SpliceAI.
 
 **Top 5 by AlphaGenome SPLICE quantile:**
 
@@ -109,7 +109,7 @@ These variants are the most important for understanding the differences between 
 
 ## 5. Tool Comparison Summary
 
-| Feature | CADD v1.7 | SpliceAI v1.3 | AlphaGenome v0.6.1 |
+| Feature | CADD v1.7 | SpliceAI (version [NOT IN REPO]) | AlphaGenome v0.6.1 |
 |---------|-----------|---------------|-------------------|
 | Score type | Conservation + functional annotation ensemble | Splice site delta score | Quantile score (RNA, ATAC, splice) |
 | Mechanism captured | General deleteriousness | Canonical/cryptic splice sites | Regulatory, chromatin, splicing |
@@ -123,10 +123,8 @@ These variants are the most important for understanding the differences between 
 
 ## 6. Interpretation
 
-The large discordant group reflects a fundamental difference in what each tool measures. SpliceAI is designed to detect disruption of canonical splice donor/acceptor sequences and cryptic splice sites from the surrounding nucleotide context. AlphaGenome's GeneMaskSplicingScorer instead compares predicted exon-level splice usage across the full gene with and without the variant, capturing indirect effects that operate through splicing regulatory elements rather than the splice sites themselves.
-
-For CFTR specifically, where many pathogenic variants are known to cause exon skipping through ESE disruption (e.g. exon 10 and exon 14a skipping), AlphaGenome's broader approach is potentially more mechanistically relevant. The 56 dual-mechanism variants (ATAC q>0.95 AND SPLICE q>0.95, identified in the earlier rescue analysis) that also have low CADD and SpliceAI scores represent the most compelling AlphaGenome-unique findings.
+The discordant count (section 4.3) is not interpreted. The `GeneMaskSplicingScorer` returns a gene-body maximum set by the nearest canonical splice site rather than a variant-specific effect (AUDIT_RECORD.md:99-100), and its quantile ranks coding variants against a common-variant background (MAF > 0.01), which 58.4% of this cohort clears by construction. The 56 dual-mechanism variants identified in the earlier rescue analysis used the same scorer and the chromosome-22 calibration; they are retained as historical context and are not interpreted as a candidate set (docs/alphagenome_batch_report.md).
 
 ---
 
-*Sources: CADD v1.7 GRCh38 via cadd.gs.washington.edu REST API. SpliceAI v1.3 precomputed scores via Ensembl VEP REST API (SpliceAI plugin). AlphaGenome v0.6.1 via Google DeepMind API. Analysis date: 2026-06-02.*
+*Sources: CADD v1.7 GRCh38 via cadd.gs.washington.edu REST API. SpliceAI precomputed scores (version [NOT IN REPO]) via Ensembl VEP REST API (SpliceAI plugin). AlphaGenome v0.6.1 (client SDK) via Google DeepMind API. Analysis date: 2026-06-02. Corrected 2026-10-24: retracted interpretation of the 693 discordant group and of the 58 rescue group removed; SpliceAI version marked as not recorded.*
