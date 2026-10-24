@@ -50,7 +50,7 @@ md = [
     '',
     f'**Dataset:** {n_total} ambiguous-class CFTR missense variants (AlphaMissense score 0.34–0.564)',
     '**Genome build:** hg38  |  **Tissue:** Lung (UBERON:0002048)',
-    '**AlphaGenome version:** v0.6.1  |  **CADD version:** v1.7 (GRCh38)  |  **SpliceAI version:** v1.3 (precomputed, Ensembl VEP plugin)',
+    '**AlphaGenome version:** v0.6.1 (client SDK)  |  **CADD version:** v1.7 (GRCh38)  |  **SpliceAI version:** [NOT IN REPO] (precomputed scores via Ensembl VEP plugin; the API response does not return a version)',
     '',
     '---',
     '',
@@ -108,8 +108,8 @@ md += [
     '',
     f'**Count: {len(ag_resc)} variants** ({100*len(ag_resc)/n_total:.1f}% of all 1,278)',
     '',
-    'These variants carry strong DNA regulatory or splicing signals in AlphaGenome that are not flagged by either CADD or SpliceAI. '
-    'If these signals reflect real biology, they represent variants that current clinical in silico tools would classify as low-risk but which AlphaGenome suggests merit functional follow-up.',
+    'These variants have an AlphaGenome ATAC or SPLICE quantile above 0.95 together with CADD PHRED below 20 and SpliceAI delta below 0.2. '
+    'The group is retained as a count only and is not interpreted as a candidate set (docs/AUDIT_RECORD.md:82).',
     '',
     '**Top 10 by ATAC quantile:**',
     '',
@@ -185,13 +185,13 @@ md += [
     '',
     '## 5. Tool Comparison Summary',
     '',
-    '| Feature | CADD v1.7 | SpliceAI v1.3 | AlphaGenome v0.6.1 |',
+    '| Feature | CADD v1.7 | SpliceAI (version [NOT IN REPO]) | AlphaGenome v0.6.1 |',
     '|---------|-----------|---------------|-------------------|',
     '| Score type | Conservation + functional annotation ensemble | Splice site delta score | Quantile score (RNA, ATAC, splice) |',
     '| Mechanism captured | General deleteriousness | Canonical/cryptic splice sites | Regulatory, chromatin, splicing |',
     '| Context window | Variant-level annotations | ±50 bp | 1 Mb genomic window |',
     '| Tissue specificity | None (genome-wide) | None (gene-level) | Yes (lung UBERON:0002048) |',
-    '| Normalization | PHRED-scaled rank | Raw delta score | Genome-wide quantile rank |',
+    '| Normalization | PHRED-scaled rank | Raw delta score | Quantile rank vs common variants (gnomAD v3, MAF > 0.01) |',
     '| Captures ESE/ESS | No | No | Yes (via gene masking) |',
     '| Captures chromatin effects | No | No | Yes (ATAC scorer) |',
     '',
@@ -199,21 +199,17 @@ md += [
     '',
     '## 6. Interpretation',
     '',
-    'The large discordant group reflects a fundamental difference in what each tool measures. '
-    'SpliceAI is designed to detect disruption of canonical splice donor/acceptor sequences and cryptic splice sites '
-    'from the surrounding nucleotide context. AlphaGenome\'s GeneMaskSplicingScorer instead compares predicted '
-    'exon-level splice usage across the full gene with and without the variant, capturing indirect effects that '
-    'operate through splicing regulatory elements rather than the splice sites themselves.',
-    '',
-    'For CFTR specifically, where many pathogenic variants are known to cause exon skipping through ESE disruption '
-    '(e.g. exon 10 and exon 14a skipping), AlphaGenome\'s broader approach is potentially more mechanistically '
-    'relevant. The 56 dual-mechanism variants (ATAC q>0.95 AND SPLICE q>0.95, identified in the earlier rescue '
-    'analysis) that also have low CADD and SpliceAI scores represent the most compelling AlphaGenome-unique findings.',
+    'The discordant count (section 4.3) is not interpreted: observed 693 against an independence expectation of '
+    '713.7 (2x2 chi-squared(1) = 32.4, p = 1.3e-8; AUDIT_RECORD.md:82). The GeneMaskSplicingScorer returns a '
+    'gene-body maximum set by the nearest canonical splice site rather than a variant-specific effect, and its '
+    'quantile ranks coding variants against a common-variant background (MAF > 0.01). The 56 dual-mechanism '
+    'variants from the earlier rescue analysis used the same scorer and the chromosome-22 calibration and are '
+    'not interpreted as a candidate set.',
     '',
     '---',
     '',
     '*Sources: CADD v1.7 GRCh38 via cadd.gs.washington.edu REST API. '
-    'SpliceAI v1.3 precomputed scores via Ensembl VEP REST API (SpliceAI plugin). '
+    'SpliceAI precomputed scores (version [NOT IN REPO]) via Ensembl VEP REST API (SpliceAI plugin). '
     'AlphaGenome v0.6.1 via Google DeepMind API. '
     'Analysis date: 2026-06-02.*',
 ]

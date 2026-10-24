@@ -59,7 +59,7 @@ if not API_KEY:
 log.info('Loading variants from %s', INPUT_TSV)
 am = pd.read_csv(INPUT_TSV, sep='\t')
 vus = am[am['am_class'] == 'ambiguous'].copy().reset_index(drop=True)
-log.info('Ambiguous (VUS-equivalent) variants: %d', len(vus))
+log.info('AlphaMissense ambiguous-class variants (score 0.34-0.564; not ClinVar VUS): %d', len(vus))
 
 # ── Resume from checkpoint ────────────────────────────────────────────────────
 completed_ids = set()
