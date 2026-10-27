@@ -19,7 +19,9 @@ At each tool's own published threshold or the closest internally-derived thresho
 | SpliceAI | ≥ 0.5 | 1/11 = 9%* | 12/12 = 100% | 0/12 (0%) | Jaganathan et al. 2019 |
 | AlphaMissense | — | — | — | — | not a splice predictor |
 
-*SpliceAI scores are non-zero for only 2/23 variants in this benchmark; see coverage note.
+*SpliceAI scores are non-zero for only 4/23 variants in this benchmark; see coverage note.
+
+> **Corrected 2026-10-27.** Earlier versions of this document stated that SpliceAI scores were non-zero for 2 of 23 variants (zero for 21 of 23). `results/experimental_benchmark.csv`, column `spliceai_max_delta`, has 4 non-zero rows: Gly970Val 0.95, Ile918Met 0.22, Met469Val 0.01 and Arg1070Gln 0.01. SpliceAI is zero for 19 of 23. The counts below are corrected accordingly; no score has changed.
 
 **The gene-mask quantile (GM_q) produces 8 false positives out of 12 confirmed-negative variants.** It correctly identifies 10 of 11 positives but cannot distinguish splice-altering from non-splice-altering variants in this benchmark.
 
@@ -81,13 +83,13 @@ n=23 is too small for reliable bootstrap CIs. AUROC and AUPRC are reported as po
 | SpliceAI | **0.432** | 0.526 | 0.478 | **1.10× (near-chance)** |
 | AlphaMissense | 0.576 | 0.660 | 0.478 | 1.38× |
 
-**SpliceAI AUROC = 0.432 (below chance).** This reflects a coverage problem, not a prediction failure: SpliceAI returns 0 for 21 of 23 variants. The precomputed SpliceAI scores available via Ensembl VEP REST do not cover most of these exon-interior variants. SpliceAI's two non-zero scores (Gly970Val = 0.95, confirmed positive; Ile918Met = 0.22, confirmed negative) are consistent with its design — but the benchmark cannot fairly evaluate SpliceAI with 21/23 missing scores.
+**SpliceAI AUROC = 0.432 (below chance).** This reflects a coverage problem, not a prediction failure: SpliceAI returns 0 for 19 of 23 variants. The precomputed SpliceAI scores available via Ensembl VEP REST do not cover most of these exon-interior variants. SpliceAI's four non-zero scores (Gly970Val = 0.95, confirmed positive; Ile918Met = 0.22, Met469Val = 0.01 and Arg1070Gln = 0.01, all confirmed negative) are consistent with its design — but the benchmark cannot fairly evaluate SpliceAI with 19/23 zero scores.
 
 ---
 
 ## SpliceAI coverage limitation
 
-SpliceAI precomputed scores are not available for 21/23 experimental variants via the Ensembl VEP REST API. These variants are exon-interior missense changes (most at dist ≥ 1 bp from splice sites). SpliceAI's precomputed database covers variants affecting canonical splice site strength; it does not cover all possible exonic variants. The apparent SpliceAI AUROC = 0.432 should not be reported as SpliceAI's performance — it is a coverage artifact.
+SpliceAI precomputed scores are zero for 19/23 experimental variants via the Ensembl VEP REST API. These variants are exon-interior missense changes (most at dist ≥ 1 bp from splice sites). SpliceAI's precomputed database covers variants affecting canonical splice site strength; it does not cover all possible exonic variants. The apparent SpliceAI AUROC = 0.432 should not be reported as SpliceAI's performance — it is a coverage artifact.
 
 ---
 

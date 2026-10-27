@@ -89,7 +89,7 @@ make the case:
   scorers. The AlphaGenome gene-mask quantile gives 0.856 with an interval of
   0.676 to 0.985, and the raw gene-mask score gives 0.860 with an interval of
   0.683 to 0.985. Curves this uncertain cannot be visually compared.
-- SpliceAI returns a delta of exactly 0 for 21 of the 23 rows. Its apparent
+- SpliceAI returns a delta of exactly 0 for 19 of the 23 rows. Its apparent
   AUC of 0.432 measures the coverage of a precomputed score file, not
   prediction, and plotting that curve beside the others would misrepresent it.
 

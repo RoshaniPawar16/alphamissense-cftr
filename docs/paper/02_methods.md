@@ -1,3 +1,4 @@
+> Superseded. The current Methods text is in docs/paper/manuscript.md (2026-10-27).
 # Materials and Methods
 
 **Draft:** 2026-10-24 · **Branch:** paper-prep-2026-10 · Stage 5 of the
