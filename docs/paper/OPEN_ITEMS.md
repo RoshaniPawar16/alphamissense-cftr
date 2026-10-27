@@ -30,6 +30,7 @@ submission.
 | B1 | `results/gnomad_cftr_lookup.csv` has no generating script | A committed script that performs the gnomAD v4 lookup and writes the file, with the query date in a header comment or a provenance row. Until then the 291-of-1,278 figure rests on an orphaned file. |
 | B2 | `results/experimental_benchmark.csv` has no generating script | A committed compilation script, or a provenance note recording how the 23 rows and the `dist_bp` column were produced. |
 | B3 | The AlphaGenome quantile calibration used predates the 18 June 2026 genome-wide switch | Already handled by reporting both calibrations in `results/paper/ag_spliceai_2x2.csv` and `results/paper/concordant_set.csv`. No further action needed, but the manuscript must say which column each number comes from. |
+| B4 | `results/alphagenome/rescore_centermask.csv` has no generating script (produced inline in audit Check 15; described in `docs/rescore_analysis.md` and `audit/checks/CHECK_15_REPORT.md`) | A committed script reproducing the Check 15 inline run, or a provenance note recording its code and run date. |
 
 ## C. [CITATION NEEDED] — references the manuscript will need
 

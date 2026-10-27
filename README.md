@@ -14,6 +14,20 @@ We checked that first. AUC 0.9549 on 259 unique labelled CFTR variants (`results
 
 Requires `cftr2_results.csv` from `cftr2_scraper.ipynb`.
 
+## Repository layout
+
+The paper is `docs/paper/manuscript.md`. Everything else is organised around it.
+
+| Location | What it holds |
+|---|---|
+| `docs/paper/`, `scripts/paper/`, `results/paper/`, `figures/paper/` | The manuscript, its tables, the scripts that produce its analyses and figures, and their outputs |
+| `scripts/`, `results/phase1/`, `results/alphagenome/`, `results/*.csv`, `notebooks/` | The scripts, notebooks and results files the paper's analyses rest on |
+| `scripts/b1_*`, `scripts/b2*`, `scripts/gwas_loci.py`, `results/gwas_modifiers/`, `docs/option_b_draft.md` | Option B: AlphaGenome scoring of CF lung-disease modifier loci |
+| `audit/`, `docs/AUDIT_RECORD.md`, `docs/STATUS.md`, `quarantine/` | The integrity audit trail and project status |
+| `archive/` | Retracted, superseded and side analyses. Each folder has a `MANIFEST.md` mapping old paths to new ones: `archive/retracted-2026-07/`, `archive/superseded-2026-10/`, `archive/side-analyses/`, and the earlier `archive/audit-2026-07/` |
+
+Sections below this one describe the project's history. Some refer to files now in `archive/`.
+
 ## Data provenance
 
 The variant set is the CFTR region of a ClinVar VCF (GRCh38; `##fileDate 2026-04-15`), extracted 21 April 2026 with bcftools (VCF header L79) and annotated with the VEP v115.1 cache carrying ClinVar 202502 annotations. The input is a ClinVar extract: VCF header `##source=ClinVar`, sites-only (no sample columns). Its allele-frequency field is 1000 Genomes Phase 3 (`AF_TGP`); the VCF carries no gnomAD frequencies.
@@ -51,7 +65,7 @@ AlphaMissense is a pathogenicity predictor from Google DeepMind. It assigns a sc
 
 Source: `results/phase1/am_validation_metrics.csv`. AlphaMissense agrees with CFTR2 clinical classifications at AUC 0.9549. The weaker F1 on Non CF-causing is expected. Only 33 such unique variants were available.
 
-**Self-audit correction.** After removing 33 duplicated rows (one-to-many merge on protein variant name), AUC is 0.955 on 259 unique variants (`results/phase1/am_validation_metrics.csv`). The corrected class split is 226 CF-causing vs 33 Non CF-causing. The comparator and ensemble tables below were re-run on the deduplicated cohort on 2026-10-24 (`results/phase1/benchmark_metrics_dedup.csv`, `delong_tests_dedup.csv`, `ensemble_metrics_dedup.csv`); the superseded 286-row values are listed in `docs/AUDIT_RECORD.md`, Corrections (2026-10).
+**Self-audit correction.** After removing 33 duplicated rows (one-to-many merge on protein variant name), AUC is 0.955 on 259 unique variants (`results/phase1/am_validation_metrics.csv`). The corrected class split is 226 CF-causing vs 33 Non CF-causing. The comparator and ensemble tables below were re-run on the deduplicated cohort on 2026-10-24 (`results/phase1/benchmark_metrics_dedup.csv`, `delong_tests_dedup.csv`, `archive/side-analyses/results/phase1/ensemble_metrics_dedup.csv`); the superseded 286-row values are listed in `docs/AUDIT_RECORD.md`, Corrections (2026-10).
 
 Note on class imbalance: 226 CF-causing vs 33 Non CF-causing unique variants (rows before deduplication: 253 vs 39). The overall accuracy is partly inflated by this. The AUC is the more reliable metric here.
 
@@ -70,13 +84,13 @@ The PR curve is the more informative metric here. The 254-variant benchmark set 
 
 CADD and PolyPhen are gene-agnostic. SIFT uses sequence conservation but no structural context. AlphaMissense draws on protein language model representations trained on evolutionary data across the full proteome. On a well-studied gene with a known 3D structure, that depth of representation is the advantage.
 
-![ROC curve comparison -- 4 predictors](figures/roc_4way.png)
+![ROC curve comparison -- 4 predictors](archive/superseded-2026-10/figures/roc_4way.png)
 
-![Precision-recall curve -- 4 predictors](figures/pr_4way.png)
+![Precision-recall curve -- 4 predictors](archive/superseded-2026-10/figures/pr_4way.png)
 
 ### Ensemble model
 
-We tested whether combining AlphaMissense, CADD, and PolyPhen in a logistic regression would outperform AlphaMissense alone. Stratified 5-fold cross-validation on the same 254 unique variants; deduplication precedes fold assignment (`results/phase1/ensemble_metrics_dedup.csv`).
+We tested whether combining AlphaMissense, CADD, and PolyPhen in a logistic regression would outperform AlphaMissense alone. Stratified 5-fold cross-validation on the same 254 unique variants; deduplication precedes fold assignment (`archive/side-analyses/results/phase1/ensemble_metrics_dedup.csv`).
 
 | Model | AUC | AP |
 |---|---|---|
@@ -85,9 +99,9 @@ We tested whether combining AlphaMissense, CADD, and PolyPhen in a logistic regr
 
 The ensemble is worse. Feature weights after scaling: AlphaMissense +2.113, CADD +0.008, PolyPhen -0.049. The model learns to ignore CADD and discount PolyPhen. AlphaMissense already captures what they offer. Adding them introduces noise.
 
-![Ensemble vs AlphaMissense](figures/ensemble_vs_am.png)
+![Ensemble vs AlphaMissense](archive/superseded-2026-10/figures/ensemble_vs_am.png)
 
-![Feature weights](figures/ensemble_weights.png)
+![Feature weights](archive/superseded-2026-10/figures/ensemble_weights.png)
 
 ### Unclassified variants
 
@@ -135,7 +149,7 @@ The remaining 539 flagged variants have no population frequency entry in the VCF
 
 Arg117His scores 0.299 (likely benign). This is consistent with clinical knowledge. R117H is associated with mild phenotypes and CBAVD rather than classic CF. That agreement is a meaningful sanity check on the model.
 
-![AlphaMissense score distribution for varying clinical consequence variants](figures/varying_consequence_plot.png)
+![AlphaMissense score distribution for varying clinical consequence variants](archive/side-analyses/figures/varying_consequence_plot.png)
 
 The plot shows clear separation between classes. The ambiguous variants sit near the thresholds as expected. Val938Gly at ~0.6 is a borderline call worth noting.
 
@@ -151,7 +165,7 @@ The plot shows clear separation between classes. The ambiguous variants sit near
 
 73% cluster in the membrane-spanning domains. These form the chloride channel pore. Mutations there directly disrupt ion conductance. The R-domain has zero — it is intrinsically disordered and more tolerant of missense variation. The domain distribution is not random. It reflects where structural disruption matters most.
 
-![Domain distribution of likely pathogenic varying consequence variants](figures/domain_distribution.png)
+![Domain distribution of likely pathogenic varying consequence variants](archive/side-analyses/figures/domain_distribution.png)
 
 ### Nonsense variants
 
@@ -169,7 +183,7 @@ Two are classified as varying clinical consequence: Ser1455Ter and Gln1476Ter. B
 
 **Method.** Five criteria (PM1, PM2, PP3, BP4, BS3) applied by claude-sonnet-4-6 at temperature 0. PP3 at ClinGen-calibrated strength (supporting, or moderate when computational evidence is strong and concordant) per Pejaver et al. 2022. Evidence restricted to each variant's own data (AlphaMissense score, CADD, PolyPhen, SIFT, allele frequency). Design committed in d4d1f10 before results were run. PP3 calibration finding: LP classification was unreachable under strict 5-criterion combining; adopting the Pejaver 2022 calibrated PP3 strength made LP reachable (`docs/STATUS.md`) [NOT IN REPO: no results/ file supports the PP3 calibration finding].
 
-**Results on 259 deduplicated variants** (`results/acmg_llm/experiment_summary_dedup.json`):
+**Results on 259 deduplicated variants** (`archive/side-analyses/results/acmg_llm/experiment_summary_dedup.json`):
 
 | | |
 |---|---|
@@ -184,7 +198,7 @@ LLM self-consistency (same variant, rephrased prompt, n = 20): 18/20 (90%).
 
 **Interpretation.** The rule layer largely reproduced AlphaMissense's errors and added its own; hard thresholds discard evidence the continuous score retains.
 
-**Status.** Side experiment, not the project's main direction. Script: [`scripts/acmg_llm_experiment.py`](scripts/acmg_llm_experiment.py). Results: [`results/acmg_llm/`](results/acmg_llm/).
+**Status.** Side experiment, not the project's main direction. Script: [`archive/side-analyses/scripts/acmg_llm_experiment.py`](archive/side-analyses/scripts/acmg_llm_experiment.py). Results: [`archive/side-analyses/results/acmg_llm/`](archive/side-analyses/results/acmg_llm/).
 
 ## Limitations
 
@@ -204,13 +218,13 @@ LLM self-consistency (same variant, rephrased prompt, n = 20): 18/20 (90%).
 | `flagged_unclassified.csv` | 546 unique unclassified variants (rows: 705) predicted likely pathogenic. Not committed. |
 | `priority_candidates.csv` | 7 variants with a 1000 Genomes Phase 3 AF entry (selection retracted; AUDIT_RECORD.md:84-85). Not committed. |
 | `varying_consequence_am.csv` | 72 varying consequence variants with AlphaMissense scores. Not committed. |
-| `comparison.ipynb` | 4-predictor benchmark notebook (AlphaMissense, CADD, PolyPhen, SIFT) |
-| `ensemble.ipynb` | Ensemble model notebook |
-| `roc_comparison.png` | AlphaMissense vs CADD ROC curve |
-| `roc_4way.png` | 4-predictor ROC curve comparison |
-| `pr_4way.png` | 4-predictor precision-recall curve comparison |
-| `ensemble_vs_am.png` | Ensemble vs AlphaMissense ROC and PR curves |
-| `ensemble_weights.png` | Logistic regression feature weights |
+| `archive/superseded-2026-10/notebooks/comparison.ipynb` | 4-predictor benchmark notebook (AlphaMissense, CADD, PolyPhen, SIFT) |
+| `archive/superseded-2026-10/notebooks/ensemble.ipynb` | Ensemble model notebook |
+| `archive/superseded-2026-10/figures/roc_comparison.png` | AlphaMissense vs CADD ROC curve |
+| `archive/superseded-2026-10/figures/roc_4way.png` | 4-predictor ROC curve comparison |
+| `archive/superseded-2026-10/figures/pr_4way.png` | 4-predictor precision-recall curve comparison |
+| `archive/superseded-2026-10/figures/ensemble_vs_am.png` | Ensemble vs AlphaMissense ROC and PR curves |
+| `archive/superseded-2026-10/figures/ensemble_weights.png` | Logistic regression feature weights |
 
 ## Dependencies
 

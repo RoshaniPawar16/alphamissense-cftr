@@ -24,7 +24,7 @@ in the manuscript ("Footnotes").
 **Row 1.** Release date, patient count and variant count are rows 2, 3 and 4 of
 the first sheet of `data/cftr2_variants.xlsx` ("Date: 30 January 2026";
 "Number of patients in CFTR2: 122,935"; "Number of variants reported in CFTR2:
-2,092"). The access date is unrecorded: `audit/AUDIT_RECORD.md` Corrections
+2,092"). The access date is unrecorded: `docs/AUDIT_RECORD.md` Corrections
 (2026-10) item 3 states that no download log exists and that the evidence is
 the spreadsheet header, the download URL in `notebooks/cftr2_scraper.ipynb`,
 and the file modification time.

@@ -21,37 +21,37 @@ those figures do not reproduce from the ledger (AUDIT_RECORD.md, Corrections 202
 **Scripts:** `scripts/phase1_build_cohort.py`, `scripts/phase1_benchmark.py`,
 `scripts/phase1_delong.py`, `scripts/phase1_fetch_cadd.py`
 
-**Results:** `results/phase1/` — inputs_cftr2_labels.csv (293 rows),
+**Results:** `results/phase1/` — `archive/superseded-2026-10/results/phase1/inputs_cftr2_labels.csv` (293 rows),
 inputs_cadd_scores.csv (293 rows), inputs_polyphen_sift.csv (2474 rows),
-am_validation_metrics.csv, benchmark_cohort.csv (292 rows) and
+am_validation_metrics.csv, `archive/superseded-2026-10/results/phase1/benchmark_cohort.csv` (292 rows) and
 benchmark_cohort_dedup.csv (259 rows, keep-first on `variant`; added 2026-10-24),
-benchmark_metrics.csv / delong_tests.csv (286 rows, superseded) and
-benchmark_metrics_dedup.csv / delong_tests_dedup.csv / ensemble_metrics_dedup.csv
+`archive/superseded-2026-10/results/phase1/benchmark_metrics.csv` / `archive/superseded-2026-10/results/phase1/delong_tests.csv` (286 rows, superseded) and
+benchmark_metrics_dedup.csv / delong_tests_dedup.csv / `archive/side-analyses/results/phase1/ensemble_metrics_dedup.csv`
 (254 unique variants; added 2026-10-24)
 
 **Verified numbers:**
 - Cohort: 259 deduplicated CFTR2-labelled variants (226 CF-causing, 33 Non CF-causing).
   Source: `results/phase1/benchmark_cohort_dedup.csv`; also
-  `results/acmg_llm/per_variant_log.jsonl` (292 rows, 259 unique by protein variant name)
+  `archive/side-analyses/results/acmg_llm/per_variant_log.jsonl` (292 rows, 259 unique by protein variant name)
 - AM AUC 0.9549, AP 0.9924 on n=259. Source: `results/phase1/am_validation_metrics.csv`
 - Four-tool comparison on n=254 (the 259 minus five unique variants with no CADD score):
   AM 0.9548 / CADD 0.7489 / PolyPhen 0.8109 / SIFT 0.6701 AUC.
   Source: `results/phase1/benchmark_metrics_dedup.csv`
 - DeLong (n=254) AM vs PolyPhen-2 Z=3.51 p=0.0004; vs CADD Z=3.83 p=0.0001;
   vs SIFT Z=6.30 p<0.0001. Source: `results/phase1/delong_tests_dedup.csv`.
-  (Superseded n=286 values in `delong_tests.csv`: 3.32 / 0.0009; 3.56 / 0.0004; 6.78 / <0.0001.
+  (Superseded n=286 values in `archive/superseded-2026-10/results/phase1/delong_tests.csv`: 3.32 / 0.0009; 3.56 / 0.0004; 6.78 / <0.0001.
   An earlier version of this note gave "Z=3.18 p=0.0015" for PolyPhen-2, which is in no results file.)
 
 ---
 
 ## AlphaGenome scoring — 1,278 CFTR variants (COMPLETE)
 
-**Scripts:** `scripts/alphagenome_batch.py`, `scripts/alphagenome_full_cftr.py`,
-`scripts/alphagenome_quantile_scores.py`, `scripts/regenerate_quantiles_genomewide.py`
+**Scripts:** `archive/retracted-2026-07/scripts/alphagenome_batch.py`, `scripts/alphagenome_full_cftr.py`,
+`archive/retracted-2026-07/scripts/alphagenome_quantile_scores.py`, `scripts/regenerate_quantiles_genomewide.py`
 
 **Results:** `results/alphagenome/` — l2diff_scores.csv (1278 data rows),
 quantiles_genomewide_2026-08.csv (1278 rows), rescore_centermask.csv (1285 rows),
-alphagenome_rescue_variants.csv (871 rows)
+`archive/retracted-2026-07/results/alphagenome/alphagenome_rescue_variants.csv` (871 rows)
 
 **Note:** All 1,278 variants in this pipeline are on chr7 (CFTR locus). This is the
 primary cohort; the Option B modifier-loci analysis is a separate variant set.
@@ -72,7 +72,7 @@ of this note attached the count 18 to the CM definition.
 **Finding:** LP was unreachable under strict 5-criterion combining; adopting
 Pejaver 2022 calibrated PP3 strength made LP reachable.  
 Source: [NOT IN REPO] — no calibration analysis file exists under `results/phase1/`
-(checked 2026-10-24); the finding rests on `scripts/acmg_llm_experiment.py` and commit d4d1f10.
+(checked 2026-10-24); the finding rests on `archive/side-analyses/scripts/acmg_llm_experiment.py` and commit d4d1f10.
 
 ---
 

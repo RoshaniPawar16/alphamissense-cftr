@@ -153,7 +153,7 @@ Rare CFTR variants fall outside two established approaches. Genome-wide associat
 
 Variants were taken from the CFTR region of a ClinVar release whose VCF header records `##fileDate=2026-04-15` and `##source=ClinVar`. The region chr7:117,480,000 to 117,670,000 was extracted with bcftools 1.23.1 on 21 April 2026, normalised with `bcftools norm`, and annotated with Ensembl VEP v115.1 against the GRCh38.p14 cache carrying ClinVar 202502 annotations. The file is sites-only and carries no sample columns or patient-level data. Its global allele-frequency field holds the 1000 Genomes Phase 3 frequency. That field is not a gnomAD frequency. A protein-change regular expression applied to the CSQ annotation yielded 3,220 unique protein changes from 5,923 data lines. Clinical labels came from the CFTR2 database release of 30 January 2026, which reports 2,092 variants across 122,935 patients. The download date is [NOT IN REPO]; the earliest evidence of it in the project is a file modification time of 14 May 2026.
 
-<!-- sources: `scripts/cftr2_scraper_analysis.py`; `data/All_Variants_VEP.Gene.vcf`; `data/cftr2_variants.xlsx`; `data/cftr2_results.csv`; `results/phase1/unique_variant_counts.csv`; `audit/COHORT_PROVENANCE.md` -->
+<!-- sources: `notebooks/cftr2_scraper.ipynb`; `scripts/cftr2_scraper_analysis.py`; `data/All_Variants_VEP.Gene.vcf`; `data/cftr2_variants.xlsx`; `data/cftr2_results.csv`; `results/phase1/unique_variant_counts.csv`; `audit/COHORT_PROVENANCE.md` -->
 
 ## AlphaMissense scores
 
