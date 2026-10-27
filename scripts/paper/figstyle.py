@@ -57,7 +57,8 @@ def apply_style() -> None:
     """Set the rcParams every paper figure shares."""
     plt.rcParams.update(
         {
-            "font.family": "Arial",
+            "font.family": "sans-serif",
+            "font.sans-serif": ["Arial", "Liberation Sans", "DejaVu Sans"],
             "font.size": 8.5,
             "axes.labelsize": 9,
             "axes.titlesize": 9,

@@ -64,3 +64,14 @@ and the reference list does not yet hold. Vancouver style, per
 | D2 | Figure text below the 8 pt floor in Figs 1–3 | A layout pass; detailed per element in `docs/paper/FIGURES.md`. |
 | D3 | Three main tables exceeds both comparable papers | A decision on whether Table 3 moves to supporting information. |
 | D4 | Methods placement if it is to precede Results | One sentence in the cover letter, per the journal's "Manuscript Organization" section. |
+
+## E. Added 2026-10-27 with the manuscript rewrite
+
+| # | Item | What resolves it |
+|---|---|---|
+| E0 | **Blocking.** `scripts/alphagenome_full_cftr.py` and `scripts/regenerate_quantiles_genomewide.py` matched AlphaGenome results to variants by position only, so every allele at a multi-allelic position received the maximum score across alleles in its batch. 644 of the 1,278 variants sit at 306 multi-allelic positions; SPLICE raw scores are identical across alleles at 291 of them, and the 501-base centre-mask scores at 249. Eight of the 18 concordant variants are affected (R55T, R55I, H620Q, I906S, E1046V, S1058G, S1058C, L1156F). All AlphaGenome numbers in the manuscript (747, 49, the odds ratios, the 18 and 13, Fig 3, Fig 4, the domain test) are provisional. Both scripts now match on the full variant ID (fixed 2026-10-27). | Rescore the 1,278 with the fixed matching, including the 501-base score, under the current (genome-wide) calibration; rerun the paper scripts; update the manuscript numbers. |
+| E1 | The 18 concordant variants are not mapped to exon boundaries (supersedes A9, A10). Only codon 970 is placed, from its two genomic positions. | A script that fetches the exon coordinates of ENST00000003084 from the Ensembl REST API, records the release, and writes the exon or intron and the distance to the nearest splice site for each of the 18. |
+| E2 | The sentence "We found no published use of AlphaGenome on CFTR" rests on an informal web search. | A dated search of PubMed and bioRxiv for AlphaGenome AND CFTR, with the date and the number of hits recorded here. |
+| E3 | Text in Figs 1, 2 and 4 goes down to 6.3 pt in places, below the PLOS 8 pt floor. | A layout pass before submission. |
+| E4 | Figs 1, 2 and 4 were rendered in a session without Arial (fallback Liberation Sans). | Re-run `scripts/paper/p4_fig1_design.py`, `p4_fig2_roc.py`, `p4_fig4_domain_map.py`, `p4_fig1_flow.py` and `p4_previews.py` on a machine with Arial. |
+| E5 | Domain enrichment of the 18 in MSD2 is reported with five uncorrected and Bonferroni-corrected Fisher tests on 18 variants. | Biological interpretation by Durjya Amonkar; consider whether exon structure explains it once E1 is done. |

@@ -1,4 +1,4 @@
-# Table 3. The concordant set
+# S1 Table. The concordant set
 
 Variants flagged by both AlphaGenome and SpliceAI among the 1,278
 AlphaMissense-ambiguous CFTR missense SNVs. Two definitions are reported.

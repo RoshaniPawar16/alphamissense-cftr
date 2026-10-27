@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Figure 1: study flow for both variant chains.
+"""S1 Fig: study flow for both variant chains (was Figure 1 before 2026-10-27).
 
 Stage 4 of the paper-prep task. Draws the two provenance chains side by side:
 the CFTR2-labelled benchmark chain and the AlphaMissense-ambiguous screening
@@ -22,7 +22,7 @@ Reads : results/phase1/unique_variant_counts.csv
         data/cftr2_results_annotated.csv
         results/alphagenome/alphagenome_full_cftr_results.csv
         results/paper/concordant_set.csv
-Writes: figures/paper/Fig1.tif
+Writes: figures/paper/S1_Fig.tif
         results/paper/fig1_flow_counts.csv
 
 Usage:
@@ -46,7 +46,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from figstyle import INK, MUTED, apply_style, save_tiff  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
-FIG = ROOT / "figures" / "paper" / "Fig1.tif"
+FIG = ROOT / "figures" / "paper" / "S1_Fig.tif"
 COUNTS = ROOT / "results" / "paper" / "fig1_flow_counts.csv"
 
 BOX_EDGE = "#4a4a4a"
@@ -64,7 +64,11 @@ def collect_counts() -> tuple[dict[str, int], list[dict[str, object]]]:
     conc = pd.read_csv(ROOT / "results/paper/concordant_set.csv")
 
     amb = amt[amt["am_class"] == "ambiguous"]
-    above = ((ag["ATAC_quantile_max"] > 0.95) | (ag["SPLICE_SITE_USAGE_quantile_max"] > 0.95))
+    # 2026-10-27: the screening chain now shows how the concordant set arises
+    # (SpliceAI > 0.5 first, then AlphaGenome splice quantile > 0.95). The old
+    # "ATAC or SPLICE > 0.95" box (778) did not match the set definition.
+    sai = ag.merge(pd.read_csv(ROOT / "results/comparator_scores.csv")[["variant_id", "SpliceAI_max_delta"]],
+                   on="variant_id", how="left", validate="one_to_one")["SpliceAI_max_delta"]
     am_row = bm[bm["tool"] == "AlphaMissense"].iloc[0]
 
     c = {
@@ -84,7 +88,7 @@ def collect_counts() -> tuple[dict[str, int], list[dict[str, object]]]:
         "am_table_unique_protein": int(amt["protein_variant"].nunique()),
         "ambiguous_rows": len(amb),
         "ambiguous_unique_protein": int(amb["protein_variant"].nunique()),
-        "above_q95_atac_or_splice": int(above.sum()),
+        "spliceai_gt_0.5": int((sai > 0.5).sum()),
         "concordant_gm": int((conc["in_GM"] == "yes").sum()),
         "concordant_cm": int((conc["in_CM"] == "yes").sum()),
         "overlap_1278_with_3220": int(
@@ -109,8 +113,8 @@ def collect_counts() -> tuple[dict[str, int], list[dict[str, object]]]:
         ("am_table_unique_protein", "data/cftr_alphamissense.tsv", "protein_variant:nunique"),
         ("ambiguous_rows", "data/cftr_alphamissense.tsv", "am_class=='ambiguous':row count"),
         ("ambiguous_unique_protein", "data/cftr_alphamissense.tsv", "am_class=='ambiguous':protein_variant:nunique"),
-        ("above_q95_atac_or_splice", "results/alphagenome/alphagenome_full_cftr_results.csv",
-         "ATAC_quantile_max>0.95 OR SPLICE_SITE_USAGE_quantile_max>0.95"),
+        ("spliceai_gt_0.5", "results/alphagenome/alphagenome_full_cftr_results.csv x "
+         "results/comparator_scores.csv", "SpliceAI_max_delta>0.5"),
         ("concordant_gm", "results/paper/concordant_set.csv", "in_GM=='yes'"),
         ("concordant_cm", "results/paper/concordant_set.csv", "in_CM=='yes'"),
         ("overlap_1278_with_3220", "results/alphagenome/alphagenome_full_cftr_results.csv "
@@ -150,7 +154,7 @@ def side_note(ax, x: float, y: float, text: str) -> None:
 
 
 def main() -> None:
-    """Render Fig1.tif and write the per-box provenance table."""
+    """Render S1_Fig.tif and write the per-box provenance table."""
     c, prov_rows = collect_counts()
 
     apply_style()
@@ -201,11 +205,10 @@ def main() -> None:
          f"({c['am_table_unique_protein']:,} unique protein changes)"),
         (f"{c['ambiguous_rows']:,} AlphaMissense-ambiguous SNVs\n"
          f"({c['ambiguous_unique_protein']:,} unique protein changes)"),
-        (f"{c['above_q95_atac_or_splice']} with AlphaGenome ATAC or\n"
-         f"SPLICE quantile > 0.95"),
-        (f"{c['concordant_gm']} concordant with SpliceAI > 0.5\n"
-         f"(gene mask), of which {c['concordant_cm']} are also\n"
-         f"concordant under the centre mask"),
+        (f"{c['spliceai_gt_0.5']} with SpliceAI > 0.5"),
+        (f"{c['concordant_gm']} also with AlphaGenome splice\n"
+         f"quantile > 0.95; {c['concordant_cm']} also meet\n"
+         f"the narrower 501-base definition"),
     ]
     heights = [12.0, 9.5, 9.5, 12.0]
     for i, (y, txt, h) in enumerate(zip(rys, right, heights)):

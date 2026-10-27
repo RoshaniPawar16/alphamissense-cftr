@@ -113,8 +113,13 @@ def extract_lung_summary(tidy_df, batch_df):
     rows = []
     for _, r in batch_df.iterrows():
         vid = f"{r['CHROM']}:{r['POS']}:{r['REF']}>{r['ALT']}"
-        # Match rows by position string in variant_id
-        vdf = lung[lung['variant_id'].astype(str).str.contains(str(r['POS']), regex=False)]
+        # Exact match on the full variant (chrom:pos:ref>alt). Fixed 2026-10-27:
+        # matching on position alone gave every allele at a position the
+        # maximum score across all alleles at that position in the batch.
+        vdf = lung[lung['variant_id'].astype(str) == vid]
+        if vdf.empty:
+            raise RuntimeError(f'No AlphaGenome rows for {vid}; check the variant_id format '
+                               f'returned by tidy_scores, e.g. {lung["variant_id"].astype(str).iloc[0]!r}')
 
         row = {
             'variant_id':       vid,

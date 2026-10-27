@@ -1,0 +1,6 @@
+domain,residue_start,residue_end,n_ambiguous,pct_of_ambiguous,n_concordant,pct_of_concordant,fisher_odds_ratio,fisher_p_two_sided,source_files
+MSD1,1,394,382,29.9,5,27.8,0.901,1.0,results/alphagenome/alphagenome_full_cftr_results.csv; results/paper/concordant_set.csv
+NBD1,395,646,221,17.3,2,11.1,0.594,0.754,results/alphagenome/alphagenome_full_cftr_results.csv; results/paper/concordant_set.csv
+R-domain,647,835,84,6.6,0,0.0,0.0,0.625,results/alphagenome/alphagenome_full_cftr_results.csv; results/paper/concordant_set.csv
+MSD2,836,1172,345,27.0,11,61.1,4.357,0.00229,results/alphagenome/alphagenome_full_cftr_results.csv; results/paper/concordant_set.csv
+NBD2,1173,1480,246,19.2,0,0.0,0.0,0.0331,results/alphagenome/alphagenome_full_cftr_results.csv; results/paper/concordant_set.csv

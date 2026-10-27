@@ -101,8 +101,13 @@ def extract_lung_new(tidy_df, batch_df):
     rows = []
     for _, r in batch_df.iterrows():
         vid = r['variant_id']
-        pos_str = vid.split(':')[1]
-        vdf = lung[lung['variant_id'].astype(str).str.contains(pos_str, regex=False)]
+        # Exact match on the full variant (chrom:pos:ref>alt). Fixed 2026-10-27:
+        # matching on position alone gave every allele at a position the
+        # maximum score across all alleles at that position in the batch.
+        vdf = lung[lung['variant_id'].astype(str) == vid]
+        if vdf.empty:
+            raise RuntimeError(f'No AlphaGenome rows for {vid}; check the variant_id format '
+                               f'returned by tidy_scores, e.g. {lung["variant_id"].astype(str).iloc[0]!r}')
         row = {'variant_id': vid}
         for otype in ['RNA_SEQ', 'ATAC', 'SPLICE_SITE_USAGE']:
             odf = vdf[vdf['output_type'] == otype]

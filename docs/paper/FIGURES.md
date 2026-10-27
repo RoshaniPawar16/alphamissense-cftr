@@ -1,3 +1,5 @@
+> Superseded. Figure captions now live in docs/paper/manuscript.md; figure numbering changed on 2026-10-27 (old Fig 1 is now S1 Fig; new Figs 1, 2 and 4). (2026-10-27)
+
 # Figures — files, legends and compliance
 
 **Compiled:** 2026-10-24 · **Branch:** paper-prep-2026-10

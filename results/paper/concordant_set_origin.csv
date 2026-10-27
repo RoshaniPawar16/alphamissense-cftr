@@ -1,0 +1,8 @@
+count_name,value,note,source_files
+n_variants,1278,,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
+spliceai_gt_0.5,19,,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
+spliceai_gt_0.5_and_ag_q_gt_0.95,18,,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
+spliceai_gt_0.5_and_ag_q_le_0.95,1,Y1381D,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
+ag_q_gt_0.95,747,,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
+spliceai_gt_0.2,52,,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
+spliceai_exactly_0,766,,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
