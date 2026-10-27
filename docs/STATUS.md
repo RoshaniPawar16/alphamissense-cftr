@@ -1,6 +1,6 @@
 # Project Status
 
-**Branch:** integrity-audit-2026-07  
+**Branch:** main (audit work: tag audit-2026-07)  
 **Last commit:** d4d1f10 (2026-08-19) — PP3 ClinGen SVI calibration  
 **Status prepared:** 2026-08-28
 
