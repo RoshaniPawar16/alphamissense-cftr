@@ -6,11 +6,7 @@
 
 # Authors
 
-[NOT IN REPO: author list]
-
-# Affiliations
-
-[NOT IN REPO: affiliations]
+Roshani Pawar, Durjya Amonkar, Monika Gostic
 
 ---
 
@@ -232,12 +228,6 @@ The external comparison used a 23-row benchmark compiled on 2 August 2026 from t
 All analyses ran on Python 3.13.1 with NumPy 2.4.6, pandas 2.3.3, scikit-learn 1.9.0, SciPy 1.17.1 and Matplotlib 3.10.9. Every random procedure used seed 42 and `numpy.random.default_rng`. Analyses written for this manuscript were new scripts under `scripts/paper/` writing to `results/paper/`; no existing script or results file was modified. Figures were produced at 300 dpi as RGB TIFF files at most 7.5 inches wide, in Arial, with no figure number, title or caption inside the image file. The categorical colours were checked for colour-vision-deficiency separation and for contrast against the figure background, and each series also carries a line style or a marker shape.
 
 <!-- sources: `scripts/paper/figstyle.py`; `scripts/paper/p4_fig1_flow.py`; `scripts/paper/p4_fig2_roc.py`; `scripts/paper/p4_fig3_scatter.py`; `scripts/paper/p4_tables.py`; `results/paper/fig1_flow_counts.csv` -->
-
----
-
-# Acknowledgments
-
-[NOT IN REPO: acknowledgments]
 
 ---
 
