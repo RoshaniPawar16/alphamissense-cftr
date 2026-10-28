@@ -29,6 +29,13 @@ Links to these files inside `audit/`, `docs/AUDIT_RECORD.md`, other archived fil
 | `archive/superseded-2026-10/docs/phase1_reproduction_report.md` | `docs/phase1_reproduction_report.md` | Reproduction of the 292-row and 286-row pipeline | AUDIT_RECORD.md Corrections items 8 and 9 |
 | `archive/superseded-2026-10/results/.comparator_scores_checkpoint.csv` | `results/.comparator_scores_checkpoint.csv` | Intermediate checkpoint from `fetch_comparator_scores.py` | None |
 | `archive/superseded-2026-10/docs/literature_review.md` | `docs/literature_review.md` | References are now verified in `docs/paper/manuscript.md`; the file contains summaries corrected in the 2026-10-27 fact check | None |
+| `archive/superseded-2026-10/results/alphagenome/alphagenome_full_cftr_results.csv` | `results/alphagenome/alphagenome_full_cftr_results.csv` | Position-only matching; see OPEN_ITEMS E0. Archived 2026-10-27 before the rescore with exact allele matching. | `docs/paper/OPEN_ITEMS.md` E0 |
+| `archive/superseded-2026-10/results/alphagenome/quantiles_genomewide_2026-08.csv` | `results/alphagenome/quantiles_genomewide_2026-08.csv` | Position-only matching; see OPEN_ITEMS E0. Archived 2026-10-27; the rescore uses the single calibration the API now serves. | `docs/paper/OPEN_ITEMS.md` E0 |
+| `archive/superseded-2026-10/results/alphagenome/rescore_centermask.csv` | `results/alphagenome/rescore_centermask.csv` | Position-only matching; see OPEN_ITEMS E0. Archived 2026-10-27; replaced by the output of `scripts/paper/p2_alphagenome_centremask.py`. | `docs/paper/OPEN_ITEMS.md` E0 |
+| `archive/superseded-2026-10/results/paper/concordant_set.csv` | `results/paper/concordant_set.csv` | Built from position-matched AlphaGenome scores with chromosome-22 and August columns; copied (not moved) 2026-10-27 before regeneration. Same 18 members. | `docs/paper/OPEN_ITEMS.md` E0 |
+| `archive/superseded-2026-10/results/paper/ag_spliceai_2x2.csv` | `results/paper/ag_spliceai_2x2.csv` | Two-calibration 2x2 from position-matched scores; copied 2026-10-27 before regeneration | `docs/paper/OPEN_ITEMS.md` E0 |
+| `archive/superseded-2026-10/results/paper/concordant_set_origin.csv` | `results/paper/concordant_set_origin.csv` | Counts from position-matched scores; copied 2026-10-27 before regeneration | `docs/paper/OPEN_ITEMS.md` E0 |
+| `archive/superseded-2026-10/results/paper/fig1_flow_counts.csv` | `results/paper/fig1_flow_counts.csv` | Committed copy predated the current `p4_fig1_flow.py` (778 box replaced by SpliceAI > 0.5); copied 2026-10-27 before regeneration | None |
 
 ## Regeneration at the old path
 

@@ -15,7 +15,7 @@ am_table_rows,9721,data/cftr_alphamissense.tsv,row count
 am_table_unique_protein,8597,data/cftr_alphamissense.tsv,protein_variant:nunique
 ambiguous_rows,1278,data/cftr_alphamissense.tsv,am_class=='ambiguous':row count
 ambiguous_unique_protein,1100,data/cftr_alphamissense.tsv,am_class=='ambiguous':protein_variant:nunique
-above_q95_atac_or_splice,778,results/alphagenome/alphagenome_full_cftr_results.csv,ATAC_quantile_max>0.95 OR SPLICE_SITE_USAGE_quantile_max>0.95
+spliceai_gt_0.5,19,results/alphagenome/alphagenome_full_cftr_results.csv x results/comparator_scores.csv,SpliceAI_max_delta>0.5
 concordant_gm,18,results/paper/concordant_set.csv,in_GM=='yes'
 concordant_cm,13,results/paper/concordant_set.csv,in_CM=='yes'
 overlap_1278_with_3220,431,results/alphagenome/alphagenome_full_cftr_results.csv x data/cftr2_results_annotated.csv,protein_variant in am_variant

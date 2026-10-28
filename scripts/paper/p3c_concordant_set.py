@@ -12,14 +12,13 @@ Every variant in the union of the two sets is emitted with one row per
 variant. Columns that no file in this repository can fill are written as the
 literal string [NOT IN REPO]; they are never left blank.
 
-The gene-mask SPLICE quantile used is the chromosome-22-calibrated column from
-the May 2026 scoring run, which is the column both published counts (18 and
-13) were derived from. The genome-wide recalibrated quantile is carried
-alongside it for comparison.
+The gene-mask SPLICE quantile is the single calibration served by the
+AlphaGenome API at the 2026-10-27 rescore (exact allele matching; OPEN_ITEMS
+E0). Changed 2026-10-27: the chromosome-22 and August genome-wide columns are
+no longer carried.
 
 Reads : results/alphagenome/alphagenome_full_cftr_results.csv
         results/alphagenome/rescore_centermask.csv
-        results/alphagenome/quantiles_genomewide_2026-08.csv
         results/comparator_scores.csv
         results/gnomad_cftr_lookup.csv
         results/experimental_benchmark.csv
@@ -103,7 +102,6 @@ def main() -> None:
     """Assemble the union of the GM and CM concordant sets and write it out."""
     gm_src = pd.read_csv(ROOT / "results/alphagenome/alphagenome_full_cftr_results.csv")
     cm_src = pd.read_csv(ROOT / "results/alphagenome/rescore_centermask.csv")
-    gw_src = pd.read_csv(ROOT / "results/alphagenome/quantiles_genomewide_2026-08.csv")
     comp = pd.read_csv(ROOT / "results/comparator_scores.csv")
     gnomad = pd.read_csv(ROOT / "results/gnomad_cftr_lookup.csv")
     expb = pd.read_csv(ROOT / "results/experimental_benchmark.csv")
@@ -123,12 +121,7 @@ def main() -> None:
         how="left",
         validate="one_to_one",
     ).merge(
-        cm_full[["variant_id", "cm_splice_501", "gm_splice_raw", "gm_splice_q"]],
-        on="variant_id",
-        how="left",
-        validate="one_to_one",
-    ).merge(
-        gw_src[["variant_id", "new_SPLICE_SITE_USAGE_raw", "new_SPLICE_SITE_USAGE_quantile"]],
+        cm_full[["variant_id", "cm_splice_501"]],
         on="variant_id",
         how="left",
         validate="one_to_one",
@@ -190,10 +183,8 @@ def main() -> None:
                 "distance_to_nearest_splice_site_bp": MISSING,
                 "alphamissense_score": r["am_pathogenicity"],
                 "alphamissense_class": r["am_class"],
-                "ag_splice_raw_chr22run": r["SPLICE_SITE_USAGE_raw_max"],
-                "ag_splice_quantile_chr22run": r["SPLICE_SITE_USAGE_quantile_max"],
-                "ag_splice_raw_genomewide": r["new_SPLICE_SITE_USAGE_raw"],
-                "ag_splice_quantile_genomewide": r["new_SPLICE_SITE_USAGE_quantile"],
+                "ag_splice_raw": r["SPLICE_SITE_USAGE_raw_max"],
+                "ag_splice_quantile": r["SPLICE_SITE_USAGE_quantile_max"],
                 "ag_centermask_splice_501": r["cm_splice_501"],
                 "spliceai_max_delta": r["SpliceAI_max_delta"],
                 "spliceai_type": spliceai_type(r),

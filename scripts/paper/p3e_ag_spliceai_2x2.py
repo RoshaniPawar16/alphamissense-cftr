@@ -6,13 +6,12 @@ quantile > 0.95 against SpliceAI max delta > 0.2 across the 1,278
 AlphaMissense-ambiguous CFTR missense variants, with a chi-square test of
 independence and an odds ratio with a 95% Woolf (log) confidence interval.
 
-Both quantile calibrations are reported. The chromosome-22-calibrated column
-is the one the project's published counts were derived from; AlphaGenome moved
-to a genome-wide quantile background on 18 June 2026, after this scoring run,
-and the recalibrated column is included as a sensitivity row.
+One calibration is reported: the quantile served by the AlphaGenome API at
+the 2026-10-27 rescore with exact allele matching (OPEN_ITEMS E0). Changed
+2026-10-27: the chromosome-22 row and the August genome-wide sensitivity row
+were removed.
 
 Reads : results/alphagenome/alphagenome_full_cftr_results.csv
-        results/alphagenome/quantiles_genomewide_2026-08.csv
         results/comparator_scores.csv
 Writes: results/paper/ag_spliceai_2x2.csv
 
@@ -92,41 +91,29 @@ def two_by_two(ag_high: np.ndarray, sai_high: np.ndarray, label: str,
 
 
 def main() -> None:
-    """Build both 2x2 tables and write results/paper/ag_spliceai_2x2.csv."""
-    chr22 = pd.read_csv(ROOT / "results/alphagenome/alphagenome_full_cftr_results.csv")
-    gw = pd.read_csv(ROOT / "results/alphagenome/quantiles_genomewide_2026-08.csv")
+    """Build the 2x2 table and write results/paper/ag_spliceai_2x2.csv."""
+    ag = pd.read_csv(ROOT / "results/alphagenome/alphagenome_full_cftr_results.csv")
     comp = pd.read_csv(ROOT / "results/comparator_scores.csv")
 
-    m = chr22.merge(
+    m = ag.merge(
         comp[["variant_id", "SpliceAI_max_delta"]], on="variant_id",
-        how="left", validate="one_to_one",
-    ).merge(
-        gw[["variant_id", "new_SPLICE_SITE_USAGE_quantile"]], on="variant_id",
         how="left", validate="one_to_one",
     )
     assert len(m) == 1278 and m["SpliceAI_max_delta"].notna().all()
-
-    sai_high = (m["SpliceAI_max_delta"] > SAI_THRESHOLD).to_numpy()
+    assert m["SPLICE_SITE_USAGE_quantile_max"].notna().all()
 
     rows = [
         two_by_two(
             (m["SPLICE_SITE_USAGE_quantile_max"] > AG_THRESHOLD).to_numpy(),
-            sai_high,
-            "chromosome-22 background (May 2026 run, primary)",
+            (m["SpliceAI_max_delta"] > SAI_THRESHOLD).to_numpy(),
+            "AlphaGenome API calibration at the 2026-10-27 rescore (only calibration)",
             "SPLICE_SITE_USAGE_quantile_max",
-        ),
-        two_by_two(
-            (m["new_SPLICE_SITE_USAGE_quantile"] > AG_THRESHOLD).to_numpy(),
-            sai_high,
-            "genome-wide background (August 2026 recalibration, sensitivity)",
-            "new_SPLICE_SITE_USAGE_quantile",
         ),
     ]
 
     out = pd.DataFrame(rows)
     out["source_files"] = (
         "results/alphagenome/alphagenome_full_cftr_results.csv; "
-        "results/alphagenome/quantiles_genomewide_2026-08.csv; "
         "results/comparator_scores.csv"
     )
     OUT.parent.mkdir(parents=True, exist_ok=True)
