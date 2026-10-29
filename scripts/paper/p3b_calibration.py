@@ -3,7 +3,8 @@
 
 Stage 3b of the paper-prep task. Treats the AlphaMissense pathogenicity score
 as a probability of the CF-causing class and measures how well it is
-calibrated on the deduplicated validation set (n=259): ten equal-width
+calibrated on the deduplicated validation set (257 variants since the
+2026-10-29 extractor fix; the output filename keeps its earlier n259 label): ten equal-width
 reliability bins over [0, 1] and the Brier score.
 
 AlphaMissense is not trained to emit calibrated probabilities, so this is a

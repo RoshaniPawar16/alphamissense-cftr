@@ -3,8 +3,10 @@
 
 Stage 3a of the paper-prep task. Computes percentile bootstrap confidence
 intervals (2,000 resamples, seed 42) for the four-tool benchmark on the
-deduplicated CFTR2-labelled cohort (n=254, the subset with all four scores)
-and for AlphaMissense alone on the full deduplicated validation set (n=259).
+deduplicated CFTR2-labelled cohort (rows with all four scores) and for
+AlphaMissense alone on the full deduplicated validation set. Since the
+2026-10-29 extractor fix every labelled variant has all four scores, so both
+sets are the same 257 variants.
 
 Point estimates are recomputed here and are expected to reproduce
 results/phase1/benchmark_metrics_dedup.csv and
@@ -86,7 +88,7 @@ def main() -> None:
 
     rows: list[dict[str, object]] = []
 
-    # Cohort 1: n=254, all four tools, rows flagged included by the cohort builder.
+    # Cohort 1: all four tools, rows flagged included by the cohort builder (257 since 2026-10-29).
     four = df[df["included"]].reset_index(drop=True)
     y4 = four["label"].to_numpy()
     for col, tool in TOOLS.items():
@@ -113,7 +115,7 @@ def main() -> None:
             }
         )
 
-    # Cohort 2: n=259, AlphaMissense only (includes the five variants with no CADD score).
+    # Cohort 2: AlphaMissense on every labelled row (equal to cohort 1 since 2026-10-29).
     y259 = df["label"].to_numpy()
     s259 = df["am_pathogenicity"].to_numpy(dtype=float)
     auc, alo, ahi, ap, plo, phi, nv = bootstrap_ci(y259, s259, N_BOOT, SEED)

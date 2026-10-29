@@ -171,9 +171,9 @@ Table 1 lists every data source with its version and date. S1 Fig shows how each
 
 ## Variant inventory and clinical labels
 
-Variants were taken from the CFTR region (chr7:117,480,000 to 117,670,000) of a ClinVar VCF dated 15 April 2026. The region was extracted with bcftools 1.23.1 on 21 April 2026, normalised, and annotated with Ensembl VEP v115.1 [21] against the GRCh38.p14 cache. The file holds variant sites only and no patient data. A regular expression applied to the VEP annotation gave 2,782 unique protein changes. Clinical labels came from the CFTR2 release of 30 January 2026.
+Variants were taken from the CFTR region (chr7:117,480,000 to 117,670,000) of a ClinVar VCF dated 15 April 2026. The region was extracted with bcftools 1.23.1 on 21 April 2026, normalised, and annotated with Ensembl VEP v115.1 [21] against the GRCh38.p14 cache. The file holds variant sites only and no patient data. A regular expression was applied to the VEP annotation to extract protein changes. A protein change was counted only when the full HGVS protein name on a line was a single amino acid substitution (for example p.Arg117His); names that are the start of a frameshift or extension, such as p.Lys163ArgfsTer3, were not counted. This gave 2,782 unique protein changes. Clinical labels came from the CFTR2 release of 30 January 2026.
 
-<!-- sources: `notebooks/cftr2_scraper.ipynb`; `scripts/cftr2_scraper_analysis.py`; `data/All_Variants_VEP.Gene.vcf`; `data/cftr2_variants.xlsx`; `data/cftr2_results.csv`; `results/phase1/unique_variant_counts.csv`; `audit/COHORT_PROVENANCE.md` -->
+<!-- sources: `notebooks/cftr2_scraper.ipynb`; `scripts/cftr2_scraper_analysis.py`; `scripts/hgvsp_names.py`; `data/All_Variants_VEP.Gene.vcf`; `data/cftr2_variants.xlsx`; `data/cftr2_results.csv`; `results/phase1/unique_variant_counts.csv`; `audit/COHORT_PROVENANCE.md` -->
 
 ## AlphaMissense scores
 

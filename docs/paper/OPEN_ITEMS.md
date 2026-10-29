@@ -15,7 +15,7 @@ submission.
 | A1 | CFTR2 download date for the 30 January 2026 release | Table 1 row 1; Methods, variant inventory | The scraper notebook's execution date, a download log, or a dated note from whoever ran it. The spreadsheet header gives the release date, not the access date. |
 | A2 | AlphaMissense dataset version string | Table 1 row 4 | The Zenodo record 8208688 version label as downloaded (the record is versioned). Recording the file checksum against a named Zenodo version would also settle it. |
 | A3 | AlphaMissense download date | Table 1 row 4 | Same as A2: a dated download record. |
-| A4 | CADD v1.7 REST query date | Table 1 row 5; Methods, comparator scores | A timestamp in `results/phase1/inputs_cadd_raw.json`, or a dated run log. The raw response file exists but carries no date field. |
+| A4 | CADD v1.7 REST query date | Table 1 row 5; Methods, comparator scores | A timestamp in `results/phase1/inputs_cadd_raw.json`, or a dated run log. **Partly resolved 2026-10-29:** the file now carries a `query_date` field. Three queries (Leu137Pro, Thr604Ile, Trp1098Cys) are dated 2026-10-29. The other 254 responses were reused from the earlier run and their query date remains unrecorded. |
 | A5 | SpliceAI plugin version and model version | Table 1 row 6; Methods, SpliceAI scoring | The Ensembl VEP REST release that served the responses, which can be recovered by re-querying and recording the response headers. |
 | A6 | SpliceAI query date | Table 1 row 6 | A dated run log for `scripts/fetch_comparator_scores.py` and `scripts/fix_spliceai_scores.py`. |
 | A7 | gnomAD v4 query date | Table 1 row 9; Methods, screening set | A dated run record. No committed script performs this lookup at all, which is the larger half of the problem; see B1. |

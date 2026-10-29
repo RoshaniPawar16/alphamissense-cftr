@@ -7,7 +7,7 @@ maintained by hand in docs/paper/tables/Table1_data_sources.md, because its
 contents are dates and version strings recorded in documents, not computed
 values.
 
-Table 2  four-tool benchmark on n=254: AUC and average precision with
+Table 2  four-tool benchmark on n=257: AUC and average precision with
          bootstrap CI, plus the DeLong comparison against AlphaMissense.
 S1 Table  the concordant set (was Table 3 before 2026-10-27), with gene-mask and centre-mask membership.
 

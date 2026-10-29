@@ -22,23 +22,26 @@ those figures do not reproduce from the ledger (AUDIT_RECORD.md, Corrections 202
 `scripts/phase1_delong.py`, `scripts/phase1_fetch_cadd.py`
 
 **Results:** `results/phase1/` — `archive/superseded-2026-10/results/phase1/inputs_cftr2_labels.csv` (293 rows),
-inputs_cadd_scores.csv (293 rows), inputs_polyphen_sift.csv (2474 rows),
+inputs_cadd_scores.csv (290 data rows), inputs_polyphen_sift.csv (2,473 data rows),
 am_validation_metrics.csv, `archive/superseded-2026-10/results/phase1/benchmark_cohort.csv` (292 rows) and
-benchmark_cohort_dedup.csv (259 rows, keep-first on `variant`; added 2026-10-24),
+benchmark_cohort_dedup.csv (257 rows, keep-first on `variant`; rebuilt 2026-10-29),
 `archive/superseded-2026-10/results/phase1/benchmark_metrics.csv` / `archive/superseded-2026-10/results/phase1/delong_tests.csv` (286 rows, superseded) and
 benchmark_metrics_dedup.csv / delong_tests_dedup.csv / `archive/side-analyses/results/phase1/ensemble_metrics_dedup.csv`
-(254 unique variants; added 2026-10-24)
+(257 unique variants; rebuilt 2026-10-29)
 
 **Verified numbers:**
-- Cohort: 259 deduplicated CFTR2-labelled variants (226 CF-causing, 33 Non CF-causing).
-  Source: `results/phase1/benchmark_cohort_dedup.csv`; also
-  `archive/side-analyses/results/acmg_llm/per_variant_log.jsonl` (292 rows, 259 unique by protein variant name)
-- AM AUC 0.9549, AP 0.9924 on n=259. Source: `results/phase1/am_validation_metrics.csv`
-- Four-tool comparison on n=254 (the 259 minus five unique variants with no CADD score):
-  AM 0.9548 / CADD 0.7489 / PolyPhen 0.8109 / SIFT 0.6701 AUC.
+> **Updated 2026-10-29** after the protein-name extractor fix (`docs/AUDIT_RECORD.md`, Corrections 14). The superseded 259/254 values are archived in `archive/superseded-2026-10/2026-10-29-extractor-fix/`.
+
+- Cohort: 257 deduplicated CFTR2-labelled variants (224 CF-causing, 33 Non CF-causing), all with all four predictor scores.
+  Source: `results/phase1/benchmark_cohort_dedup.csv`. The ACMG/LLM side experiment
+  (`archive/side-analyses/results/acmg_llm/per_variant_log.jsonl`, 292 rows, 259 unique) used the earlier set.
+- AM AUC 0.9550, AP 0.9924 on n=257. Source: `results/phase1/am_validation_metrics.csv`
+- Four-tool comparison on the same n=257:
+  AM 0.9550 / CADD 0.7499 / PolyPhen 0.8120 / SIFT 0.6707 AUC.
   Source: `results/phase1/benchmark_metrics_dedup.csv`
-- DeLong (n=254) AM vs PolyPhen-2 Z=3.51 p=0.0004; vs CADD Z=3.83 p=0.0001;
-  vs SIFT Z=6.30 p<0.0001. Source: `results/phase1/delong_tests_dedup.csv`.
+- DeLong (n=257) AM vs PolyPhen-2 Z=3.49 p=0.0005; vs CADD Z=3.82 p=0.0001;
+  vs SIFT Z=6.29 p<0.0001. Source: `results/phase1/delong_tests_dedup.csv`.
+  (Superseded n=254 values before the extractor fix: AUC 0.9548 / 0.7489 / 0.8109 / 0.6701; Z 3.51 / 3.83 / 6.30.)
   (Superseded n=286 values in `archive/superseded-2026-10/results/phase1/delong_tests.csv`: 3.32 / 0.0009; 3.56 / 0.0004; 6.78 / <0.0001.
   An earlier version of this note gave "Z=3.18 p=0.0015" for PolyPhen-2, which is in no results file.)
 

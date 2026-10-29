@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Figure 2: discrimination (A) and calibration (B) on the deduplicated benchmark.
 
-Panel B added 2026-10-27: reliability diagram of AlphaMissense on the 259
-deduplicated labelled variants, drawn from results/paper/calibration_n259.csv,
+Panel B added 2026-10-27: reliability diagram of AlphaMissense on the
+deduplicated labelled variants (257 since 2026-10-29), drawn from results/paper/calibration_n259.csv,
 with the AlphaMissense ambiguous band (0.34 to 0.564) shaded.
 
 Stage 4 of the paper-prep task. Plots the receiver operating characteristic
-curve of AlphaMissense, PolyPhen-2, CADD and SIFT on the 254 deduplicated
+curve of AlphaMissense, PolyPhen-2, CADD and SIFT on the 257 deduplicated
 CFTR2-labelled variants that carry all four scores, with a bootstrap
 confidence band around the AlphaMissense curve.
 
@@ -119,7 +119,7 @@ def main() -> None:
     ax.text(-0.2, 1.04, "A", transform=ax.transAxes, fontsize=11,
             fontweight="bold", va="bottom")
 
-    # Panel B: reliability diagram for AlphaMissense on n = 259.
+    # Panel B: reliability diagram for AlphaMissense on every labelled variant (n = 257).
     cal = pd.read_csv(CAL)
     bins = cal[cal["bin"].astype(str).str.fullmatch(r"\d+")].copy()
     bins = bins[bins["n"] > 0]
