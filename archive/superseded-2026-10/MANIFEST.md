@@ -35,6 +35,8 @@ Links to these files inside `audit/`, `docs/AUDIT_RECORD.md`, other archived fil
 | `archive/superseded-2026-10/results/paper/concordant_set.csv` | `results/paper/concordant_set.csv` | Built from position-matched AlphaGenome scores with chromosome-22 and August columns; copied (not moved) 2026-10-27 before regeneration. Same 18 members. | `docs/paper/OPEN_ITEMS.md` E0 |
 | `archive/superseded-2026-10/results/paper/ag_spliceai_2x2.csv` | `results/paper/ag_spliceai_2x2.csv` | Two-calibration 2x2 from position-matched scores; copied 2026-10-27 before regeneration | `docs/paper/OPEN_ITEMS.md` E0 |
 | `archive/superseded-2026-10/results/paper/concordant_set_origin.csv` | `results/paper/concordant_set_origin.csv` | Counts from position-matched scores; copied 2026-10-27 before regeneration | `docs/paper/OPEN_ITEMS.md` E0 |
+| `archive/superseded-2026-10/results/experimental_benchmark.csv` | `results/experimental_benchmark.csv` | Gene-mask splice scores from an earlier run with undocumented matching; moved 2026-10-29 before `scripts/paper/p2b_alphagenome_minigene.py` rescored `gm_splice_raw` and `gm_splice_q` with exact variant-ID matching. All other columns carried over unchanged. | `docs/paper/OPEN_ITEMS.md` E0 |
+| `archive/superseded-2026-10/results/paper/minigene_benchmark.csv` | `results/paper/minigene_benchmark.csv` | Minigene AUCs from the earlier gene-mask scores; copied 2026-10-29 before `p3d` was rerun | `docs/paper/OPEN_ITEMS.md` E0 |
 | `archive/superseded-2026-10/results/paper/fig1_flow_counts.csv` | `results/paper/fig1_flow_counts.csv` | Committed copy predated the current `p4_fig1_flow.py` (778 box replaced by SpliceAI > 0.5); copied 2026-10-27 before regeneration | None |
 
 ## Regeneration at the old path

@@ -1,0 +1,17 @@
+analysis,metric,value,source_files
+2x2_one_variant_per_position,n_positions,940,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+2x2_one_variant_per_position,n_draws,500,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+2x2_one_variant_per_position,seed,42,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+2x2_one_variant_per_position,median_cell_a_both_high,37.0,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+2x2_one_variant_per_position,median_odds_ratio,11.5556,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+2x2_one_variant_per_position,odds_ratio_p2.5,7.9882,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+2x2_one_variant_per_position,odds_ratio_p97.5,18.3981,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+2x2_one_variant_per_position,median_fisher_p,7.917e-08,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+2x2_one_variant_per_position,max_fisher_p,3.270e-06,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+2x2_one_variant_per_position,draws_with_zero_cell_correction,0,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+msd2_position_level,n_positions_all,940,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+msd2_position_level,n_positions_concordant,16,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+msd2_position_level,concordant_positions_in_msd2,10,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+msd2_position_level,all_positions_in_msd2,245,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+msd2_position_level,fisher_odds_ratio,4.8865,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv
+msd2_position_level,fisher_p_two_sided,2.124e-03,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv; results/paper/concordant_set.csv

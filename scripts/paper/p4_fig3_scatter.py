@@ -5,8 +5,9 @@ Stage 4 of the paper-prep task. One point per variant for all 1,278
 AlphaMissense-ambiguous CFTR missense SNVs, with the concordant set
 highlighted and the two thresholds that define it drawn as reference lines.
 
-The x axis is the AlphaGenome gene-mask SPLICE quantile from the May 2026
-scoring run, on a reversed logit-like scale: the values crowd against 1.0, so
+The x axis is the AlphaGenome gene-mask SPLICE quantile from the 2026-10-27
+rescore with exact allele matching (results/alphagenome/SOURCE.md), on a
+reversed logit-like scale: the values crowd against 1.0, so
 the axis is plotted as -log10(1 - quantile) to make the upper tail readable.
 The y axis is the SpliceAI maximum delta on its native 0-1 scale.
 

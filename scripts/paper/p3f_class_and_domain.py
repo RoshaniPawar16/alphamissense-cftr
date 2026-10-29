@@ -11,8 +11,11 @@
 
 3. How the concordant set arises: SpliceAI and AlphaGenome counts on the
    1,278 at the concordant-set thresholds (SpliceAI > 0.5, AlphaGenome
-   gene-mask splice quantile > 0.95, chromosome-22 calibration), and the
-   number of SpliceAI zeros.
+   gene-mask splice quantile > 0.95, quantiles as served at the 2026-10-27
+   rescore), and the number of SpliceAI zeros. Added 2026-10-29: how many of
+   the 18 are in the ClinVar extract (exact nucleotide match in the VCF, and
+   protein-change match in data/cftr2_results_annotated.csv) and how many have
+   a gnomAD v4 allele frequency above zero.
 
 Class boundaries are the published AlphaMissense thresholds: likely benign
 below 0.34, ambiguous from 0.34 to 0.564, likely pathogenic above 0.564.
@@ -23,6 +26,9 @@ Reads : results/phase1/benchmark_cohort_dedup.csv
         results/alphagenome/alphagenome_full_cftr_results.csv
         results/paper/concordant_set.csv
         results/comparator_scores.csv
+        results/gnomad_cftr_lookup.csv
+        data/All_Variants_VEP.Gene.vcf
+        data/cftr2_results_annotated.csv
 Writes: results/paper/am_class_by_label.csv
         results/paper/domain_distribution.csv
         results/paper/concordant_set_origin.csv
@@ -47,6 +53,9 @@ OUT_CLASS = ROOT / "results/paper/am_class_by_label.csv"
 OUT_DOMAIN = ROOT / "results/paper/domain_distribution.csv"
 SCORES = ROOT / "results/comparator_scores.csv"
 OUT_ORIGIN = ROOT / "results/paper/concordant_set_origin.csv"
+GNOMAD = ROOT / "results/gnomad_cftr_lookup.csv"
+VCF = ROOT / "data/All_Variants_VEP.Gene.vcf"
+ANNOT = ROOT / "data/cftr2_results_annotated.csv"
 
 LB_MAX, LP_MIN = 0.34, 0.564
 DOMAINS = [
@@ -154,7 +163,46 @@ def concordant_origin() -> pd.DataFrame:
     out.loc[out["count_name"] == "spliceai_gt_0.5_and_ag_q_le_0.95", "note"] = "; ".join(dropped)
     out["source_files"] = ("results/alphagenome/alphagenome_full_cftr_results.csv; "
                            "results/comparator_scores.csv")
-    return out
+    return pd.concat([out, concordant_presence()], ignore_index=True)
+
+
+def vcf_variant_ids(path: Path) -> set[str]:
+    """Return every chrom:pos:ref>alt in the ClinVar VCF, one per alternate allele."""
+    ids: set[str] = set()
+    with open(path, encoding="utf-8", errors="replace") as fh:
+        for line in fh:
+            if line.startswith("#"):
+                continue
+            chrom, pos, _, ref, alts = line.split("\t", 5)[:5]
+            for alt in alts.split(","):
+                ids.add(f"chr{chrom.removeprefix('chr')}:{pos}:{ref}>{alt}")
+    return ids
+
+
+def concordant_presence() -> pd.DataFrame:
+    """Count the 18 in the ClinVar extract and with a gnomAD v4 frequency above zero."""
+    conc = pd.read_csv(CONC)
+    assert len(conc) == 18, f"expected 18 concordant variants, got {len(conc)}"
+    exact = conc[conc["variant_id_hg38"].isin(vcf_variant_ids(VCF))]
+    annot = pd.read_csv(ANNOT)
+    protein = conc[conc["protein_change"].isin(set(annot["am_variant"].dropna()))]
+    protein_only = sorted(set(protein["protein_change"]) - set(exact["protein_change"]))
+    gn = pd.read_csv(GNOMAD)
+    with_af = set(gn.loc[gn["gnomad_max_af"] > 0, "variant_id_project"])
+    af = conc[conc["variant_id_hg38"].isin(with_af)]
+    rows = [
+        {"count_name": "concordant_in_clinvar_vcf_exact_nucleotide", "value": len(exact),
+         "note": "; ".join(exact["protein_change"]),
+         "source_files": "results/paper/concordant_set.csv; data/All_Variants_VEP.Gene.vcf"},
+        {"count_name": "concordant_in_cftr2_annotated_protein_change", "value": len(protein),
+         "note": ("; ".join(protein["protein_change"])
+                  + (f" | protein-change match only: {'; '.join(protein_only)}" if protein_only else "")),
+         "source_files": "results/paper/concordant_set.csv; data/cftr2_results_annotated.csv"},
+        {"count_name": "concordant_in_gnomad_v4_af_gt_0", "value": len(af),
+         "note": "; ".join(af["protein_change"]),
+         "source_files": "results/paper/concordant_set.csv; results/gnomad_cftr_lookup.csv"},
+    ]
+    return pd.DataFrame(rows)
 
 
 def main() -> None:

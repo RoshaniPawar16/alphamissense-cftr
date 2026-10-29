@@ -14,8 +14,7 @@ in the manuscript ("Footnotes").
 | 4 | AlphaMissense precomputed scores, hg38 | Zenodo record 8208688; dataset version string [NOT IN REPO] | [NOT IN REPO]; the CFTR-filtered extract was last modified 2026-05-14 | 9,721 CFTR SNVs; 8,597 unique protein changes; UniProt P13569; transcript ENST00000003084.10 | AlphaMissense pathogenicity score and class |
 | 5 | CADD | v1.7, GRCh38 (REST endpoint `GRCh38-v1.7`) | [NOT IN REPO] | 292 rows fetched for the benchmark chain; 1,278 for the screening chain | CADD PHRED comparator score |
 | 6 | SpliceAI, via the Ensembl VEP REST SpliceAI plugin | Plugin and model version [NOT IN REPO] | [NOT IN REPO] | 1,278 variants scored; 766 re-queried in the zero-score audit | SpliceAI delta scores (AG, AL, DG, DL) |
-| 7 | AlphaGenome | v0.6.1; quantile background = chromosome 22 (run predates the 2026-06-18 switch to a genome-wide background) | Scoring run 2026-05-28 | 1,278 variants | Gene-mask and centre-mask SPLICE, ATAC and RNA scores |
-| 8 | AlphaGenome, genome-wide quantile recalibration | v0.6.1; genome-wide quantile background (post 2026-06-18) | August 2026; exact run date [NOT IN REPO] | 1,278 variants | Sensitivity analysis on every quantile threshold |
+| 7 | AlphaGenome | SDK v0.6.1; calibration served on the scoring date | Scored 2026-10-27 (1,278 variants); minigene rows 2026-10-29 | 1,278 variants; 23 minigene rows | Gene-mask and centre-mask SPLICE, ATAC and RNA scores |
 | 9 | gnomAD v4 | gnomad_r4, GRCh38, position-matched | [NOT IN REPO] | 1,278 looked up; 291 with allele frequency > 0; 952 absent | Population allele frequency for the concordant set |
 | 10 | Minigene literature benchmark | Bergougnoux et al. 2023, J Cyst Fibros 22:515–524; Zhang et al. 2025, Front Genet 16:1543623 | Compiled 2026-08-02 | 23 rows; 22 unique variants; 11 positive, 12 negative | The only external functional validation in the manuscript |
 
@@ -63,17 +62,16 @@ timestamp field.
 `results/spliceai_zero_reclassification.csv` (766 data rows). Neither the plugin
 version nor the SpliceAI model version is recorded.
 
-**Row 7.** Version: `audit/PROVENANCE.md` lines 13–26, recording AlphaGenome
-v0.6.1 as the API for `results/alphagenome/alphagenome_full_cftr_results.csv`.
-Run date and calibration background: `docs/AUDIT_RECORD.md` line 75, which
-dates the run to 28 May 2026 and records that AlphaGenome moved its quantile
-calibration from chromosome 22 to genome-wide on 18 June 2026. Row count:
-`results/alphagenome/alphagenome_full_cftr_results.csv`, 1,278 data rows.
-
-**Row 8.** File: `results/alphagenome/quantiles_genomewide_2026-08.csv`, 1,278
-data rows, named for the month of the run. `docs/AUDIT_RECORD.md` line 75
-records the recalibration but gives no day-level date, and
-`scripts/regenerate_quantiles_genomewide.py` logs none.
+**Row 7 (changed 2026-10-29; replaces the former rows 7 and 8).** SDK version,
+run times and scorers: `results/alphagenome/SOURCE.md`, which records the
+2026-10-27 rescore of `results/alphagenome/alphagenome_full_cftr_results.csv`
+and `results/alphagenome/rescore_centermask.csv` (1,278 data rows each) with
+exact allele matching (`docs/paper/OPEN_ITEMS.md` E0). The 23 minigene rows of
+`results/experimental_benchmark.csv` were rescored on 2026-10-29 by
+`scripts/paper/p2b_alphagenome_minigene.py`. The quantiles are those the
+service returned on the scoring date; the API does not name its background.
+The earlier May 2026 chromosome-22 run and the August 2026 genome-wide
+recalibration are archived in `archive/superseded-2026-10/results/alphagenome/`.
 
 **Row 9.** Version string and method: `audit/COHORT_PROVENANCE.md` line 65,
 recording gnomAD v4 (gnomad_r4, GRCh38, position-matched), 291 of 1,278 with

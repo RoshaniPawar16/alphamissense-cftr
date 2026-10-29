@@ -1,0 +1,8 @@
+analysis,scorer,score_column,threshold,n,n_pos,n_neg,auc,auc_ci_lo,auc_ci_hi,auc_ci_width,ap,ap_baseline,tp,fp,fn,tn,sensitivity,specificity,n_boot,n_boot_valid,seed,note,source_file
+discrimination,AlphaGenome SPLICE quantile (gene mask),gm_splice_q,,23,11,12,0.856061,0.676434,0.984848,0.308415,0.878231,0.478261,,,,,,,2000,2000,42,n=23; see stability note row,results/experimental_benchmark.csv
+discrimination,AlphaGenome SPLICE raw (gene mask),gm_splice_raw,,23,11,12,0.859848,0.683333,0.98493,0.301596,0.878231,0.478261,,,,,,,2000,2000,42,n=23; see stability note row,results/experimental_benchmark.csv
+discrimination,SpliceAI max delta,spliceai_max_delta,,23,11,12,0.431818,0.269231,0.583333,0.314103,0.525692,0.478261,,,,,,,2000,2000,42,n=23; see stability note row,results/experimental_benchmark.csv
+operating_point_2x2,SpliceAI max delta,spliceai_max_delta,> 0.2,23,11,12,,,,,,,1,1,10,11,0.090909,0.916667,,,,,results/experimental_benchmark.csv
+operating_point_2x2,SpliceAI max delta,spliceai_max_delta,> 0.5,23,11,12,,,,,,,1,0,10,12,0.090909,1.0,,,,,results/experimental_benchmark.csv
+operating_point_2x2,AlphaGenome SPLICE quantile (gene mask),gm_splice_q,> 0.95,23,11,12,,,,,,,10,8,1,4,0.909091,0.333333,,,,,results/experimental_benchmark.csv
+stability_note,all,,,23,11,12,,,,,,,,,,,,,2000,,42,"n=23 (11 positive, 12 negative) is too small for a stable AUC: one label flip moves the estimate by roughly 1/(n_pos*n_neg) = 0.0076 per discordant pair and the bootstrap intervals below span a large part of the usable range. No scorer can be selected on this benchmark. SpliceAI delta is exactly 0 for 19 of 23 rows, a precomputed-score coverage gap, so SpliceAI figures here measure coverage as much as prediction.",results/experimental_benchmark.csv
