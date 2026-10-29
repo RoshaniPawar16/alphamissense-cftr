@@ -1,0 +1,15 @@
+bin,bin_lo,bin_hi,n,n_pos,mean_predicted,observed_fraction_positive,calibration_gap_obs_minus_pred,source_file,score_column
+1,0.0,0.1,7,1,0.071243,0.142857,0.071614,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity
+2,0.1,0.2,13,0,0.151815,0.0,-0.151815,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity
+3,0.2,0.3,4,0,0.2213,0.0,-0.2213,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity
+4,0.3,0.4,7,3,0.351743,0.428571,0.076829,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity
+5,0.4,0.5,5,5,0.4649,1.0,0.5351,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity
+6,0.5,0.6,10,9,0.56295,0.9,0.33705,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity
+7,0.6,0.7,14,13,0.641907,0.928571,0.286664,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity
+8,0.7,0.8,25,24,0.76774,0.96,0.19226,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity
+9,0.8,0.9,38,35,0.860295,0.921053,0.060758,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity
+10,0.9,1.0,136,136,0.961095,1.0,0.038905,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity
+SUMMARY,,,259,226,0.792873,0.872587,0.079714,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity
+brier_score,,,259,,,0.053249,,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity
+brier_score_base_rate_model,,,259,,,0.111179,,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity
+expected_calibration_error,,,259,,,0.10179,,results/phase1/benchmark_cohort_dedup.csv,am_pathogenicity

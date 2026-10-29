@@ -8,11 +8,26 @@ are written to results/phase1/inputs_cadd_scores.csv.
 Run ONCE; re-running will overwrite both files.
 
 Source: CADD v1.7 GRCh38 REST API — https://cadd.gs.washington.edu/api
+
+Changed 2026-10-29 (docs/AUDIT_RECORD.md, Corrections 14):
+  - Coordinates come from the VCF line whose first HGVSp token is the
+    complete missense name (scripts/hgvsp_names.py). The old rule could take
+    the coordinates of a frameshift whose truncated name matched.
+  - --reuse PATH reads an earlier inputs_cadd_raw.json. A variant whose
+    coordinates are unchanged and whose earlier query returned HTTP 200 keeps
+    that response; only changed or new coordinates are queried. Every entry
+    records query_date: the UTC date for a new query, or
+    "not recorded (reused from earlier run)".
+  - The script refuses to overwrite existing outputs; archive them first.
 """
 
-import os, re, json, time, logging
+import os, re, json, time, logging, sys, argparse
 import csv
+from datetime import datetime, timezone
 import requests
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from hgvsp_names import name_from_line  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_DIR      = os.path.join(ROOT, 'results', 'phase1')
@@ -29,6 +44,16 @@ log = logging.getLogger(__name__)
 
 os.makedirs(OUT_DIR, exist_ok=True)
 
+_ap = argparse.ArgumentParser()
+_ap.add_argument('--reuse', help='earlier inputs_cadd_raw.json to reuse for unchanged coordinates')
+_args = _ap.parse_args()
+for _p in (RAW_JSON, SCORES_CSV):
+    if os.path.exists(_p):
+        sys.exit(f'ERROR: {_p} exists. Archive it before rerunning.')
+previous = json.load(open(_args.reuse)) if _args.reuse else {}
+TODAY = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+n_reused = n_queried = 0
+
 # ── Load 292 binary variants ──────────────────────────────────────────────────
 with open(ANNOT_CSV) as f:
     annotated = list(csv.DictReader(f))
@@ -39,7 +64,6 @@ binary = [r for r in annotated
 log.info('Binary variants: %d', len(binary))
 
 # ── Extract genomic coordinates from VCF ─────────────────────────────────────
-protein_re = re.compile(r'p\.([A-Z][a-z]{2}\d+[A-Z][a-z]{2})')
 coords = {}
 
 with open(VCF_PATH, encoding='utf-8', errors='replace') as fh:
@@ -50,9 +74,9 @@ with open(VCF_PATH, encoding='utf-8', errors='replace') as fh:
         if len(parts) < 5:
             continue
         chrom, pos, _, ref, alt = parts[0], parts[1], parts[2], parts[3], parts[4]
-        m = protein_re.search(line)
-        if m and m.group(1) not in coords:
-            coords[m.group(1)] = {'chrom': chrom, 'pos': pos, 'ref': ref, 'alt': alt}
+        name = name_from_line(line)
+        if name and name not in coords:
+            coords[name] = {'chrom': chrom, 'pos': pos, 'ref': ref, 'alt': alt}
 
 log.info('VCF coordinates extracted: %d unique protein variants', len(coords))
 
@@ -88,9 +112,21 @@ for i, row in enumerate(binary, 1):
                            'exclusion_reason': 'no_vcf_coordinate'})
         continue
 
-    status, data = fetch_cadd(coord['chrom'], coord['pos'], coord['ref'], coord['alt'])
-    raw_responses[variant_name] = {'status': status, 'data': data,
-                                    'coord': coord}
+    prior = previous.get(variant_name) or {}
+    if variant_name in raw_responses:
+        status, data = raw_responses[variant_name]['status'], raw_responses[variant_name]['data']
+    elif prior.get('coord') == coord and prior.get('status') == 200:
+        status, data = prior['status'], prior['data']
+        raw_responses[variant_name] = {'status': status, 'data': data, 'coord': coord,
+                                        'query_date': prior.get('query_date',
+                                                                'not recorded (reused from earlier run)')}
+        n_reused += 1
+    else:
+        status, data = fetch_cadd(coord['chrom'], coord['pos'], coord['ref'], coord['alt'])
+        raw_responses[variant_name] = {'status': status, 'data': data,
+                                        'coord': coord, 'query_date': TODAY}
+        n_queried += 1
+        time.sleep(REQUEST_DELAY)
 
     phred = None
     if status == 200 and isinstance(data, list) and len(data) > 0:
@@ -113,11 +149,10 @@ for i, row in enumerate(binary, 1):
     if i % 20 == 0:
         log.info('  %d / %d done', i, len(binary))
 
-    time.sleep(REQUEST_DELAY)
-
-log.info('CADD fetch complete. Scored: %d / %d  No coord: %d  No score: %d',
+log.info('CADD fetch complete. Scored: %d / %d  No coord: %d  No score: %d  '
+         'Reused: %d  Queried %s: %d',
          sum(1 for r in scores_out if r['cadd_phred'] != ''),
-         len(binary), len(no_coord), len(no_cadd))
+         len(binary), len(no_coord), len(no_cadd), n_reused, TODAY, n_queried)
 
 # ── Save raw responses ─────────────────────────────────────────────────────────
 with open(RAW_JSON, 'w') as f:

@@ -1,0 +1,260 @@
+variant,determination_2026,included_254,vcf_lines_exact_missense,vcf_lines_nonmissense,a_name_only_from_nonmissense,cftr2_rows,cftr2_cdna,cftr2_det_2026,b_cftr2_row_is_this_missense,cadd_query,cadd_query_is_snv,cadd_query_line_tokens,c_cadd_query_is_this_missense
+Ser13Phe,CF-causing,True,1,0,False,1,c.38C>T,CF-causing,True,117480132:C>T,True,p.Ser13Phe,True
+Arg31Cys,Non CF-causing,True,1,0,False,1,c.91C>T,Non CF-causing,True,117504290:C>T,True,p.Arg31Cys,True
+Trp57Gly,CF-causing,True,1,0,False,1,c.169T>G,CF-causing,True,117509038:T>G,True,p.Trp57Gly,True
+Pro67Leu,CF-causing,True,1,1,False,1,c.200C>T,CF-causing,True,117509069:C>T,True,p.Pro67Leu,True
+Arg75Gln,Non CF-causing,True,1,0,False,1,c.224G>A,Non CF-causing,True,117509093:G>A,True,p.Arg75Gln,True
+Gly85Glu,CF-causing,True,1,0,False,1,c.254G>A,CF-causing,True,117509123:G>A,True,p.Gly85Glu,True
+Gly91Arg,CF-causing,True,1,0,False,1,c.271G>A,CF-causing,True,117509140:G>A,True,p.Gly91Arg,True
+Glu92Lys,CF-causing,True,1,1,False,1,c.274G>A,CF-causing,True,117530899:G>A,True,p.Glu92Lys,True
+Gln98Arg,CF-causing,True,1,0,False,1,c.293A>G,CF-causing,True,117530918:A>G,True,p.Gln98Arg,True
+Tyr109Cys,CF-causing,True,1,0,False,1,c.326A>G,CF-causing,True,117530951:A>G,True,p.Tyr109Cys,True
+Asp110His,CF-causing,True,1,0,False,1,c.328G>C,CF-causing,True,117530953:G>C,True,p.Asp110His,True
+Arg117Cys,CF-causing,True,1,0,False,1,c.349C>T,CF-causing,True,117530974:C>T,True,p.Arg117Cys,True
+Arg117Pro,CF-causing,True,1,0,False,1,c.350G>C,CF-causing,True,117530975:G>C,True,p.Arg117Pro,True
+His139Arg,CF-causing,True,1,0,False,1,c.416A>G,CF-causing,True,117531041:A>G,True,p.His139Arg,True
+Ala141Asp,CF-causing,True,1,0,False,1,c.422C>A,CF-causing,True,117531047:C>A,True,p.Ala141Asp,True
+Ile148Thr,Non CF-causing,True,1,0,False,1,c.443T>C,Non CF-causing,True,117531068:T>C,True,p.Ile148Thr,True
+Gly149Arg,CF-causing,True,1,0,False,1,c.445G>A,CF-causing,True,117531070:G>A,True,p.Gly149Arg,True
+Arg170His,Non CF-causing,True,1,0,False,1,c.509G>A,Non CF-causing,True,117534295:G>A,True,p.Arg170His,True
+Gly178Arg,CF-causing,True,2,0,False,1,c.532G>A,CF-causing,True,117534318:G>A,True,p.Gly178Arg,True
+Glu193Lys,CF-causing,True,1,0,False,1,c.577G>A,CF-causing,True,117534363:G>A,True,p.Glu193Lys,True
+His199Tyr,CF-causing,True,1,0,False,1,c.595C>T,CF-causing,True,117535263:C>T,True,p.His199Tyr,True
+His199Gln,CF-causing,True,1,0,False,1,c.597T>G,CF-causing,True,117535265:T>G,True,p.His199Gln,True
+Pro205Ser,CF-causing,True,1,0,False,1,c.613C>T,CF-causing,True,117535281:C>T,True,p.Pro205Ser,True
+Leu206Trp,CF-causing,True,1,0,False,1,c.617T>G,CF-causing,True,117535285:T>G,True,p.Leu206Trp,True
+Arg297Gln,Non CF-causing,True,1,0,False,1,c.890G>A,Non CF-causing,True,117540120:G>A,True,p.Arg297Gln,True
+Phe311Leu,CF-causing,True,3,0,False,1,c.933C>A|c.933C>G,CF-causing,True,117540163:C>G,True,p.Phe311Leu,True
+Gly314Arg,CF-causing,True,2,0,False,1,c.940G>A|c.940G>C,CF-causing,True,117540170:G>C,True,p.Gly314Arg,True
+Arg334Trp,CF-causing,True,1,0,False,1,c.1000C>T,CF-causing,True,117540230:C>T,True,p.Arg334Trp,True
+Ile336Lys,CF-causing,True,1,0,False,1,c.1007T>A,CF-causing,True,117540237:T>A,True,p.Ile336Lys,True
+Thr338Ile,CF-causing,True,1,0,False,1,c.1013C>T,CF-causing,True,117540243:C>T,True,p.Thr338Ile,True
+Leu346Pro,CF-causing,True,1,0,False,1,c.1037T>C,CF-causing,True,117540267:T>C,True,p.Leu346Pro,True
+Arg347His,CF-causing,True,1,0,False,1,c.1040G>A,CF-causing,True,117540270:G>A,True,p.Arg347His,True
+Arg347Pro,CF-causing,True,1,0,False,1,c.1040G>C,CF-causing,True,117540270:G>C,True,p.Arg347Pro,True
+Arg352Gln,CF-causing,True,1,0,False,1,c.1055G>A,CF-causing,True,117540285:G>A,True,p.Arg352Gln,True
+Ala455Glu,CF-causing,True,1,0,False,1,c.1364C>A,CF-causing,True,117548795:C>A,True,p.Ala455Glu,True
+Val456Phe,CF-causing,True,1,0,False,1,c.1366G>T,CF-causing,True,117548797:G>T,True,p.Val456Phe,True
+Gly458Val,CF-causing,True,1,0,False,1,c.1373G>T,CF-causing,True,117548804:G>T,True,p.Gly458Val,True
+Val470Met,Non CF-causing,True,1,0,False,1,c.1408G>A,Non CF-causing,True,117559479:G>A,True,p.Val470Met,True
+Gly480Cys,CF-causing,True,1,0,False,1,c.1438G>T,CF-causing,True,117559509:G>T,True,p.Gly480Cys,True
+Ser492Phe,CF-causing,True,1,0,False,1,c.1475C>T,CF-causing,True,117559546:C>T,True,p.Ser492Phe,True
+Ile506Val,Non CF-causing,True,1,0,False,1,c.1516A>G,Non CF-causing,True,117559587:A>G,True,p.Ile506Val,True
+Phe508Cys,Non CF-causing,True,1,0,False,1,c.1523T>G,Non CF-causing,True,117559594:T>G,True,p.Phe508Cys,True
+Asp513Gly,CF-causing,True,1,0,False,1,c.1538A>G,CF-causing,True,117559609:A>G,True,p.Asp513Gly,True
+Val520Phe,CF-causing,True,1,0,False,1,c.1558G>T,CF-causing,True,117559629:G>T,True,p.Val520Phe,True
+Ser549Arg,CF-causing,True,3,0,False,1,c.1645A>C|c.1647T>A|c.1647T>G,CF-causing,True,117587799:A>C,True,p.Ser549Arg,True
+Ser549Asn,CF-causing,True,1,0,False,1,c.1646G>A,CF-causing,True,117587800:G>A,True,p.Ser549Asn,True
+Ser549Ile,CF-causing,True,1,0,False,1,c.1646G>T,CF-causing,True,117587800:G>T,True,p.Ser549Ile,True
+Gly551Ser,CF-causing,True,1,0,False,1,c.1651G>A,CF-causing,True,117587805:G>A,True,p.Gly551Ser,True
+Gly551Asp,CF-causing,True,1,0,False,1,c.1652G>A,CF-causing,True,117587806:G>A,True,p.Gly551Asp,True
+Leu558Ser,CF-causing,True,1,1,False,1,c.1673T>C,CF-causing,True,117587827:T>C,True,p.Leu558Ser,True
+Ala559Thr,CF-causing,True,1,0,False,1,c.1675G>A,CF-causing,True,117587829:G>A,True,p.Ala559Thr,True
+Arg560Lys,CF-causing,True,1,0,False,1,c.1679G>A,CF-causing,True,117587833:G>A,True,p.Arg560Lys,True
+Arg560Thr,CF-causing,True,1,0,False,1,c.1679G>C,CF-causing,True,117587833:G>C,True,p.Arg560Thr,True
+Val562Ile,Non CF-causing,True,1,0,False,1,c.1684G>A,Non CF-causing,True,117590357:G>A,True,p.Val562Ile,True
+Tyr563Asn,CF-causing,True,1,0,False,1,c.1687T>A,CF-causing,True,117590360:T>A,True,p.Tyr563Asn,True
+Tyr569Asp,CF-causing,True,1,0,False,1,c.1705T>G,CF-causing,True,117590378:T>G,True,p.Tyr569Asp,True
+Tyr569Cys,CF-causing,True,1,0,False,1,c.1706A>G,CF-causing,True,117590379:A>G,True,p.Tyr569Cys,True
+Leu571Ser,CF-causing,True,1,0,False,1,c.1712T>C,CF-causing,True,117590385:T>C,True,p.Leu571Ser,True
+Asp572Asn,CF-causing,True,1,0,False,1,c.1714G>A,CF-causing,True,117590387:G>A,True,p.Asp572Asn,True
+Pro574His,CF-causing,True,1,0,False,1,c.1721C>A,CF-causing,True,117590394:C>A,True,p.Pro574His,True
+Gly576Ala,Non CF-causing,True,1,0,False,1,c.1727G>C,Non CF-causing,True,117590400:G>C,True,p.Gly576Ala,True
+Ile601Phe,CF-causing,True,1,1,False,1,c.1801A>T,CF-causing,True,117591968:A>T,True,p.Ile601Phe,True
+Leu610Ser,CF-causing,True,1,0,False,1,c.1829T>C,CF-causing,True,117591996:T>C,True,p.Leu610Ser,True
+Ala613Thr,CF-causing,True,1,0,False,1,c.1837G>A,CF-causing,True,117592004:G>A,True,p.Ala613Thr,True
+Ile618Thr,CF-causing,True,1,0,False,1,c.1853T>C,CF-causing,True,117592020:T>C,True,p.Ile618Thr,True
+Leu619Ser,CF-causing,True,1,0,False,1,c.1856T>C,CF-causing,True,117592023:T>C,True,p.Leu619Ser,True
+His620Pro,CF-causing,True,1,0,False,1,c.1859A>C,CF-causing,True,117592026:A>C,True,p.His620Pro,True
+Gly628Arg,CF-causing,True,2,0,False,1,c.1882G>C|c.1882G>A,CF-causing,True,117592049:G>A,True,p.Gly628Arg,True
+Leu633Pro,CF-causing,True,1,0,False,1,c.1898T>C,CF-causing,True,117592065:T>C,True,p.Leu633Pro,True
+Arg668Cys,Non CF-causing,True,1,0,False,1,c.2002C>T,Non CF-causing,True,117592169:C>T,True,p.Arg668Cys,True
+Val754Met,Non CF-causing,True,1,0,False,1,c.2260G>A,Non CF-causing,True,117592427:G>A,True,p.Val754Met,True
+Ile807Met,Non CF-causing,True,1,0,False,1,c.2421A>G,Non CF-causing,True,117592588:A>G,True,p.Ile807Met,True
+Tyr913Cys,CF-causing,True,1,0,False,1,c.2738A>G,CF-causing,True,117603612:A>G,True,p.Tyr913Cys,True
+Tyr917Cys,CF-causing,True,1,0,False,1,c.2750A>G,CF-causing,True,117603624:A>G,True,p.Tyr917Cys,True
+Met952Ile,Non CF-causing,True,3,0,False,1,c.2856G>A|c.2856G>C,Non CF-causing,True,117603730:G>C,True,p.Met952Ile,True
+Leu967Ser,Non CF-causing,True,1,0,False,1,c.2900T>C,Non CF-causing,True,117603774:T>C,True,p.Leu967Ser,True
+Leu997Phe,Non CF-causing,True,1,0,False,1,c.2991G>C,Non CF-causing,True,117610521:G>C,True,p.Leu997Phe,True
+Ile1005Arg,CF-causing,True,1,0,False,1,c.3014T>G,CF-causing,True,117610544:T>G,True,p.Ile1005Arg,True
+Ala1006Glu,CF-causing,True,1,0,False,1,c.3017C>A,CF-causing,True,117610547:C>A,True,p.Ala1006Glu,True
+Pro1013Leu,Non CF-causing,True,1,0,False,1,c.3038C>T,Non CF-causing,True,117610568:C>T,True,p.Pro1013Leu,True
+Gly1061Arg,CF-causing,True,2,0,False,1,c.3181G>A|c.3181G>C,CF-causing,True,117611622:G>C,True,p.Gly1061Arg,True
+Leu1065Pro,CF-causing,True,1,0,False,1,c.3194T>C,CF-causing,True,117611635:T>C,True,p.Leu1065Pro,True
+Leu1065Arg,CF-causing,True,1,0,False,1,c.3194T>G,CF-causing,True,117611635:T>G,True,p.Leu1065Arg,True
+Arg1066Cys,CF-causing,True,1,0,False,1,c.3196C>T,CF-causing,True,117611637:C>T,True,p.Arg1066Cys,True
+Arg1066His,CF-causing,True,1,0,False,1,c.3197G>A,CF-causing,True,117611638:G>A,True,p.Arg1066His,True
+Arg1066Leu,CF-causing,True,1,0,False,1,c.3197G>T,CF-causing,True,117611638:G>T,True,p.Arg1066Leu,True
+Arg1070Pro,CF-causing,True,1,0,False,1,c.3209G>C,CF-causing,True,117611650:G>C,True,p.Arg1070Pro,True
+Leu1077Pro,CF-causing,True,1,0,False,1,c.3230T>C,CF-causing,True,117611671:T>C,True,p.Leu1077Pro,True
+Trp1098Arg,CF-causing,True,1,0,False,1,c.3292T>C,CF-causing,True,117611733:T>C,True,p.Trp1098Arg,True
+Met1101Lys,CF-causing,True,1,0,False,1,c.3302T>A,CF-causing,True,117611743:T>A,True,p.Met1101Lys,True
+Met1101Arg,CF-causing,True,1,0,False,1,c.3302T>G,CF-causing,True,117611743:T>G,True,p.Met1101Arg,True
+Arg1162Leu,Non CF-causing,True,1,0,False,1,c.3485G>T,Non CF-causing,True,117627538:G>T,True,p.Arg1162Leu,True
+Ile1234Val,CF-causing,True,1,0,False,1,c.3700A>G,CF-causing,True,117627753:A>G,True,p.Ile1234Val,True
+Ser1235Arg,Non CF-causing,True,1,0,False,1,c.3705T>G,Non CF-causing,True,117627758:T>G,True,p.Ser1235Arg,True
+Gly1244Glu,CF-causing,True,1,0,False,1,c.3731G>A,CF-causing,True,117642451:G>A,True,p.Gly1244Glu,True
+Gly1249Glu,CF-causing,True,1,0,False,1,c.3746G>A,CF-causing,True,117642466:G>A,True,p.Gly1249Glu,True
+Ser1251Asn,CF-causing,True,1,0,False,1,c.3752G>A,CF-causing,True,117642472:G>A,True,p.Ser1251Asn,True
+Ser1255Pro,CF-causing,True,1,0,False,1,c.3763T>C,CF-causing,True,117642483:T>C,True,p.Ser1255Pro,True
+Trp1282Arg,CF-causing,True,1,0,False,1,c.3844T>C,CF-causing,True,117642564:T>C,True,p.Trp1282Arg,True
+Arg1283Met,CF-causing,True,1,0,False,1,c.3848G>T,CF-causing,True,117642568:G>T,True,p.Arg1283Met,True
+Asn1303Lys,CF-causing,True,2,1,False,1,c.3909C>G,CF-causing,True,117652877:C>G,True,p.Asn1303Lys,True
+Gly1349Asp,CF-causing,True,1,0,False,1,c.4046G>A,CF-causing,True,117664770:G>A,True,p.Gly1349Asp,True
+Leu15Pro,CF-causing,True,1,0,False,1,c.44T>C,CF-causing,True,117480138:T>C,True,p.Leu15Pro,True
+Gly27Arg,CF-causing,True,1,0,False,1,c.79G>A,CF-causing,True,117504278:G>A,True,p.Gly27Arg,True
+Gly27Glu,CF-causing,True,1,0,False,1,c.80G>A,CF-causing,True,117504279:G>A,True,p.Gly27Glu,True
+Gln30Pro,CF-causing,True,1,0,False,1,c.89A>C,CF-causing,True,117504288:A>C,True,p.Gln30Pro,True
+Ala46Asp,CF-causing,True,1,0,False,1,c.137C>A,CF-causing,True,117504336:C>A,True,p.Ala46Asp,True
+Ser50Pro,CF-causing,True,1,0,False,1,c.148T>C,CF-causing,True,117504347:T>C,True,p.Ser50Pro,True
+Glu56Lys,CF-causing,True,1,0,False,1,c.166G>A,CF-causing,True,117509035:G>A,True,p.Glu56Lys,True
+Trp57Arg,CF-causing,True,1,0,False,1,c.169T>C,CF-causing,True,117509038:T>C,True,p.Trp57Arg,True
+Glu60Lys,CF-causing,True,1,0,False,1,c.178G>A,CF-causing,True,117509047:G>A,True,p.Glu60Lys,True
+Ala72Asp,CF-causing,True,1,0,False,1,c.215C>A,CF-causing,True,117509084:C>A,True,p.Ala72Asp,True
+Arg74Gln,Non CF-causing,True,1,0,False,1,c.221G>A,Non CF-causing,True,117509090:G>A,True,p.Arg74Gln,True
+Gly85Arg,CF-causing,True,1,0,False,1,c.253G>A|c.253G>C,CF-causing,True,117509122:G>C,True,p.Gly85Arg,True
+Gly85Val,CF-causing,True,1,0,False,1,c.254G>T,CF-causing,True,117509123:G>T,True,p.Gly85Val,True
+Tyr89Cys,Non CF-causing,True,1,0,False,1,c.266A>G,Non CF-causing,True,117509135:A>G,True,p.Tyr89Cys,True
+Ala96Glu,CF-causing,True,1,0,False,1,c.287C>A,CF-causing,True,117530912:C>A,True,p.Ala96Glu,True
+Gln98Pro,CF-causing,True,1,0,False,1,c.293A>C,CF-causing,True,117530918:A>C,True,p.Gln98Pro,True
+Pro99Leu,CF-causing,True,1,0,False,1,c.296C>T,CF-causing,True,117530921:C>T,True,p.Pro99Leu,True
+Leu102Pro,CF-causing,True,1,0,False,1,c.305T>C,CF-causing,True,117530930:T>C,True,p.Leu102Pro,True
+Leu102Arg,CF-causing,True,1,0,False,1,c.305T>G,CF-causing,True,117530930:T>G,True,p.Leu102Arg,True
+Ile105Asn,CF-causing,True,1,0,False,1,c.314T>A,CF-causing,True,117530939:T>A,True,p.Ile105Asn,True
+Ser108Phe,CF-causing,True,1,0,False,1,c.323C>T,CF-causing,True,117530948:C>T,True,p.Ser108Phe,True
+Tyr109Asn,CF-causing,True,1,0,False,1,c.325T>A,CF-causing,True,117530950:T>A,True,p.Tyr109Asn,True
+Tyr109His,CF-causing,True,1,0,False,1,c.325T>C,CF-causing,True,117530950:T>C,True,p.Tyr109His,True
+Asp110Tyr,CF-causing,True,1,0,False,1,c.328G>T,CF-causing,True,117530953:G>T,True,p.Asp110Tyr,True
+Glu116Lys,CF-causing,True,1,0,False,1,c.346G>A,CF-causing,True,117530971:G>A,True,p.Glu116Lys,True
+Ile125Thr,Non CF-causing,True,1,0,False,1,c.374T>C,Non CF-causing,True,117530999:T>C,True,p.Ile125Thr,True
+Gly126Asp,CF-causing,True,1,0,False,1,c.377G>A,CF-causing,True,117531002:G>A,True,p.Gly126Asp,True
+Leu137Pro,CF-causing,False,1,1,False,1,c.410T>C,CF-causing,True,117531034:CTCCTACA>C,False,p.Leu137ProfsTer14,False
+His139Leu,CF-causing,True,1,0,False,1,c.416A>T,CF-causing,True,117531041:A>T,True,p.His139Leu,True
+His147Pro,CF-causing,True,1,0,False,1,c.440A>C,CF-causing,True,117531065:A>C,True,p.His147Pro,True
+Ile148Asn,CF-causing,True,1,0,False,1,c.443T>A,CF-causing,True,117531068:T>A,True,p.Ile148Asn,True
+Met150Arg,CF-causing,True,1,0,False,1,c.449T>G,CF-causing,True,117531074:T>G,True,p.Met150Arg,True
+Met150Lys,CF-causing,True,1,0,False,1,c.449T>A,CF-causing,True,117531074:T>A,True,p.Met150Lys,True
+Met152Leu,Non CF-causing,True,1,0,False,1,c.454A>T,Non CF-causing,True,117531079:A>T,True,p.Met152Leu,True
+Ala155Pro,CF-causing,True,1,0,False,1,c.463G>C,CF-causing,True,117531088:G>C,True,p.Ala155Pro,True
+Tyr161Asp,CF-causing,True,1,0,False,1,c.481T>G,CF-causing,True,117531106:T>G,True,p.Tyr161Asp,True
+Lys162Glu,CF-causing,True,1,0,False,1,c.484A>G,CF-causing,True,117531109:A>G,True,p.Lys162Glu,True
+Thr164Pro,CF-causing,True,1,0,False,1,c.490A>C,CF-causing,True,117534276:A>C,True,p.Thr164Pro,True
+Leu165Ser,CF-causing,True,1,0,False,1,c.494T>C,CF-causing,True,117534280:T>C,True,p.Leu165Ser,True
+Leu167Arg,CF-causing,True,1,0,False,1,c.500T>G,CF-causing,True,117534286:T>G,True,p.Leu167Arg,True
+Phe191Val,CF-causing,True,1,0,False,1,c.571T>G,CF-causing,True,117534357:T>G,True,p.Phe191Val,True
+Asp192Asn,CF-causing,True,1,0,False,1,c.574G>A,CF-causing,True,117534360:G>A,True,p.Asp192Asn,True
+Asp192Gly,CF-causing,True,1,0,False,1,c.575A>G,CF-causing,True,117534361:A>G,True,p.Asp192Gly,True
+Gly194Arg,CF-causing,True,2,0,False,1,c.580G>A|c.580G>C,CF-causing,True,117535248:G>A,True,p.Gly194Arg,True
+His199Arg,CF-causing,True,1,0,False,1,c.596A>G,CF-causing,True,117535264:A>G,True,p.His199Arg,True
+Phe200Ile,CF-causing,True,1,0,False,1,c.598T>A,CF-causing,True,117535266:T>A,True,p.Phe200Ile,True
+Pro205Leu,CF-causing,True,1,0,False,1,c.614C>T,CF-causing,True,117535282:C>T,True,p.Pro205Leu,True
+Glu217Gly,Non CF-causing,True,1,0,False,1,c.650A>G,Non CF-causing,True,117535318:A>G,True,p.Glu217Gly,True
+Gly226Arg,CF-causing,True,2,0,False,1,c.676G>A|c.676G>C,CF-causing,True,117535344:G>A,True,p.Gly226Arg,True
+Leu227Arg,CF-causing,True,1,0,False,1,c.680T>G,CF-causing,True,117535348:T>G,True,p.Leu227Arg,True
+Val232Asp,CF-causing,True,1,0,False,1,c.695T>A,CF-causing,True,117535363:T>A,True,p.Val232Asp,True
+Ala234Asp,CF-causing,True,1,0,False,1,c.701C>A,CF-causing,True,117535369:C>A,True,p.Ala234Asp,True
+Gln237His,CF-causing,True,1,0,False,1,c.711G>C,CF-causing,True,117535379:G>C,True,p.Gln237His,True
+Glu292Lys,CF-causing,True,1,0,False,1,c.874G>A,CF-causing,True,117540104:G>A,True,p.Glu292Lys,True
+Leu293Pro,CF-causing,True,1,0,False,1,c.878T>C,CF-causing,True,117540108:T>C,True,p.Leu293Pro,True
+Leu320Val,Non CF-causing,True,1,0,False,1,c.958T>G,Non CF-causing,True,117540188:T>G,True,p.Leu320Val,True
+Arg334Leu,CF-causing,True,1,0,False,1,c.1001G>T,CF-causing,True,117540231:G>T,True,p.Arg334Leu,True
+Ser341Pro,CF-causing,True,1,0,False,1,c.1021T>C,CF-causing,True,117540251:T>C,True,p.Ser341Pro,True
+Gln359Arg,CF-causing,True,1,0,False,1,c.1076A>G,CF-causing,True,117540306:A>G,True,p.Gln359Arg,True
+Trp361Arg,CF-causing,True,2,0,False,1,c.1081T>A|c.1081T>C,CF-causing,True,117540311:T>A,True,p.Trp361Arg,True
+Ser364Pro,CF-causing,True,1,0,False,1,c.1090T>C,CF-causing,True,117540320:T>C,True,p.Ser364Pro,True
+Val392Gly,CF-causing,True,1,0,False,1,c.1175T>G,CF-causing,True,117542074:T>G,True,p.Val392Gly,True
+Gly424Ser,Non CF-causing,True,1,0,False,1,c.1270G>A,Non CF-causing,True,117548701:G>A,True,p.Gly424Ser,True
+Ile444Ser,CF-causing,True,1,0,False,1,c.1331T>G,CF-causing,True,117548762:T>G,True,p.Ile444Ser,True
+Gln452Pro,CF-causing,True,1,0,False,1,c.1355A>C,CF-causing,True,117548786:A>C,True,p.Gln452Pro,True
+Leu453Ser,CF-causing,True,1,0,False,1,c.1358T>C,CF-causing,True,117548789:T>C,True,p.Leu453Ser,True
+Val456Ala,CF-causing,True,1,0,False,1,c.1367T>C,CF-causing,True,117548798:T>C,True,p.Val456Ala,True
+Ala457Pro,CF-causing,True,1,0,False,1,c.1369G>C,CF-causing,True,117548800:G>C,True,p.Ala457Pro,True
+Gly463Asp,CF-causing,True,1,0,False,1,c.1388G>A,CF-causing,True,117548819:G>A,True,p.Gly463Asp,True
+Lys464Glu,CF-causing,True,1,0,False,1,c.1390A>G,CF-causing,True,117548821:A>G,True,p.Lys464Glu,True
+Lys464Asn,CF-causing,True,1,0,False,1,c.1392G>T,CF-causing,True,117548823:G>T,True,p.Lys464Asn,True
+Thr465Asn,CF-causing,True,1,0,False,1,c.1394C>A,CF-causing,True,117559465:C>A,True,p.Thr465Asn,True
+Leu467Pro,CF-causing,True,1,0,False,1,c.1400T>C,CF-causing,True,117559471:T>C,True,p.Leu467Pro,True
+Glu474Lys,CF-causing,True,1,0,False,1,c.1420G>A,CF-causing,True,117559491:G>A,True,p.Glu474Lys,True
+Gly480Ser,CF-causing,True,1,0,False,1,c.1438G>A,CF-causing,True,117559509:G>A,True,p.Gly480Ser,True
+Gly480Asp,CF-causing,True,1,0,False,1,c.1439G>A,CF-causing,True,117559510:G>A,True,p.Gly480Asp,True
+Gln493Leu,CF-causing,True,1,0,False,1,c.1478A>T,CF-causing,True,117559549:A>T,True,p.Gln493Leu,True
+Gln493Arg,CF-causing,True,1,0,False,1,c.1478A>G,CF-causing,True,117559549:A>G,True,p.Gln493Arg,True
+Trp496Gly,CF-causing,False,0,1,True,1,c.1486T>G,CF-causing,True,117559556:CT>C,False,p.Trp496GlyfsTer31,False
+Trp496Arg,CF-causing,True,1,0,False,1,c.1486T>C,CF-causing,True,117559557:T>C,True,p.Trp496Arg,True
+Ile497Ser,CF-causing,True,1,0,False,1,c.1490T>G,CF-causing,True,117559561:T>G,True,p.Ile497Ser,True
+Gly500Asp,CF-causing,True,1,0,False,1,c.1499G>A,CF-causing,True,117559570:G>A,True,p.Gly500Asp,True
+Thr501Ile,CF-causing,True,1,0,False,1,c.1502C>T,CF-causing,True,117559573:C>T,True,p.Thr501Ile,True
+Ile502Thr,CF-causing,True,1,0,False,1,c.1505T>C,CF-causing,True,117559576:T>C,True,p.Ile502Thr,True
+Ile506Leu,CF-causing,True,1,0,False,1,c.1516A>C,CF-causing,True,117559587:A>C,True,p.Ile506Leu,True
+Ile506Thr,CF-causing,True,1,0,False,1,c.1517T>C,CF-causing,True,117559588:T>C,True,p.Ile506Thr,True
+Ile506Ser,CF-causing,True,1,0,False,1,c.1517T>G,CF-causing,True,117559588:T>G,True,p.Ile506Ser,True
+Arg516Gly,CF-causing,True,1,0,False,1,c.1546A>G,CF-causing,True,117559617:A>G,True,p.Arg516Gly,True
+Tyr517Cys,CF-causing,True,1,0,False,1,c.1550A>G,CF-causing,True,117559621:A>G,True,p.Tyr517Cys,True
+Cys524Arg,CF-causing,True,1,0,False,1,c.1570T>C,CF-causing,True,117559641:T>C,True,p.Cys524Arg,True
+Gln552Pro,CF-causing,True,1,0,False,1,c.1655A>C,CF-causing,True,117587809:A>C,True,p.Gln552Pro,True
+Arg555Gly,CF-causing,True,1,0,False,1,c.1663A>G,CF-causing,True,117587817:A>G,True,p.Arg555Gly,True
+Arg560Gly,CF-causing,True,1,0,False,1,c.1678A>G,CF-causing,True,117587832:A>G,True,p.Arg560Gly,True
+Arg560Ser,CF-causing,True,2,0,False,1,c.1680A>C|c.1680A>T,CF-causing,True,117590353:A>T,True,p.Arg560Ser,True
+Ala561Glu,CF-causing,True,1,0,False,1,c.1682C>A,CF-causing,True,117590355:C>A,True,p.Ala561Glu,True
+Tyr563Asp,CF-causing,True,1,0,False,1,c.1687T>G,CF-causing,True,117590360:T>G,True,p.Tyr563Asp,True
+Tyr563His,CF-causing,True,1,0,False,1,c.1687T>C,CF-causing,True,117590360:T>C,True,p.Tyr563His,True
+Ala566Asp,CF-causing,True,1,0,False,1,c.1697C>A,CF-causing,True,117590370:C>A,True,p.Ala566Asp,True
+Asp579Tyr,CF-causing,True,1,0,False,1,c.1735G>T,CF-causing,True,117590408:G>T,True,p.Asp579Tyr,True
+Phe587Ile,CF-causing,True,1,0,False,1,c.1759T>A,CF-causing,True,117590432:T>A,True,p.Phe587Ile,True
+Cys590Tyr,CF-causing,True,1,0,False,1,c.1769G>A,CF-causing,True,117591936:G>A,True,p.Cys590Tyr,True
+Leu594Pro,CF-causing,True,1,0,False,1,c.1781T>C,CF-causing,True,117591948:T>C,True,p.Leu594Pro,True
+Ile601Thr,CF-causing,True,1,0,False,1,c.1802T>C,CF-causing,True,117591969:T>C,True,p.Ile601Thr,True
+Val603Phe,CF-causing,True,1,0,False,1,c.1807G>T,CF-causing,True,117591974:G>T,True,p.Val603Phe,True
+Thr604Ile,CF-causing,False,1,1,False,1,c.1811C>T,CF-causing,True,117591977:AC>A,False,p.Thr604IlefsTer7,False
+His609Arg,CF-causing,True,1,0,False,1,c.1826A>G,CF-causing,True,117591993:A>G,True,p.His609Arg,True
+Gly622Val,CF-causing,False,0,1,True,1,c.1865G>T,CF-causing,True,117592030:AG>A,False,p.Gly622ValfsTer41,False
+Gly628Ala,CF-causing,True,1,0,False,1,c.1883G>C,CF-causing,True,117592050:G>C,True,p.Gly628Ala,True
+Asp836Tyr,Non CF-causing,True,1,0,False,1,c.2506G>T,Non CF-causing,True,117594945:G>T,True,p.Asp836Tyr,True
+Val920Met,Non CF-causing,True,1,0,False,1,c.2758G>A,Non CF-causing,True,117603632:G>A,True,p.Val920Met,True
+Leu927Pro,CF-causing,True,1,0,False,1,c.2780T>C,CF-causing,True,117603654:T>C,True,p.Leu927Pro,True
+Ser945Leu,CF-causing,True,1,0,False,1,c.2834C>T,CF-causing,True,117603708:C>T,True,p.Ser945Leu,True
+His954Pro,CF-causing,True,1,0,False,1,c.2861A>C,CF-causing,True,117603735:A>C,True,p.His954Pro,True
+Gly970Arg,CF-causing,True,1,0,False,1,c.2908G>C,CF-causing,True,117603782:G>C,True,p.Gly970Arg,True
+Gly970Asp,CF-causing,True,1,0,False,1,c.2909G>A,CF-causing,True,117606674:G>A,True,p.Gly970Asp,True
+Asp979Val,CF-causing,True,1,0,False,1,c.2936A>T,CF-causing,True,117606701:A>T,True,p.Asp979Val,True
+Asp993Tyr,CF-causing,True,1,0,False,1,c.2977G>T,CF-causing,True,117606742:G>T,True,p.Asp993Tyr,True
+Asp993Gly,CF-causing,True,1,0,False,1,c.2978A>G,CF-causing,True,117606743:A>G,True,p.Asp993Gly,True
+Gly1003Glu,CF-causing,True,1,0,False,1,c.3008G>A,CF-causing,True,117610538:G>A,True,p.Gly1003Glu,True
+Val1008Asp,CF-causing,True,1,0,False,1,c.3023T>A,CF-causing,True,117610553:T>A,True,p.Val1008Asp,True
+Pro1021Leu,CF-causing,True,1,0,False,1,c.3062C>T,CF-causing,True,117610592:C>T,True,p.Pro1021Leu,True
+Ile1027Thr,Non CF-causing,True,1,0,False,1,c.3080T>C,Non CF-causing,True,117610610:T>C,True,p.Ile1027Thr,True
+Thr1036Asn,CF-causing,True,1,0,False,1,c.3107C>A,CF-causing,True,117610637:C>A,True,p.Thr1036Asn,True
+Glu1044Gly,CF-causing,True,1,0,False,1,c.3131A>G,CF-causing,True,117610661:A>G,True,p.Glu1044Gly,True
+Thr1053Ile,Non CF-causing,True,1,0,False,1,c.3158C>T,Non CF-causing,True,117611599:C>T,True,p.Thr1053Ile,True
+His1054Asp,CF-causing,True,1,0,False,1,c.3160C>G,CF-causing,True,117611601:C>G,True,p.His1054Asp,True
+Ala1067Pro,CF-causing,True,1,0,False,1,c.3199G>C,CF-causing,True,117611640:G>C,True,p.Ala1067Pro,True
+Phe1078Ser,CF-causing,True,1,0,False,1,c.3233T>C,CF-causing,True,117611674:T>C,True,p.Phe1078Ser,True
+His1085Pro,CF-causing,True,1,0,False,1,c.3254A>C,CF-causing,True,117611695:A>C,True,p.His1085Pro,True
+Thr1086Ile,CF-causing,True,1,0,False,1,c.3257C>T,CF-causing,True,117611698:C>T,True,p.Thr1086Ile,True
+Ala1087Pro,CF-causing,True,1,0,False,1,c.3259G>C,CF-causing,True,117611700:G>C,True,p.Ala1087Pro,True
+Asn1088Asp,CF-causing,True,1,0,False,1,c.3262A>G,CF-causing,True,117611703:A>G,True,p.Asn1088Asp,True
+Trp1098Cys,CF-causing,False,2,1,False,1,c.3294G>C|c.3294G>T,CF-causing,True,117611733:TG>T,False,p.Trp1098CysfsTer4,False
+Gln1100Pro,CF-causing,True,1,0,False,1,c.3299A>C,CF-causing,True,117611740:A>C,True,p.Gln1100Pro,True
+Glu1104Lys,CF-causing,True,1,0,False,1,c.3310G>A,CF-causing,True,117611751:G>A,True,p.Glu1104Lys,True
+Glu1104Val,CF-causing,True,1,0,False,1,c.3311A>T,CF-causing,True,117611752:A>T,True,p.Glu1104Val,True
+Ser1118Phe,CF-causing,True,1,0,False,1,c.3353C>T,CF-causing,True,117611794:C>T,True,p.Ser1118Phe,True
+Ile1139Val,Non CF-causing,True,1,0,False,1,c.3415A>G,Non CF-causing,True,117614660:A>G,True,p.Ile1139Val,True
+Met1140Lys,CF-causing,True,1,0,False,1,c.3419T>A,CF-causing,True,117614664:T>A,True,p.Met1140Lys,True
+Ser1159Pro,CF-causing,True,1,0,False,1,c.3475T>C,CF-causing,True,117627528:T>C,True,p.Ser1159Pro,True
+Ser1159Phe,CF-causing,True,1,0,False,1,c.3476C>T,CF-causing,True,117627529:C>T,True,p.Ser1159Phe,True
+Val1240Gly,CF-causing,True,1,0,False,1,c.3719T>G,CF-causing,True,117642439:T>G,True,p.Val1240Gly,True
+Gly1249Arg,CF-causing,True,2,0,False,1,c.3745G>A|c.3745G>C,CF-causing,True,117642465:G>A,True,p.Gly1249Arg,True
+Gly1265Val,CF-causing,True,1,0,False,1,c.3794G>T,CF-causing,True,117642514:G>T,True,p.Gly1265Val,True
+Ile1269Asn,CF-causing,True,1,0,False,1,c.3806T>A,CF-causing,True,117642526:T>A,True,p.Ile1269Asn,True
+Asp1270Tyr,CF-causing,True,1,0,False,1,c.3808G>T,CF-causing,True,117642528:G>T,True,p.Asp1270Tyr,True
+Trp1282Gly,CF-causing,True,1,0,False,1,c.3844T>G,CF-causing,True,117642564:T>G,True,p.Trp1282Gly,True
+Arg1283Ser,CF-causing,True,1,0,False,1,c.3849G>C,CF-causing,True,117642569:G>C,True,p.Arg1283Ser,True
+Ala1319Glu,CF-causing,True,1,0,False,1,c.3956C>A,CF-causing,True,117652924:C>A,True,p.Ala1319Glu,True
+Leu1324Pro,CF-causing,True,1,0,False,1,c.3971T>C,CF-causing,True,117664695:T>C,True,p.Leu1324Pro,True
+Leu1335Pro,CF-causing,True,1,0,False,1,c.4004T>C,CF-causing,True,117664728:T>C,True,p.Leu1335Pro,True
+Met1354Arg,CF-causing,True,1,0,False,1,c.4061T>G,CF-causing,True,117664785:T>G,True,p.Met1354Arg,True
+Ile1366Asn,CF-causing,True,1,0,False,1,c.4097T>A,CF-causing,True,117664821:T>A,True,p.Ile1366Asn,True
+His1375Asn,Non CF-causing,True,1,0,False,1,c.4123C>A,Non CF-causing,True,117664847:C>A,True,p.His1375Asn,True
+His1375Pro,CF-causing,True,1,0,False,1,c.4124A>C,CF-causing,True,117664848:A>C,True,p.His1375Pro,True
+Ile1398Ser,CF-causing,True,1,0,False,1,c.4193T>G,CF-causing,True,117665515:T>G,True,p.Ile1398Ser,True
+Ser1426Phe,Non CF-causing,True,1,0,False,1,c.4277C>T,Non CF-causing,True,117666942:C>T,True,p.Ser1426Phe,True

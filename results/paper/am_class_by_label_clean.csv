@@ -1,0 +1,4 @@
+am_class,n_labelled,n_cf_causing,n_non_cf_causing,note
+likely_benign,27,1,26,dropped: 
+ambiguous,13,12,1,dropped: 
+likely_pathogenic,217,211,6,dropped: 

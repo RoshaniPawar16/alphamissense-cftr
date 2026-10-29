@@ -189,3 +189,23 @@ The numbers were reliably correct and reproduced from their source files. The de
 13. **Decisions applied 2026-10-24 (truth-check rows 11, 36, 45, 50, 55).** ClinVar input is described as "ClinVar VCF, `##fileDate 2026-04-15`, extracted 21 April 2026 (bcftools, VCF L79); VEP v115.1 cache with ClinVar 202502 annotations"; "February 2025 release" removed from README and REPORT. The n=286 comparator tables are superseded by item 9. The AlphaMissense file size is omitted from all documents. Comparator MCC is not reported.
 
 **Open items after pass 2:** none of (a)–(c) from the pass-1 list remain. Not yet done: a results file for the 3q29 Mann–Whitney (requires re-running `b2c_3q29_lung_rescore.py` with an output row, or an esophagus ATAC track that returns values); `docs/STATUS.md` line 1 still names branch `integrity-audit-2026-07`.
+
+### Corrections (2026-10), continued — pass 3, 2026-10-29
+
+14. **Protein-name extractor accepted truncated HGVSp tokens.**
+    - **The bug.** The inventory extractor (`notebooks/cftr2_scraper.ipynb` cell 2) took the first match of `p\.([A-Z][a-z]{2}\d+[A-Z][a-z]{2})` on each VCF line, whether or not the HGVSp token ended there. A frameshift such as `p.Lys163ArgfsTer3` (chr7:117531111 GA>G) therefore produced the missense-looking name `Lys163Arg`. Two other places used the same first-match rule. `scripts/phase1_fetch_cadd.py` used it to choose the coordinates sent to CADD. The allele-frequency lookup in `notebooks/alphamissense.ipynb` cell 17 used it per transcript.
+    - **Effect on the inventory.** 562 VCF lines, 559 of them frameshifts (7 also annotated as splice-region variants), gave 539 missense-looking names from truncated tokens. 436 of these names appear nowhere in the VCF as a complete missense token. Two stop-loss names (`Ter1481Trp`, `Ter1481Tyr`) came from truncated `ext` tokens. The inventory held 3,220 unique protein changes, of which 438 came only from truncated tokens. Source: `results/paper/inventory_audit_summary.csv` as archived in `archive/superseded-2026-10/2026-10-29-extractor-fix/`.
+    - **Effect on the benchmark.**
+      - Two of the 259 labelled variants, Trp496Gly and Gly622Val, entered only through frameshift names.
+      - Their CFTR2 labels and AlphaMissense scores describe the genuine missense change, because both are joined on the exact protein name. Every CFTR2 row joined to the 259 is a single-base substitution.
+      - Five variants had a frameshift's coordinates sent to CADD and so received no CADD score: the two above plus Leu137Pro, Thr604Ile and Trp1098Cys. Those five were exactly the five excluded from the four-tool set of 254.
+      - SIFT and PolyPhen-2 were not affected, because VEP gives them only for missense consequences. `results/phase1/inputs_polyphen_sift.csv` is byte-identical after the fix.
+    - **The fix.** `scripts/hgvsp_names.py` holds the single rule: a name counts only when the first HGVSp token on a line is complete (`p.Xxx123Yyy`, nothing after it). Coordinates come from that same line. The rule is used by `scripts/cftr2_scraper_analysis.py`, which now rebuilds `data/cftr2_results.csv`, and by `scripts/build_annotated_tables.py`, which reproduces notebook cells 8–36. It is also used by `scripts/phase1_fetch_cadd.py` and `scripts/phase1_build_cohort.py`, and by both notebook cells. Replaying the old rule, both rebuild scripts reproduce the previous `data/` files exactly.
+    - **Rebuilt 2026-10-29.**
+      - The inventory holds 2,782 unique protein changes: 2,473 convertible and 2,471 with an AlphaMissense score.
+      - The benchmark holds 257 variants (224 CF-causing, 33 non-CF-causing), all with all four scores.
+      - CADD was queried only for the three variants whose coordinates changed (Leu137Pro, Thr604Ile, Trp1098Cys), on 2026-10-29. The other 254 responses were reused unchanged.
+      - AlphaMissense AUC is 0.954951 (95% CI 0.914231 to 0.987217). PolyPhen-2 is 0.812027, CADD 0.749865 and SIFT 0.670657. DeLong Z is 3.4930, 3.8240 and 6.2944.
+      - The 1,278 ambiguous set, the 18 concordant variants, the 13, the splice 2x2, the domain test and the minigene results are byte-identical. They do not depend on the ClinVar inventory.
+      - Sources: `results/phase1/benchmark_metrics_dedup.csv`, `results/phase1/delong_tests_dedup.csv`, `results/paper/auc_ci.csv`, `results/phase1/unique_variant_counts.csv`.
+    - **Superseded files.** These are in `archive/superseded-2026-10/2026-10-29-extractor-fix/`, listed in `archive/superseded-2026-10/MANIFEST.md`. The previous `data/` files are kept locally in `data/superseded-2026-10/`, which is gitignored.

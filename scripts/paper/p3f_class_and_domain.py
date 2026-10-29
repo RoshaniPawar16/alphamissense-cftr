@@ -103,7 +103,8 @@ def class_by_label() -> pd.DataFrame:
             "source_file": "results/phase1/benchmark_cohort_dedup.csv",
         })
     out = pd.DataFrame(rows)
-    assert out["n_labelled"].sum() == len(d) == 259, "class counts must sum to 259"
+    # Changed 2026-10-29: the benchmark size comes from the cohort file, not a constant.
+    assert out["n_labelled"].sum() == len(d), "class counts must sum to the benchmark size"
     return out
 
 

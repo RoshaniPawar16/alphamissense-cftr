@@ -175,28 +175,40 @@ def main() -> None:
             color=INK, fontweight="bold")
 
     # ---- left chain -------------------------------------------------------
-    ys = [83.5, 68.5, 53.5, 38.5, 23.5]
+    # Changed 2026-10-29: when every labelled variant has all four scores, the
+    # benchmark is one set and the separate four-tool box and its exclusion
+    # note are not drawn. Exclusion notes are computed, never hard-coded.
+    one_set = c["four_tool"] == c["binary"]
+    ys = [83.5, 68.5, 53.5, 38.5] if one_set else [83.5, 68.5, 53.5, 38.5, 23.5]
+    label_box = (f"{c['binary']} with a binary CFTR2 label\n"
+                 f"({c['binary_pos']} CF-causing, {c['binary_neg']} Non CF-causing)")
+    if one_set:
+        label_box += "\nall with all four predictor scores"
     left = [
         f"ClinVar CFTR-region VCF\n{c['vcf_protein_changes']:,} unique protein changes",
         f"{c['convertible']:,} convertible to\nAlphaMissense notation",
         f"{c['am_scored']:,} with an\nAlphaMissense score",
-        (f"{c['binary']} with a binary CFTR2 label\n"
-         f"({c['binary_pos']} CF-causing, {c['binary_neg']} Non CF-causing)"),
-        (f"{c['four_tool']} with CADD, PolyPhen-2\nand SIFT scores as well\n"
-         f"({c['four_tool_pos']} / {c['four_tool_neg']})"),
+        label_box,
     ]
+    if not one_set:
+        left.append(f"{c['four_tool']} with CADD, PolyPhen-2\nand SIFT scores as well\n"
+                    f"({c['four_tool_pos']} / {c['four_tool_neg']})")
     for i, (y, txt) in enumerate(zip(ys, left)):
         box(ax, lx, y, bw, bh, txt, face=HILITE_FACE if i == len(ys) - 1 else BOX_FACE)
         if i:
             arrow(ax, lx + bw / 2, ys[i - 1], y + bh)
 
-    side_note(ax, lx + bw + 1.5, 76,
-              f"−{c['not_convertible']}\n{c['nonsense']} nonsense\n{c['stoploss']} stop-loss")
+    excluded = [f"{c['nonsense']} nonsense"]
+    if c["stoploss"]:
+        excluded.append(f"{c['stoploss']} stop-loss")
+    side_note(ax, lx + bw + 1.5, 76, f"−{c['not_convertible']}\n" + "\n".join(excluded))
     side_note(ax, lx + bw + 1.5, 61.5,
               f"−{c['convertible'] - c['am_scored']:,}\nno AlphaMissense\nscore")
     side_note(ax, lx + bw + 1.5, 46.5,
               f"−{c['am_scored'] - c['binary']:,}\nno binary\nCFTR2 label")
-    side_note(ax, lx + bw + 1.5, 32, "−5 no CADD\nv1.7 score")
+    if not one_set:
+        side_note(ax, lx + bw + 1.5, 32,
+                  f"−{c['binary'] - c['four_tool']}\nmissing a\ncomparator score")
 
     # ---- right chain ------------------------------------------------------
     rys = [83.5, 65.5, 47.5, 26.0]
@@ -218,7 +230,7 @@ def main() -> None:
 
     # ---- note that the two chains are not nested --------------------------
     ax.plot([lx + bw / 2, lx + bw / 2, rx + bw / 2, rx + bw / 2],
-            [15.5, 11.5, 11.5, 22.5], color=MUTED, linewidth=0.7,
+            [ys[-1] - 1.0, 11.5, 11.5, 22.5], color=MUTED, linewidth=0.7,
             linestyle=(0, (3, 3)))
     ax.text(50, 8.2,
             f"The two chains are separate variant sets, not nested: "

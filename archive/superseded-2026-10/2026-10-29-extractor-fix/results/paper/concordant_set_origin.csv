@@ -1,0 +1,11 @@
+count_name,value,note,source_files
+n_variants,1278,,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
+spliceai_gt_0.5,19,,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
+spliceai_gt_0.5_and_ag_q_gt_0.95,18,,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
+spliceai_gt_0.5_and_ag_q_le_0.95,1,Y1381D,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
+ag_q_gt_0.95,680,,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
+spliceai_gt_0.2,52,,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
+spliceai_exactly_0,766,,results/alphagenome/alphagenome_full_cftr_results.csv; results/comparator_scores.csv
+concordant_in_clinvar_vcf_exact_nucleotide,7,R55I; A155G; L214V; H620Q; G1047C; K1060T; L1156F,results/paper/concordant_set.csv; data/All_Variants_VEP.Gene.vcf
+concordant_in_cftr2_annotated_protein_change,8,R55I; A155G; K163R; L214V; H620Q; G1047C; K1060T; L1156F | protein-change match only: K163R,results/paper/concordant_set.csv; data/cftr2_results_annotated.csv
+concordant_in_gnomad_v4_af_gt_0,5,L214V; I906S; E1046V; G1123V; L1156F,results/paper/concordant_set.csv; results/gnomad_cftr_lookup.csv

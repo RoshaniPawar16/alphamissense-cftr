@@ -157,7 +157,8 @@ def main() -> None:
     n_lab = len(cohort)
     n_amb_lab = int(cls.loc["ambiguous", "n_labelled"])
     n_amb_cf = int(cls.loc["ambiguous", "n_cf_causing"])
-    assert n_lab == 259 and len(ag) == 1278 and len(conc) == 18
+    # Changed 2026-10-29: the benchmark size is read from the cohort file.
+    assert n_lab == int(cls["n_labelled"].sum()) and len(ag) == 1278 and len(conc) == 18
 
     apply_style()
     fig = plt.figure(figsize=(7.5, 6.2))

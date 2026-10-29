@@ -1,15 +1,15 @@
 box_number,value,source_file,source_locator
-vcf_protein_changes,3220,results/phase1/unique_variant_counts.csv,annotated_table_all:unique_count
-convertible,2909,results/phase1/unique_variant_counts.csv,am_variant_converted:unique_count
-not_convertible,311,results/phase1/unique_variant_counts.csv,am_variant_not_converted:unique_count
+vcf_protein_changes,2782,results/phase1/unique_variant_counts.csv,annotated_table_all:unique_count
+convertible,2473,results/phase1/unique_variant_counts.csv,am_variant_converted:unique_count
+not_convertible,309,results/phase1/unique_variant_counts.csv,am_variant_not_converted:unique_count
 nonsense,309,results/phase1/unique_variant_counts.csv,ter_set_nonsense_Ter_suffix:unique_count
-stoploss,2,results/phase1/unique_variant_counts.csv,ter_set_stop_loss_Ter_prefix:unique_count
-am_scored,2665,results/phase1/unique_variant_counts.csv,am_scored_any_cftr2_status:unique_count
-binary,259,results/phase1/unique_variant_counts.csv,binary_validation_set:unique_count
-binary_pos,226,results/phase1/unique_variant_counts.csv,binary_validation_CF_causing:unique_count
+stoploss,0,results/phase1/unique_variant_counts.csv,ter_set_stop_loss_Ter_prefix:unique_count
+am_scored,2471,results/phase1/unique_variant_counts.csv,am_scored_any_cftr2_status:unique_count
+binary,257,results/phase1/unique_variant_counts.csv,binary_validation_set:unique_count
+binary_pos,224,results/phase1/unique_variant_counts.csv,binary_validation_CF_causing:unique_count
 binary_neg,33,results/phase1/unique_variant_counts.csv,binary_validation_Non_CF_causing:unique_count
-four_tool,254,results/phase1/benchmark_metrics_dedup.csv,AlphaMissense:n
-four_tool_pos,221,results/phase1/benchmark_metrics_dedup.csv,AlphaMissense:n_pos
+four_tool,257,results/phase1/benchmark_metrics_dedup.csv,AlphaMissense:n
+four_tool_pos,224,results/phase1/benchmark_metrics_dedup.csv,AlphaMissense:n_pos
 four_tool_neg,33,results/phase1/benchmark_metrics_dedup.csv,AlphaMissense:n_neg
 am_table_rows,9721,data/cftr_alphamissense.tsv,row count
 am_table_unique_protein,8597,data/cftr_alphamissense.tsv,protein_variant:nunique
@@ -18,4 +18,4 @@ ambiguous_unique_protein,1100,data/cftr_alphamissense.tsv,am_class=='ambiguous':
 spliceai_gt_0.5,19,results/alphagenome/alphagenome_full_cftr_results.csv x results/comparator_scores.csv,SpliceAI_max_delta>0.5
 concordant_gm,18,results/paper/concordant_set.csv,in_GM=='yes'
 concordant_cm,13,results/paper/concordant_set.csv,in_CM=='yes'
-overlap_1278_with_3220,431,results/alphagenome/alphagenome_full_cftr_results.csv x data/cftr2_results_annotated.csv,protein_variant in am_variant
+overlap_1278_with_3220,386,results/alphagenome/alphagenome_full_cftr_results.csv x data/cftr2_results_annotated.csv,protein_variant in am_variant

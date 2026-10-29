@@ -1,0 +1,4 @@
+tool_a,tool_b,auc_a,auc_b,n,z,p,significance,implementation
+AlphaMissense,PolyPhen,0.954751,0.810915,254,3.5125,0.000444,***,"Sun X, Xu W. Fast Implementation of DeLong's Algorithm. IEEE Signal Process Lett 2014;21(11):1389-1393. Reference code: https://github.com/yandexdataschool/roc_comparison (scripts/phase1_utils_delong.py)"
+AlphaMissense,CADD,0.954751,0.748937,254,3.8341,0.000126,***,"Sun X, Xu W. Fast Implementation of DeLong's Algorithm. IEEE Signal Process Lett 2014;21(11):1389-1393. Reference code: https://github.com/yandexdataschool/roc_comparison (scripts/phase1_utils_delong.py)"
+AlphaMissense,SIFT,0.954751,0.670095,254,6.2951,0.0,***,"Sun X, Xu W. Fast Implementation of DeLong's Algorithm. IEEE Signal Process Lett 2014;21(11):1389-1393. Reference code: https://github.com/yandexdataschool/roc_comparison (scripts/phase1_utils_delong.py)"

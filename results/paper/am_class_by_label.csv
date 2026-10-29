@@ -1,4 +1,4 @@
 am_class,n_labelled,n_cf_causing,n_non_cf_causing,fraction_cf_causing,mean_am_score,source_file
 likely_benign,27,1,26,0.037,0.1602,results/phase1/benchmark_cohort_dedup.csv
 ambiguous,13,12,1,0.9231,0.4569,results/phase1/benchmark_cohort_dedup.csv
-likely_pathogenic,219,213,6,0.9726,0.8908,results/phase1/benchmark_cohort_dedup.csv
+likely_pathogenic,217,211,6,0.9724,0.8908,results/phase1/benchmark_cohort_dedup.csv

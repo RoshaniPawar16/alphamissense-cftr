@@ -1,0 +1,16 @@
+count_name,value,source_files
+vcf_lines_with_extractor_match,3471,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A1_vcf_lines_nonmissense_token_missense_looking_name,562,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A1_unique_short_names,539,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A2_inventory_unique_names,3220,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A2_names_with_any_nonmissense_source,539,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A2_names_only_from_nonmissense_first_match,436,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A2_names_with_no_exact_missense_token_anywhere_in_vcf,436,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A2_inventory_unique_names_corrected,2784,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A2_names_whose_first_line_is_nonmissense,528,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A3_benchmark_variants,259,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A3a_name_only_from_nonmissense,2,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A3b_cftr2_row_not_a_single_substitution,0,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A3c_cadd_query_not_this_missense,5,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A3_any_affected,5,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json
+A3_any_affected_in_254,0,data/All_Variants_VEP.Gene.vcf; data/cftr2_results_annotated.csv; data/cftr2_variants.xlsx; results/phase1/benchmark_cohort_dedup.csv; results/phase1/inputs_cadd_raw.json

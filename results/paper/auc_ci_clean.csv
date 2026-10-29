@@ -1,0 +1,6 @@
+cohort,tool,n,auc,auc_ci_lo,auc_ci_hi,ap,ap_ci_lo,ap_ci_hi,n_boot_valid,note
+four_tool,AlphaMissense,257,0.954951,0.914231,0.987217,0.992393,0.984532,0.998327,2000,dropped: 
+four_tool,CADD,257,0.749865,0.631029,0.854051,0.933779,0.888341,0.971624,2000,dropped: 
+four_tool,PolyPhen-2,257,0.812027,0.723121,0.8913,0.956797,0.924258,0.982297,2000,dropped: 
+four_tool,SIFT,257,0.670657,0.578184,0.757761,0.912244,0.873341,0.94606,2000,dropped: 
+am_validation,AlphaMissense,257,0.954951,0.914231,0.987217,0.992393,0.984532,0.998327,2000,dropped: 

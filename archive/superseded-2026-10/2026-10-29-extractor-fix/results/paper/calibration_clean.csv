@@ -1,0 +1,15 @@
+bin,bin_lo,bin_hi,n,n_pos,mean_predicted,observed_fraction_positive,note
+1,0.0,0.1,7,1.0,0.071243,0.142857,dropped: Gly622Val; Trp496Gly
+2,0.1,0.2,13,0.0,0.151815,0.0,dropped: Gly622Val; Trp496Gly
+3,0.2,0.3,4,0.0,0.2213,0.0,dropped: Gly622Val; Trp496Gly
+4,0.3,0.4,7,3.0,0.351743,0.428571,dropped: Gly622Val; Trp496Gly
+5,0.4,0.5,5,5.0,0.4649,1.0,dropped: Gly622Val; Trp496Gly
+6,0.5,0.6,10,9.0,0.56295,0.9,dropped: Gly622Val; Trp496Gly
+7,0.6,0.7,14,13.0,0.641907,0.928571,dropped: Gly622Val; Trp496Gly
+8,0.7,0.8,25,24.0,0.76774,0.96,dropped: Gly622Val; Trp496Gly
+9,0.8,0.9,37,34.0,0.860127,0.918919,dropped: Gly622Val; Trp496Gly
+10,0.9,1.0,135,135.0,0.961355,1.0,dropped: Gly622Val; Trp496Gly
+brier_score,,,257,,,0.053573,dropped: Gly622Val; Trp496Gly
+brier_score_base_rate_model,,,257,,,0.111917,dropped: Gly622Val; Trp496Gly
+expected_calibration_error,,,257,,,0.101775,dropped: Gly622Val; Trp496Gly
+base_rate,,,257,,,0.871595,dropped: Gly622Val; Trp496Gly

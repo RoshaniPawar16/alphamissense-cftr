@@ -1,17 +1,17 @@
 # Table 2. Four-tool benchmark on CFTR2-labelled missense variants
 
 Discrimination of four missense pathogenicity predictors against CFTR2 binary
-labels on the 254 deduplicated variants carrying all four scores
-(221 CF-causing, 33 Non CF-causing). Confidence intervals are
+labels on the 257 deduplicated variants carrying all four scores
+(224 CF-causing, 33 Non CF-causing). Confidence intervals are
 percentile bootstrap, 2,000 resamples, seed 42. The DeLong column compares each
 tool's ROC curve against AlphaMissense on the same variants.
 
 | Tool | AUC (95% CI) | Average precision (95% CI) | DeLong vs AlphaMissense |
 |---|---|---|---|
-| AlphaMissense | 0.9548 (0.9121–0.9880) | 0.9923 (0.9838–0.9983) | reference |
-| PolyPhen-2 | 0.8109 (0.7215–0.8859) | 0.9560 (0.9239–0.9816) | Z = 3.5125, p = 0.000444 |
-| CADD | 0.7489 (0.6257–0.8546) | 0.9328 (0.8872–0.9704) | Z = 3.8341, p = 0.000126 |
-| SIFT | 0.6701 (0.5781–0.7644) | 0.9110 (0.8725–0.9457) | Z = 6.2951, p < 0.0001 |
+| AlphaMissense | 0.9550 (0.9142–0.9872) | 0.9924 (0.9845–0.9983) | reference |
+| PolyPhen-2 | 0.8120 (0.7231–0.8913) | 0.9568 (0.9243–0.9823) | Z = 3.4930, p = 0.000478 |
+| CADD | 0.7499 (0.6310–0.8541) | 0.9338 (0.8883–0.9716) | Z = 3.8240, p = 0.000131 |
+| SIFT | 0.6707 (0.5782–0.7578) | 0.9122 (0.8733–0.9461) | Z = 6.2944, p < 0.0001 |
 
 **Cell sources.** AUC, average precision and both intervals:
 `results/paper/auc_ci.csv`, rows with `cohort == four_tool_dedup`, columns

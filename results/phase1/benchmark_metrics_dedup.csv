@@ -1,7 +1,7 @@
 tool,auc,ap,n,n_pos,n_neg,note
-AlphaMissense,0.954751,0.992259,254,221,33,individual_tool
-CADD,0.748937,0.932775,254,221,33,individual_tool
-PolyPhen,0.810915,0.956039,254,221,33,individual_tool
-SIFT,0.670095,0.911025,254,221,33,individual_tool
-AlphaMissense_MCC,0.700911,,254,221,33,MCC_at_threshold_0.564
-Ensemble_CV,0.925545,0.974882,254,221,33,5fold_stratified_CV_seed42_coef_am=2.1125_cadd=0.0080_pp=-0.0488
+AlphaMissense,0.954951,0.992393,257,224,33,individual_tool
+CADD,0.749865,0.933779,257,224,33,individual_tool
+PolyPhen,0.812027,0.956797,257,224,33,individual_tool
+SIFT,0.670657,0.912244,257,224,33,individual_tool
+AlphaMissense_MCC,0.701485,,257,224,33,MCC_at_threshold_0.564
+Ensemble_CV,0.941558,0.989034,257,224,33,5fold_stratified_CV_seed42_coef_am=2.1098_cadd=0.0079_pp=-0.0495

@@ -30,8 +30,15 @@ included=False: excluded — exclusion_reason says why.
 All 292 variants are present in the file regardless of inclusion.
 """
 
-import os, re, csv, hashlib, logging
+import os, re, csv, hashlib, logging, sys
 import numpy as np
+
+# Changed 2026-10-29 (docs/AUDIT_RECORD.md, Corrections 14): SIFT and PolyPhen
+# are taken only from transcripts whose HGVSp token is the complete missense
+# name (scripts/hgvsp_names.py), never from the truncated prefix of a
+# frameshift or other non-missense token.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from hgvsp_names import name_from_hgvsp_field  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_DIR       = os.path.join(ROOT, 'results', 'phase1')
@@ -92,7 +99,6 @@ with open(LABELS_CSV, 'w', newline='') as f:
 log.info('Saved %s', LABELS_CSV)
 
 # ── Step 2: parse SIFT and PolyPhen from VCF ─────────────────────────────────
-protein_re = re.compile(r'p\.([A-Z][a-z]{2}\d+[A-Z][a-z]{2})')
 csq_re     = re.compile(r'CSQ=([^;]+)')
 
 sift_re    = re.compile(r'\(([0-9.]+)\)')
@@ -116,9 +122,8 @@ with open(VCF_PATH, encoding='utf-8', errors='replace') as fh:
             polyphen_field = fields[POLYPHEN_IDX]
             if not sift_field and not polyphen_field:
                 continue
-            m = protein_re.search(hgvsp_field)
-            if m:
-                pv = m.group(1)
+            pv = name_from_hgvsp_field(hgvsp_field)
+            if pv:
                 if pv not in variant_scores and (sift_field or polyphen_field):
                     variant_scores[pv] = {'sift': sift_field, 'polyphen': polyphen_field}
 

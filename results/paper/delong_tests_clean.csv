@@ -1,0 +1,4 @@
+tool_a,tool_b,auc_a,auc_b,n,z,p,note
+AlphaMissense,PolyPhen,0.954951,0.812027,257,3.493,0.000478,dropped: 
+AlphaMissense,CADD,0.954951,0.749865,257,3.824,0.000131,dropped: 
+AlphaMissense,SIFT,0.954951,0.670657,257,6.2944,0.0,dropped: 

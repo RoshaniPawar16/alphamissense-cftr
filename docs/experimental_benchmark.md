@@ -72,11 +72,16 @@ Bolded GM_q values exceed the 0.95 threshold. Note 8 negatives with GM_q ≥ 0.9
 
 ## AUROC and AUPRC (n=23, confidence interval note)
 
+> **Updated 2026-10-29.** The gene-mask (GM) splice scores of the 23 rows were rescored on 2026-10-29 with exact variant matching (`scripts/paper/p2b_alphagenome_minigene.py`).
+> - **AUC.** The GM quantile AUC changed from 0.856 to 0.841 (95% bootstrap CI 0.644 to 0.985) and its AUPRC from 0.878 to 0.873. The GM raw-score AUC is now 0.833 (source: `results/paper/minigene_benchmark.csv`).
+> - **Operating point.** At the 0.95 threshold the GM quantile now gives 10 true positives, 10 false positives, 1 false negative and 2 true negatives, against 8 false positives before.
+> - **Not rescored.** The per-variant GM values in the tables of this document, and the centre-mask rows, predate the rescore and are not updated here.
+
 n=23 is too small for reliable bootstrap CIs. AUROC and AUPRC are reported as point estimates only.
 
 | Tool | AUROC | AUPRC | AUPRC baseline | AUPRC lift |
 |---|---|---|---|---|
-| GM splice quantile | 0.856 | 0.878 | 0.478 | 1.84× |
+| GM splice quantile | 0.841 | 0.873 | 0.478 | 1.83× |
 | CM DLS-501 | 0.849 | 0.868 | 0.478 | 1.82× |
 | **CM L2D-501** | **0.833** | **0.895** | 0.526 | **1.70×** |
 | CM L2L-501 | 0.833 | 0.895 | 0.526 | 1.70× |

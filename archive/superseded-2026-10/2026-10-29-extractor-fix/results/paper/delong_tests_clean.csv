@@ -1,0 +1,4 @@
+tool_a,tool_b,auc_a,auc_b,n,z,p,note
+AlphaMissense,PolyPhen,0.954751,0.810915,254,3.5125,0.000444,dropped: Gly622Val; Trp496Gly
+AlphaMissense,CADD,0.954751,0.748937,254,3.8341,0.000126,dropped: Gly622Val; Trp496Gly
+AlphaMissense,SIFT,0.954751,0.670095,254,6.2951,0.0,dropped: Gly622Val; Trp496Gly

@@ -1,31 +1,31 @@
 set_name,filter,unique_count,row_count,differs,dedup_key,source_file
-annotated_table_all,all rows,3220,3716,YES,variant,data/cftr2_results_annotated.csv
-am_variant_converted,am_variant != '',2909,3405,YES,variant,data/cftr2_results_annotated.csv
-am_variant_not_converted,am_variant == '',311,311,no,variant,data/cftr2_results_annotated.csv
-am_scored_any_cftr2_status,am_pathogenicity != '',2665,3161,YES,variant,data/cftr2_results_annotated.csv
-cftr2_CF-causing,determination_2026 == 'CF-causing',226,253,YES,variant,data/cftr2_results_annotated.csv
+annotated_table_all,all rows,2782,3227,YES,variant,data/cftr2_results_annotated.csv
+am_variant_converted,am_variant != '',2473,2918,YES,variant,data/cftr2_results_annotated.csv
+am_variant_not_converted,am_variant == '',309,309,no,variant,data/cftr2_results_annotated.csv
+am_scored_any_cftr2_status,am_pathogenicity != '',2471,2916,YES,variant,data/cftr2_results_annotated.csv
+cftr2_CF-causing,determination_2026 == 'CF-causing',224,251,YES,variant,data/cftr2_results_annotated.csv
 cftr2_Non_CF-causing,determination_2026 == 'Non CF-causing',33,39,YES,variant,data/cftr2_results_annotated.csv
 cftr2_Varying_clinical_consequence,determination_2026 == 'Varying clinical consequence',72,82,YES,variant,data/cftr2_results_annotated.csv
-cftr2_No_interpretation_available,determination_2026 == 'No interpretation available',325,376,YES,variant,data/cftr2_results_annotated.csv
-cftr2_unclassified,determination_2026 == '',2564,2966,YES,variant,data/cftr2_results_annotated.csv
-binary_validation_set,"determination in {CF-causing, Non CF-causing} and am_pathogenicity != ''",259,292,YES,variant,data/cftr2_results_annotated.csv
-binary_validation_CF_causing,"as above, CF-causing",226,253,YES,variant,data/cftr2_results_annotated.csv
+cftr2_No_interpretation_available,determination_2026 == 'No interpretation available',321,372,YES,variant,data/cftr2_results_annotated.csv
+cftr2_unclassified,determination_2026 == '',2132,2483,YES,variant,data/cftr2_results_annotated.csv
+binary_validation_set,"determination in {CF-causing, Non CF-causing} and am_pathogenicity != ''",257,290,YES,variant,data/cftr2_results_annotated.csv
+binary_validation_CF_causing,"as above, CF-causing",224,251,YES,variant,data/cftr2_results_annotated.csv
 binary_validation_Non_CF_causing,"as above, Non CF-causing",33,39,YES,variant,data/cftr2_results_annotated.csv
-unclassified_am_scored,determination_2026 == '' and am_pathogenicity != '',2009,2411,YES,variant,data/cftr2_results_annotated.csv
-unclassified_likely_pathogenic,"as above, am_class == 'likely_pathogenic'",546,705,YES,variant,data/cftr2_results_annotated.csv
-unclassified_ambiguous,"as above, am_class == 'ambiguous'",277,357,YES,variant,data/cftr2_results_annotated.csv
-unclassified_likely_benign,"as above, am_class == 'likely_benign'",1186,1349,YES,variant,data/cftr2_results_annotated.csv
+unclassified_am_scored,determination_2026 == '' and am_pathogenicity != '',1821,2172,YES,variant,data/cftr2_results_annotated.csv
+unclassified_likely_pathogenic,"as above, am_class == 'likely_pathogenic'",489,628,YES,variant,data/cftr2_results_annotated.csv
+unclassified_ambiguous,"as above, am_class == 'ambiguous'",249,313,YES,variant,data/cftr2_results_annotated.csv
+unclassified_likely_benign,"as above, am_class == 'likely_benign'",1083,1231,YES,variant,data/cftr2_results_annotated.csv
 unclassified_LP_with_vcf_AF_TGP,rows of data/priority_candidates.csv,7,7,no,variant,data/priority_candidates.csv
 vcc_in_annotated_table,determination_2026 == 'Varying clinical consequence',72,82,YES,variant,data/cftr2_results_annotated.csv
 vcc_file,all rows,72,72,no,variant,data/varying_consequence_am.csv
 vcc_file_likely_pathogenic,am_class == 'likely_pathogenic',41,41,no,variant,data/varying_consequence_am.csv
 vcc_file_ambiguous,am_class == 'ambiguous',19,19,no,variant,data/varying_consequence_am.csv
 vcc_file_likely_benign,am_class == 'likely_benign',12,12,no,variant,data/varying_consequence_am.csv
-ter_set_all,all rows,311,321,YES,variant,data/nonsense_variants_cftr2.csv
+ter_set_all,all rows,309,319,YES,variant,data/nonsense_variants_cftr2.csv
 ter_set_nonsense_Ter_suffix,variant endswith 'Ter',309,319,YES,variant,data/nonsense_variants_cftr2.csv
-ter_set_stop_loss_Ter_prefix,variant startswith 'Ter' (stop-loss),2,2,no,variant,data/nonsense_variants_cftr2.csv
+ter_set_stop_loss_Ter_prefix,variant startswith 'Ter' (stop-loss),0,0,no,variant,data/nonsense_variants_cftr2.csv
 ter_set_matched_cftr2,determination_2026 != '',222,232,YES,variant,data/nonsense_variants_cftr2.csv
 ter_set_CF-causing,determination_2026 == 'CF-causing',215,225,YES,variant,data/nonsense_variants_cftr2.csv
 ter_set_Varying_clinical_consequence,determination_2026 == 'Varying clinical consequence',2,2,no,variant,data/nonsense_variants_cftr2.csv
 ter_set_No_interpretation_available,determination_2026 == 'No interpretation available',5,5,no,variant,data/nonsense_variants_cftr2.csv
-ter_set_no_cftr2_record,determination_2026 == '',89,89,no,variant,data/nonsense_variants_cftr2.csv
+ter_set_no_cftr2_record,determination_2026 == '',87,87,no,variant,data/nonsense_variants_cftr2.csv
